@@ -58,5 +58,51 @@ class DashPayDAP {
     return this.account.broadcastTransaction(signedTx);
   }
 
+
+  payToUsername (userId, amount){
+    throw new Error('Not implemented');
+  }
+
+  sendPaymentRequests (opts) { //only to people who have added them as contacts
+    throw new Error('Not implemented');
+  }
+
+  createContactRequest (opts) {
+    throw new Error('Not implemented');
+  }
+
+  getContactRequests () { //from people that sent requests to current account
+    throw new Error('Not implemented');
+  }
+
+  getContactProposals () { //from current account that sent requests to people
+    throw new Error('Not implemented');
+  }
+
+  acceptContactRequest (opts) {
+    throw new Error('Not implemented');
+  }
+
+  denyContactRequest (opts) {
+    throw new Error('Not implemented');
+  }
+
+  getIgnoredContacts () {
+    throw new Error('Not implemented');
+  }
+
+  removeContact () {
+    throw new Error('Not implemented');
+  }
+
+  getContacts (opts) {
+    throw new Error('Not implemented');
+  }
+
+  getAccountHistory (opts) { //payments sent,payments received, contacts confirmed, contacts requests canceled etc.
+    throw new Error('Not implemented');
+  }
+
 };
+
 module.exports = DashPayDAP;
