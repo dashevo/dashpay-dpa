@@ -154,8 +154,17 @@ class DashPayDAP extends plugins.DAP {
     throw new Error('Not implemented');
   }
 
-  createContactRequest (opts) {
-    throw new Error('Not implemented');
+  async createContactRequest(userRegTxId, prevStId) {
+    const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
+
+    require('./createContactRequest')(
+      Dashcore,
+      this.transport.transport,
+      this.dapId,
+      privateKey,
+      userRegTxId,
+      prevStId
+    );
   }
 
   getContactRequests () { //from people that sent requests to current account
