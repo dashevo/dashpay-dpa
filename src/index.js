@@ -163,7 +163,7 @@ class DashPayDAP extends plugins.DAP {
       this.dapId,
       privateKey,
       userRegTxId,
-      prevStId
+      prevStId,
     );
   }
 
@@ -176,7 +176,14 @@ class DashPayDAP extends plugins.DAP {
   }
 
   acceptContactRequest (opts) {
-    throw new Error('Not implemented');
+    require('./acceptContactRequest')(
+      Dashcore,
+      this.transport.transport,
+      this.dapId,
+      privateKey,
+      userRegTxId,
+      prevStId,
+    );
   }
 
   denyContactRequest (opts) {
