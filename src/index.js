@@ -3,6 +3,11 @@ const Dashcore = require('@dashevo/dashcore-lib');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 const dashPaySchema = require('./dashpay.schema.json');
 const {doubleSha256} = utils;
+const {
+  acceptContactRequest,
+  createContactRequest,
+  removeContact,
+} = require('./contactAction');
 
 class DashPayDAP extends plugins.DAP {
   constructor(){
@@ -157,7 +162,7 @@ class DashPayDAP extends plugins.DAP {
   async createContactRequest(userRegTxId, prevStId) {
     const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
 
-    require('./createContactRequest')(
+    return await createContactRequest(
       Dashcore,
       this.transport.transport,
       this.dapId,
@@ -175,8 +180,10 @@ class DashPayDAP extends plugins.DAP {
     throw new Error('Not implemented');
   }
 
-  acceptContactRequest (opts) {
-    require('./acceptContactRequest')(
+  async acceptContactRequest (userRegTxId, prevStId) {
+    const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
+
+    return await acceptContactRequest(
       Dashcore,
       this.transport.transport,
       this.dapId,
@@ -194,8 +201,17 @@ class DashPayDAP extends plugins.DAP {
     throw new Error('Not implemented');
   }
 
-  removeContact () {
-    throw new Error('Not implemented');
+  async removeContact (userRegTxId, prevStId) {
+    const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
+
+    return await removeContact(
+      Dashcore,
+      this.transport.transport,
+      this.dapId,
+      privateKey,
+      userRegTxId,
+      prevStId,
+    );
   }
 
   getContacts (opts) {
