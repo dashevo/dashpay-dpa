@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/dashevo/dashpay-dap/#readme",
   "dependencies": {
-    "@dashevo/dapi-client": "git+https://github.com/dashevo/dapi-client.git#doc/pkgName",
-    "@dashevo/wallet-lib": "git+https://github.com/dashevo/wallet-lib.git#develop",
-    "@dashevo/dap-sdk": "git+https://github.com/dashevo/dap-sdk.git"
+    "@dashevo/dash-schema": "github:dashevo/dash-platform.git#v3.0.0-alpha.3",
+    "@dashevo/dashcore-lib": "github:dashevo/dashcore-lib.git#v1.0.0-alpha.19",
+    "@dashevo/wallet-lib": "github:dashevo/wallet-lib.git#impr/syncing_dapi"
   },
   "devDependencies": {
     "chai": "^4.1.2",
