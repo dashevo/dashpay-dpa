@@ -1,6 +1,5 @@
 const { expect } = require('chai');
 const DashPayDAP  = require('../src/index');
-const DAPIClient = require('@dashevo/dapi-client');
 
 let dashpay = null;
 let account = null;
@@ -11,7 +10,6 @@ describe('DashPay DAP', function suite() {
   this.timeout(60000);
   before((done) => {
     const config = {
-      transport: new DAPIClient(),
       network: 'testnet',
       mnemonic: 'churn toast puppy fame blush fatal dove category item eyebrow nest bulk'
   };
