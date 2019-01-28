@@ -214,8 +214,11 @@ class DashPayDAP extends plugins.DAP {
     );
   }
 
-  getContacts (opts) {
-    throw new Error('Not implemented');
+  async getContacts () {
+    return await require('./getContacts')(
+      this.transport.transport,
+      this.dapId
+    );
   }
 
   getAccountHistory (opts) { //payments sent,payments received, contacts confirmed, contacts requests canceled etc.
