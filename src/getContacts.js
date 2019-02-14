@@ -1,3 +1,3 @@
-module.exports = async (transport, dapId) => {
-  return await transport.fetchDapObjects(dapId, 'user', { type: 'contact' });
+module.exports = async (transport, dapId, userRegTxId) => {
+  return await transport.fetchDapObjects(dapId, 'contact', { blockchainUserId: userRegTxId);
 };
