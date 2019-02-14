@@ -10,7 +10,7 @@ const {
 } = require('./contactAction');
 
 class DashPayDAP extends plugins.DAP {
-  constructor(){
+  constructor(userId){
     super({
       dependencies: [
         'getUTXOS',
@@ -25,6 +25,7 @@ class DashPayDAP extends plugins.DAP {
     });
     this.dapContract = Schema.create.dapcontract(dashPaySchema);
     this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
+    this.userId = userId;
   }
   async ensureSchemaRegistered(regTxId, regTxPrivKey, prevStId) {
     try {
