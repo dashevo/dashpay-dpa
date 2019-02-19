@@ -10,7 +10,7 @@ const {
 } = require('./contactAction');
 
 class DashPayDAP extends plugins.DAP {
-  constructor(userId){
+  constructor(){
     super({
       dependencies: [
         'getUTXOS',
@@ -25,7 +25,6 @@ class DashPayDAP extends plugins.DAP {
     });
     this.dapContract = Schema.create.dapcontract(dashPaySchema);
     this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
-    this.userId = userId;
   }
   async ensureSchemaRegistered(regTxId, regTxPrivKey, prevStId) {
     try {
@@ -139,7 +138,7 @@ class DashPayDAP extends plugins.DAP {
   }
 
   async getUserRegTxIdAndPrevSubTx(userId) {
-    return await require('./getUserRegTxIdAndPrevSubTx')(this.transport, userId);
+    return await require('./getUserRegTxIdAndPrevSubTx')(this.transport.transport, userId);
   }
 
   async getUser(username) {
@@ -179,7 +178,7 @@ class DashPayDAP extends plugins.DAP {
     );
   }
 
-  getContactRequests () { //from people that sent requests to current account
+  async getContactRequests () { //from people that sent requests to current account
     return await require('./getContactRequests')(
       this.transport.transport,
       this.dapId,

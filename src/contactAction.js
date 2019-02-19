@@ -1,7 +1,6 @@
 const { doubleSha256 } = require('./utils/crypto');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
-
 const performActionFactory = action => async (dashcore, transport, walletOwnerUserId, dapId, privateKey, userRegTxId, prevStId) => {
   const dapObject = Schema.create.dapobject('contact');
   dapObject.hdextpubkey = privateKey.toPublicKey().toString('hex');
