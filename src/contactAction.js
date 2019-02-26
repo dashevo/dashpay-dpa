@@ -1,8 +1,7 @@
 const { doubleSha256 } = require('./utils/crypto');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
-
-const performActionFactory = action => async (dashcore, transport, dapId, privateKey, userRegTxId, prevStId) => {
+const performActionFactory = action => async (dashcore, transport, walletOwnerUserId, dapId, privateKey, userRegTxId, prevStId) => {
   const dapObject = Schema.create.dapobject('contact');
   dapObject.hdextpubkey = privateKey.toPublicKey().toString('hex');
   dapObject.relation = userRegTxId;
@@ -19,7 +18,7 @@ const performActionFactory = action => async (dashcore, transport, dapId, privat
   const stPacketHash = doubleSha256(serializedPacket);
 
   transaction.extraPayload
-    .setRegTxId(bobRegTxId)
+    .setRegTxId(walletOwnerUserId)
     .setHashPrevSubTx(prevStId)
     .setHashSTPacket(stPacketHash)
     .setCreditFee(1000)

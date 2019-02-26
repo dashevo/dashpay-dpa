@@ -137,6 +137,10 @@ class DashPayDAP extends plugins.DAP {
     return this.transport.transport.searchUsers(pattern);
   }
 
+  async getUserRegTxIdAndPrevSubTx(userId) {
+    return await require('./getUserRegTxIdAndPrevSubTx')(this.transport.transport, userId);
+  }
+
   async getUser(username) {
     return this.transport.transport.getUserByName(username);
   }
@@ -159,37 +163,44 @@ class DashPayDAP extends plugins.DAP {
     throw new Error('Not implemented');
   }
 
-  async createContactRequest(userRegTxId, prevStId) {
+  async createContactRequest(userId) {
     const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
+    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
 
     return await createContactRequest(
       Dashcore,
       this.transport.transport,
+      this.userId,
       this.dapId,
       privateKey,
       userRegTxId,
-      prevStId,
+      prevSubTx,
     );
   }
 
-  getContactRequests () { //from people that sent requests to current account
-    throw new Error('Not implemented');
+  async getContactRequests () { //from people that sent requests to current account
+    return await require('./getContactRequests')(
+      this.transport.transport,
+      this.dapId,
+    );
   }
 
   getContactProposals () { //from current account that sent requests to people
     throw new Error('Not implemented');
   }
 
-  async acceptContactRequest (userRegTxId, prevStId) {
+  async acceptContactRequest (userId) {
     const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
+    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
 
     return await acceptContactRequest(
       Dashcore,
       this.transport.transport,
+      this.userId,
       this.dapId,
       privateKey,
       userRegTxId,
-      prevStId,
+      prevSubTx,
     );
   }
 
@@ -201,23 +212,26 @@ class DashPayDAP extends plugins.DAP {
     throw new Error('Not implemented');
   }
 
-  async removeContact (userRegTxId, prevStId) {
+  async removeContact (userId) {
     const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
+    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
 
     return await removeContact(
       Dashcore,
       this.transport.transport,
+      this.userId,
       this.dapId,
       privateKey,
       userRegTxId,
-      prevStId,
+      prevSubTx,
     );
   }
 
   async getContacts () {
     return await require('./getContacts')(
       this.transport.transport,
-      this.dapId
+      this.dapId,
+      this.userId,
     );
   }
 
