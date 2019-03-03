@@ -1,4 +1,4 @@
-const { doubleSha256 } = require('./utils/crypto');
+const { doubleSha256 } = require('../utils/crypto');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
 /**
