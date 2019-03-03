@@ -8,6 +8,7 @@ const {
   createContactRequest,
   removeContact,
 } = require('./contactAction');
+const registerBUser = require('./user/registerBUser.js');
 
 class DashPayDAP extends plugins.DAP {
   constructor(){
@@ -23,6 +24,10 @@ class DashPayDAP extends plugins.DAP {
         'transport',
       ],
     });
+    Object.assign(DashPayDAP.prototype, {
+      registerBUser
+    })
+    this.buser = null;
     this.dapContract = Schema.create.dapcontract(dashPaySchema);
     this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
   }
@@ -63,15 +68,6 @@ class DashPayDAP extends plugins.DAP {
 
     const txid = await this.broadcastTransition(transaction.serialize(), serializedPacket.toString('hex'));
     return txid;
-  }
-  /**
-   * @param {string} blockchainUsername - string representation of the user desired username
-   * @param {number} [funding] - default funding for the account in duffs. Optional.
-   * If left empty funding will be 10000.
-   * @return {string} - user id
-   */
-  async registerUsername(blockchainUsername) {
-    return await require('./registerUsername')(Dashcore, this.transport.transport, blockchainUsername);
   }
 
   async searchUsername(pattern) {
