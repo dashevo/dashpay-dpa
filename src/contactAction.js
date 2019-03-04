@@ -1,24 +1,29 @@
 const { doubleSha256 } = require('./utils/crypto');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
-const performActionFactory = action => async (dashcore, transport, walletOwnerUserId, dapId, privateKey, userRegTxId, prevStId) => {
+const createSerializedPacketHash = data => {
+  const { stpacket: stPacket } = Schema.create.stpacket();
+  return Schema.serialize.encode(Object.assign(stPacket, data));
+}
+
+const performActionFactory = action => async (dashcore, transport, dapId, privateKey, userRegTxId, prevStId, recipientUserId) => {
   const dapObject = Schema.create.dapobject('contact');
   dapObject.hdextpubkey = privateKey.toPublicKey().toString('hex');
-  dapObject.relation = userRegTxId;
+  dapObject.relation = recipientUserId;
   dapObject.act = action;
 
-  const { stpacket: stPacket } = Schema.create.stpacket();
-  stPacket.dapobjects = [dapObject];
-  stPacket.dapid = dapId;
+  const serializedPacket = createSerializedPacketHash({
+    dapobjects: [dapObject],
+    dapid: dapId
+  });
+
+  const stPacketHash = doubleSha256(serializedPacket).toString('hex');
 
   const transaction = dashcore
     .Transaction()
-    .setType(dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
-  const serializedPacket = Schema.serialize.encode(stPacket);
-  const stPacketHash = doubleSha256(serializedPacket);
-
-  transaction.extraPayload
-    .setRegTxId(walletOwnerUserId)
+    .setType(dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION)
+    .extraPayload
+    .setRegTxId(userRegTxId)
     .setHashPrevSubTx(prevStId)
     .setHashSTPacket(stPacketHash)
     .setCreditFee(1000)

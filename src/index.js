@@ -104,18 +104,19 @@ class DashPayDAP extends plugins.DAP {
     throw new Error('Not implemented');
   }
 
-  async createContactRequest(userId) {
+  async createContactRequest(userId, recipientUserId) {
     const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
-    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
+    const { regTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
+    const recipientData = await this.getUserRegTxIdAndPrevSubTx(recipientUserId);
 
     return await createContactRequest(
       Dashcore,
       this.transport.transport,
-      this.userId,
       this.dapId,
       privateKey,
-      userRegTxId,
+      regTxId,
       prevSubTx,
+      recipientData.regTxId
     );
   }
 
@@ -130,19 +131,8 @@ class DashPayDAP extends plugins.DAP {
     throw new Error('Not implemented');
   }
 
-  async acceptContactRequest (userId) {
-    const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
-    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
-
-    return await acceptContactRequest(
-      Dashcore,
-      this.transport.transport,
-      this.userId,
-      this.dapId,
-      privateKey,
-      userRegTxId,
-      prevSubTx,
-    );
+  async acceptContactRequest (userId, recipientUserId) {
+    throw new Error('Not implemented');
   }
 
   denyContactRequest (opts) {
@@ -153,19 +143,8 @@ class DashPayDAP extends plugins.DAP {
     throw new Error('Not implemented');
   }
 
-  async removeContact (userId) {
-    const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
-    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
-
-    return await removeContact(
-      Dashcore,
-      this.transport.transport,
-      this.userId,
-      this.dapId,
-      privateKey,
-      userRegTxId,
-      prevSubTx,
-    );
+  async removeContact (userId, recipientUserId) {
+    throw new Error('Not implemented');
   }
 
   async getContacts () {
