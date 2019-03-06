@@ -1,9 +1,9 @@
 const Dashcore = require('@dashevo/dashcore-lib');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-const {doubleSha256} = require('../utils/crypto.js')
-const dapschema = require('../schema/dashpay.schema')
+ const Schema = require('@dashevo/dash-schema/dash-schema-lib');
+ const {doubleSha256} = require('../utils/crypto.js')
+ const dapschema = require('../schema/dashpay.schema')
 
-/**
+ /**
  *
  * @param avatar - b64 representation or url of the avatar
  * @param bio - string

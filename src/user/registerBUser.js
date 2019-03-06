@@ -1,3 +1,5 @@
+const Dashcore = require('@dashevo/dashcore-lib');
+const { CONSTANTS } = require('@dashevo/wallet-lib');
 const { doubleSha256 } = require('../utils/crypto');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
@@ -7,7 +9,7 @@ const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 * If left empty funding will be 10000.
 * @return {user} - user object
 */
-module.exports = async function registerBUser(uname, funding = 10000){
+module.exports = async function registerBUser(uname, funding = 10000) {
   const { address } = this.getUnusedAddress();
   const balance = await this.getBalance();
 
@@ -72,10 +74,10 @@ module.exports = async function registerBUser(uname, funding = 10000){
     regtxid,
     pubkeyid,
     credits: funding,
-    state: "broadcasted",
-    subtx:[regtxid],
-    data: null //We probably can get this one too (hash of whole ?).
+    state: 'broadcasted',
+    subtx: [regtxid],
+    data: null, // We probably can get this one too (hash of whole ?).
   };
 
-  return buser;
-}
+  return this.buser;
+};
