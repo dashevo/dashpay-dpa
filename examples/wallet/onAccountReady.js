@@ -1,5 +1,6 @@
 const verifyBUserRequisites = require('./verifyBUserRequisites');
 const verifySchemaRequisites = require('./verifySchemaRequisites');
+const verifyProfileRequisites = require('./verifyProfileRequisites');
 
 const onAccountReady = async (account) => {
   const dpp = account.getDAP('dashpaydap');
@@ -11,7 +12,26 @@ const onAccountReady = async (account) => {
   await verifyBUserRequisites(dpp, username);
 
   // Let's check if we have a schema registered
-  await verifySchemaRequisites(dpp);
+  // await verifySchemaRequisites(dpp);
+
+  // Let's also ensure we have a dashpay Profile registration
+  // await verifyProfileRequisites(dpp,
+  //   {
+  //     avatar: 'https://pbs.twimg.com/profile_images/736134012369043456/lCbfoCFb_400x400.jpg',
+  //     bio: 'still testing',
+  //     displayName: 'Alex Werner',
+  //     props: '{}',
+  //   });
+
+
+  // const pattern = 'demo1';
+  // const usersSearched = await dpp.searchBUsers(pattern);
+  // console.log(`Lookup for users ${pattern} : ${JSON.stringify(usersSearched)}`);
+
+
+  // TopUp a Users
+  // await dpp.topUpBUser();
+
 
   // const BUserRegistrationPrivateKey = await dpp.getBUserPrivateKey();
   // console.log('BUser RegPrivKey', BUserRegistrationPrivateKey.toString());

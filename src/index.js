@@ -15,7 +15,9 @@ const broadcastTransition = require('./broadcastTransition');
 const isSchemaRegistered = require('./schema/isSchemaRegistered');
 const registerSchema = require('./schema/registerSchema');
 
+const isProfileRegistered = require('./profile/isProfileRegistered');
 const registerProfile = require('./profile/registerProfile.js');
+
 
 const registerBUser = require('./user/registerBUser.js');
 const getBUserPreviousStId = require('./user/getBUserPreviousStId.js');
@@ -23,8 +25,10 @@ const getBUserPrivateKey = require('./user/getBUserPrivateKey.js');
 const getBUserByPubkey = require('./user/getBUserByPubkey.js');
 const getBUserByUname = require('./user/getBUserByUname.js');
 const getBUser = require('./user/getBUser.js');
+const searchBUsers = require('./user/searchBUsers.js');
 const getBUsernameRegistrationId = require('./user/getBUsernameRegistrationId.js');
 const getBUserRegistrationId = require('./user/getBUserRegistrationId.js');
+const topUpBUser = require('./user/topUpBUser.js');
 
 
 class DashPayDAP extends plugins.DAP {
@@ -47,13 +51,16 @@ class DashPayDAP extends plugins.DAP {
       registerBUser,
       registerSchema,
       isSchemaRegistered,
+      isProfileRegistered,
       getBUser,
+      searchBUsers,
       getBUsernameRegistrationId,
       getBUserRegistrationId,
       getBUserPrivateKey,
       getBUserPreviousStId,
       getBUserByPubkey,
       getBUserByUname,
+      topUpBUser
     });
 
 
@@ -97,9 +104,6 @@ class DashPayDAP extends plugins.DAP {
     return txid;
   }
 
-  async searchUsername(pattern) {
-    return this.transport.transport.searchUsers(pattern);
-  }
 
   async getUserRegTxIdAndPrevSubTx(userId) {
     return await require('./getUserRegTxIdAndPrevSubTx')(this.transport.transport, userId);

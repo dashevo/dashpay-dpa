@@ -38,7 +38,9 @@ module.exports = async function registerSchema(regTxId, regTxPrivKey, prevStId) 
 
   const selection = utils.coinSelection(utxo, [{ address, satoshis: creditFeeSet }]);
 
-  // transaction.from([utxo]).to([{ address, satoshis: selection.utxosValue - creditFeeSet - selection.estimatedFee }]);
+  transaction
+    .from([utxo])
+    .to([{ address, satoshis: selection.utxosValue - creditFeeSet - selection.estimatedFee }]);
 
   const privateKeys = this.getPrivateKeys(
     selection.utxos

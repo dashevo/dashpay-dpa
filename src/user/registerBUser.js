@@ -54,7 +54,7 @@ module.exports = async function registerBUser(uname, funding = 10000) {
   const payload = new Dashcore.Transaction.Payload.SubTxRegisterPayload()
     .setUserName(uname)
     .setPubKeyIdFromPrivateKey(privateKey)
-    .sign(privateKey);
+    .sign(this.getBUserPrivateKey());
 
   // Attach payload to transaction object
   transaction
