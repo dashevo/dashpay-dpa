@@ -3,18 +3,28 @@ const verifySchemaRequisites = require('./verifySchemaRequisites');
 const verifyProfileRequisites = require('./verifyProfileRequisites');
 
 const onAccountReady = async (account) => {
+  /**
+   * We have included dashpaydap as a plugin, let's fetch it now
+   * It will have
+   */
   const dpp = account.getDAP('dashpaydap');
+
   // console.log(dpp)
   console.log('DashPay DAP - Started');
 
+  // console.log(await dpp.getBUser());
+
   // First, we ensure a BUser, by creating one if needed
-  const username = 'demo1';
+  const username = 'seatIndoor';
   await verifyBUserRequisites(dpp, username);
 
   // Let's check if we have a schema registered
   // await verifySchemaRequisites(dpp);
 
-  // Let's also ensure we have a dashpay Profile registration
+  /**
+   * Ensure we do have a profile on Dashpay DAP
+   * If we do not have a profile existing, then we create a new with passed arguments
+   */
   // await verifyProfileRequisites(dpp,
   //   {
   //     avatar: 'https://pbs.twimg.com/profile_images/736134012369043456/lCbfoCFb_400x400.jpg',
@@ -24,12 +34,19 @@ const onAccountReady = async (account) => {
   //   });
 
 
+  /**
+   * Searching a user
+   * (Waiting dashcpp side)
+   */
   // const pattern = 'demo1';
   // const usersSearched = await dpp.searchBUsers(pattern);
   // console.log(`Lookup for users ${pattern} : ${JSON.stringify(usersSearched)}`);
+  //
 
-
-  // TopUp a Users
+  /**
+   *    Toping Up a User
+   *   (Not ready dapi-client side)
+   */
   // await dpp.topUpBUser();
 
 

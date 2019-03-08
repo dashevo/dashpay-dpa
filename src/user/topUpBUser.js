@@ -6,7 +6,7 @@ const { doubleSha256 } = require('../utils/crypto');
 
 module.exports = async function topUpBUser(funding = 10000) {
   const dapContract = await this.dapContract;
-  const dapid = dapContract.dapcontract.meta.id;
+  const dapid = this.dapId
   console.log(`DAP ID : ${dapid}`);
 
   // Prepare the SubRegTx payload

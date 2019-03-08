@@ -2,7 +2,7 @@ const isProfileRegistered = async function () {
   const isRegistered = false;
   console.log('Schema', this.dapId)
   try {
-    const dapUsers = await this.transport.transport.fetchDapObjects(this.dapId, 'profile', {});
+    const dapUsers = await this.transport.transport.fetchDapObjects(this.dapId, 'contact', {});
     console.log(dapUsers);
     console.log('isRegistered', isRegistered);
   } catch (e) {

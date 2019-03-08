@@ -1,7 +1,6 @@
 const Dashcore = require('@dashevo/dashcore-lib');
 const { CONSTANTS } = require('@dashevo/wallet-lib');
 const { doubleSha256 } = require('../utils/crypto');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
 /**
 * @param {string} username - string representation of the user desired username

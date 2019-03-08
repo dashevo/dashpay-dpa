@@ -7,8 +7,8 @@ const { utils } = require('@dashevo/wallet-lib');
 module.exports = async function registerSchema(regTxId, regTxPrivKey, prevStId) {
   const creditFeeSet = 1000;
 
-  const dapContract = await this.dapContract;
-  const dapid = dapContract.dapcontract.meta.id;
+  const dapContract = this.dapContract;
+  const dapid = this.dapId
   console.log(`DAP ID : ${dapid}`);
 
   // We prepare our state transition

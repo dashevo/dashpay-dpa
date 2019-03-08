@@ -68,8 +68,7 @@ class DashPayDAP extends plugins.DAP {
     this.dapSchema = dashPaySchema;
     this.dapContract = Schema.create.dapcontract(this.dapSchema);
 
-    // this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract)).toString('hex');
-    this.dapId = "1d45767901b04713c4b791cb53ae8259ed31d4377f9350fabc56110ecf12046b"
+    this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract.meta.id)).toString('hex');
   }
 
   async onInjected() {

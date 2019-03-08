@@ -2,14 +2,10 @@
 const verifySchemaRequisites = async (dpp) => {
   console.log('Verifying schema requisites');
 
-  // const dapContract = await this.transport.transport.fetchDapContract(dapContract.dapcontract.meta.id);
-
-
   const isRegistered = await dpp.isSchemaRegistered();
   if (!isRegistered) {
     console.log('Schema not registered. Registering..');
     const regTxPrivKey = dpp.getBUserPrivateKey().toString('hex');
-    // const regTxPubAddr = dpp.getBUserPrivateKey().publicKey.toAddress()
 
     const regTxId = await dpp.buser.regtxid;
     const prevStId = await dpp.getBUserPreviousStId(dpp.buser.regtxid);
