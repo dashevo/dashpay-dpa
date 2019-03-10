@@ -14,13 +14,13 @@ module.exports = async function registerSchema(regTxId, regTxPrivKey, prevStId) 
   // We prepare our state transition
   const stPacket = Schema.create.stpacket(dapContract);
 
-  const transaction = new Dashcore.Transaction()
-    .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
 
   const serializedPacket = Schema.serialize.encode(stPacket);
   const stPacketHash = doubleSha256(serializedPacket).toString('hex');
 
-  const payload = transaction.extraPayload
+  const transaction = new Dashcore.Transaction()
+    .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION)
+    .extraPayload
     .setRegTxId(regTxId)
     .setHashPrevSubTx(prevStId)
     .setHashSTPacket(stPacketHash)
@@ -29,27 +29,27 @@ module.exports = async function registerSchema(regTxId, regTxPrivKey, prevStId) 
 
 
   // Attach payload to transaction object
-  transaction
-    .setExtraPayload(payload);
+  // transaction
+  //   .setExtraPayload(payload);
 
 
-  const utxo = this.getUTXOS();
-  const { address } = this.getUnusedAddress();
+  // const utxo = this.getUTXOS();
+  // const { address } = this.getUnusedAddress();
 
-  const selection = utils.coinSelection(utxo, [{ address, satoshis: creditFeeSet }]);
+  // const selection = utils.coinSelection(utxo, [{ address, satoshis: creditFeeSet }]);
 
-  transaction
-    .from([utxo])
-    .to([{ address, satoshis: selection.utxosValue - creditFeeSet - selection.estimatedFee }]);
+  // transaction
+  //   .from([utxo])
+  //   .to([{ address, satoshis: selection.utxosValue - creditFeeSet - selection.estimatedFee }]);
 
-  const privateKeys = this.getPrivateKeys(
-    selection.utxos
-      .map(item => item.address)
-      .map(hdpk => hdpk.privateKey),
-  );
+  // const privateKeys = this.getPrivateKeys(
+  //   selection.utxos
+  //     .map(item => item.address)
+  //     .map(hdpk => hdpk.privateKey),
+  // );
 
-  const signedTransaction = transaction.sign(privateKeys);
-  const rawTransition = signedTransaction.toString();
+  // const signedTransaction = transaction.sign(privateKeys);
+  const rawTransition = transaction.serialize();
   const rawTransitionPacket = serializedPacket.toString('hex');
   const txid = await this.broadcastTransition(rawTransition, rawTransitionPacket);
   console.log(`DAP ${dapContract.dapcontract.dapname} (ID:${dapid}) Registered (txid ${txid}.`);

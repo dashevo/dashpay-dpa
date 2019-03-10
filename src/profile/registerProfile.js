@@ -22,51 +22,51 @@ module.exports = async function registerProfile(avatar = '', bio = '', displayNa
   // We prepare our object
   const profile = Schema.create.dapobject('profile');
 
+  profile.act = 0;
   Object.assign(profile, {
-    avatar,
+    // avatar,
     displayName,
-    props,
+    // props,
     bio,
   });
 
-  const stPacket = Schema.create.stpacket(profile, this.dapId, this.dapSchema);
+  const { stpacket: stPacket } = Schema.create.stpacket();
+  stPacket.dapobjects = [profile];
+  stPacket.dapid = this.dapId;
+
+  // const stPacket = Schema.create.stpacket(profile);
+  // console.log(stPacket);
+  // stPacket.dapid = this.dapId;
+  // stPacket.dapobjects = [profile];
+  console.log(stPacket);
+  const serializedPacket = Schema.serialize.encode(stPacket);
+  const stPacketHash = doubleSha256(serializedPacket).toString('hex');
 
   const transaction = new Dashcore.Transaction()
     .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
 
-  const serializedPacket = Schema.serialize.encode(stPacket);
-  const stPacketHash = doubleSha256(serializedPacket).toString('hex');
+  const hashPrevSubTx = (this.buser.subtx.length === 0)
+    ? this.buser.regtxid
+    : Array.from(this.buser.subtx).pop();
 
   const payload = transaction.extraPayload
     .setRegTxId(this.buser.regtxid)
-    .setHashPrevSubTx(Array.from(this.buser.subtx).pop())
+    .setHashPrevSubTx(hashPrevSubTx)
     .setHashSTPacket(stPacketHash)
     .setCreditFee(creditFeeSet)
-    .sign(this.getBUserPrivateKey());
+    .sign(this.getBUserPrivateKey().toString('hex'));
 
   // Attach payload to transaction object
   transaction
     .setExtraPayload(payload);
 
+  const signedTransaction = transaction.sign(this.getBUserPrivateKey());
 
-  const utxo = this.getUTXOS();
-  const { address } = this.getUnusedAddress();
+  // const txid = await this.broadcastTransition(
+  //   signedTransaction.serialize(),
+  //   serializedPacket.toString('hex'),
+  // );
 
-  const selection = utils.coinSelection(utxo, [{ address, satoshis: creditFeeSet }]);
-
-  transaction
-    .from([utxo])
-    .to([{ address, satoshis: selection.utxosValue - creditFeeSet - selection.estimatedFee }]);
-
-
-  const privateKeys = this.getPrivateKeys(
-    selection.utxos
-      .map(item => item.address)
-      .map(hdpk => hdpk.privateKey),
-  );
-
-  const signedTransaction = transaction.sign(privateKeys, Dashcore.crypto.Signature.SIGHASH_ALL);
-  const txid = await this.broadcastTransaction(signedTransaction.toString());
   console.log(`Profile ${displayName}  Registered (txid ${txid}.`);
   return txid;
 };

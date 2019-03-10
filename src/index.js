@@ -32,7 +32,7 @@ const topUpBUser = require('./user/topUpBUser.js');
 
 
 class DashPayDAP extends plugins.DAP {
-  constructor() {
+  constructor(opts = {}) {
     super({
       dependencies: [
         'getUTXOS',
@@ -60,24 +60,46 @@ class DashPayDAP extends plugins.DAP {
       getBUserPreviousStId,
       getBUserByPubkey,
       getBUserByUname,
-      topUpBUser
+      topUpBUser,
     });
 
-
+    this.username = opts.username;
     this.buser = null;
-    this.dapSchema = dashPaySchema;
+
+
+    this.dapSchema = Object.assign({}, dashPaySchema);
+
     this.dapContract = Schema.create.dapcontract(this.dapSchema);
 
-    this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract.meta.id)).toString('hex');
+
+    this.dapContract.dapcontract.meta.id = 'ab6cb0c0266a02565b6bc87c5993430495e827ac0221d4fbfe7c412c7704c996';
+
+    this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
   }
 
+  // Method started after wallet-lib injection
+  // It's here that we can access to dependencies.
   async onInjected() {
-    const regTxPubKey = this.getBUserPrivateKey().publicKey.toAddress().toString();
-    const users = this.getBUserByPubkey(regTxPubKey);
-    if (users.length > 0) {
-      console.log('Previous user found');
-      this.buser = users[0];
+    // It is currently not possible to fetch BUser by PubKey. So we do by username for now;
+    if (this.username !== null) {
+      try {
+        this.buser = await this.getBUserByUname(this.username);
+      } catch (e) {
+        if (e.message.split('Code:')[1] !== '-1"') {
+          console.error('Expected "not found answer" got ', e.message, 'instead');
+          console.error(e);
+        }
+        this.buser = null;
+      }
     }
+    //Pseudo-logic for when we will be able to search by pubKey
+
+    // const regTxPubKey = this.getBUserPrivateKey().publicKey.toAddress().toString();
+    // const users = this.getBUserByPubkey(regTxPubKey);
+    // if (users.length > 0) {
+    //   console.log('Previous user found');
+    //   this.buser = users[0];
+    // }
   }
 
   async registerSchema(regTxId, regTxPrivKey, prevStId) {
