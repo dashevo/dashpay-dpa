@@ -1,9 +1,13 @@
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
 
-module.exports = async function acceptContactRequest(bUserName) {
+module.exports = async function getRemovedContact(bUserName) {
   if (this.buser === null) {
-    throw new Error('BUser not registered. Can\'t send contact request');
+    try {
+      this.buser = await this.getBUserByUname(this.username);
+    } catch (e) {
+      throw new Error('BUser not registered. Can\'t remove a get removed contaxct' );
+    }
   }
 
   const pending = await this.getPendingContactRequests();

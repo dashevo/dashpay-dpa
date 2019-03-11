@@ -15,7 +15,11 @@ const { utils } = require('@dashevo/wallet-lib');
  */
 module.exports = async function registerProfile(avatar = '', bio = '', displayName = '', bUserName = '') {
   if (this.buser === null) {
-    throw new Error('BUser not registered. Can\'t register profile');
+    try {
+      this.buser = await this.getBUserByUname(this.username);
+    } catch (e) {
+      throw new Error('BUser not registered. Can\'t register profile');
+    }
   }
 
   // We prepare our object

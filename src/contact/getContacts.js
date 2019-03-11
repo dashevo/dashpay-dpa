@@ -2,7 +2,11 @@ const _ = require('lodash');
 
 module.exports = async function getContacts(displayAll = false) {
   if (this.buser === null) {
-    throw new Error('BUser not registered. Can\'t send contact request');
+    try {
+      this.buser = await this.getBUserByUname(this.username);
+    } catch (e) {
+      throw new Error('BUser not registered. Can\'t get contacts');
+    }
   }
   const dapObjects = await this.transport.transport.fetchDapObjects(this.dapId, 'contact', {});
 

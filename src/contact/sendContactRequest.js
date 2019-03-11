@@ -5,7 +5,11 @@ const { doubleSha256 } = require('../utils/crypto.js');
 
 module.exports = async function sendContactRequest(bUserName) {
   if (this.buser === null) {
-    throw new Error('BUser not registered. Can\'t send contact request');
+    try {
+      this.buser = await this.getBUserByUname(this.username);
+    } catch (e) {
+      throw new Error('BUser not registered. Can\'t send contact req');
+    }
   }
 
   // We prepare our object

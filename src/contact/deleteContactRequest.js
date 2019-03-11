@@ -3,7 +3,11 @@ const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
 module.exports = async function deleteContactRequest(bUserName) {
   if (this.buser === null) {
-    throw new Error('BUser not registered. Can\'t delete contact');
+    try {
+      this.buser = await this.getBUserByUname(this.username);
+    } catch (e) {
+      throw new Error('BUser not registered. Can\'t delete contact request');
+    }
   }
 
   const contacts = await this.getContacts();

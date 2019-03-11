@@ -3,7 +3,11 @@ const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
 module.exports = async function denyContactRequest(bUserName) {
   if (this.buser === null) {
-    throw new Error('BUser not registered. Can\'t send contact request');
+    try {
+      this.buser = await this.getBUserByUname(this.username);
+    } catch (e) {
+      throw new Error('BUser not registered. Can\'t register profile');
+    }
   }
 
   const pending = await this.getPendingContactRequests();
