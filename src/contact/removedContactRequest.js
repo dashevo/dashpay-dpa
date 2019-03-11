@@ -7,7 +7,7 @@ module.exports = async function acceptContactRequest(bUserName) {
   }
 
   const pending = await this.getPendingContactRequests();
-  const existPending = !!pending.received.filter(received => received === bUserName).length;
+  const existPending = !!pending.received.filter(received => received.from === bUserName).length;
   if (!existPending) {
     throw new Error(`No pending contact request from ${bUserName}`);
   }
@@ -19,11 +19,9 @@ module.exports = async function acceptContactRequest(bUserName) {
   const contactNb = 0;
   const path = `m/2/0/${contactNb.toFixed()}`;
 
-  const hdpubkey = this.keyChain.getKeyForPath(path).hdPublicKey;
-
   Object.assign(contact, {
-    action: 'accept',
-    content: hdpubkey.toString(),
+    action: 'removed',
+    content: '',
     relation: bUserName,
     from: this.buser.uname,
   });

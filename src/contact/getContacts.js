@@ -1,4 +1,6 @@
-module.exports = async function getContacts() {
+const _ = require('lodash');
+
+module.exports = async function getContacts(displayAll = false) {
   if (this.buser === null) {
     throw new Error('BUser not registered. Can\'t send contact request');
   }
@@ -13,7 +15,7 @@ module.exports = async function getContacts() {
 
     if (!contacts[relationUname]) {
       contacts[relationUname] = {
-        accepted: false,
+        status: 'requested',
       };
     }
   };
@@ -27,26 +29,29 @@ module.exports = async function getContacts() {
           if (relationUname === contact.from) contacts[relationUname].hdPublicKey = contact.content;
           break;
         case 'accept':
-          contacts[relationUname].accepted = true;
+          contacts[relationUname].status = 'accepted';
           if (relationUname === contact.from) contacts[relationUname].hdPublicKey = contact.content;
-
-          console.log('accept');
+          break;
+        case 'deny':
+          contacts[relationUname].status = 'denied';
+          break;
+        case 'deleted':
+          contacts[relationUname].status = 'deleted';
           break;
         default:
           console.log('Unexpected default', contact.action);
           break;
       }
     }
-    // contacts[contact.from] = {accepted:false};
-    // if (contact.action === 'accept') contacts[contact.from].accepted = true;
-    // } else if (contact.from === uname) {
-    //   if(!contacts[contact.relation])
-    //   contacts[contact.relation] = {accepted:false};
-    //   if (contact.action === 'accept') contacts[contact.relation].accepted = true;
-    // }
-  });
-  // const relevants = dapObjects.filter(contact => (contact.relation) === this.buser.uname || (contact.from === this.buser.uname));
 
+    if (!displayAll) {
+      _.each(contacts, (contactEl, contactName) => {
+        if (['requested', 'denied'].includes(contactEl.status)) {
+          delete contacts[contactName];
+        }
+      });
+    }
+  });
 
   return contacts;
 };

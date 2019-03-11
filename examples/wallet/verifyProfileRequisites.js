@@ -2,13 +2,14 @@
 const verifyProfileRequisites = async (dpp, props) => {
   console.log('Verifying profile requisites');
 
-  const isRegistered = await dpp.isProfileRegistered();
+  let isRegistered = await dpp.isProfileRegistered(props);
   if (!isRegistered) {
     console.log('Profile not registered. Registering..');
-    const register = await dpp.registerProfile(props.avatar, props.bio, props.displayName, props.props);
-    if (register) {
-      isRegistered = true;
-    }
+    const register = await dpp.registerProfile(props.avatar, props.bio, props.displayName, props.bUserName);
+    console.log('Register', register)
+    // if (register) {
+    //   isRegistered = true;
+    // }
     // const regTxPrivKey = dpp.getBUserPrivateKey().toString('hex');
     // const regTxPubAddr = dpp.getBUserPrivateKey().publicKey.toAddress()
 

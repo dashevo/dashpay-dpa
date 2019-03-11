@@ -34,10 +34,10 @@ module.exports = async function registerProfile(avatar = '', bio = '', displayNa
     serializedPacket,
   } = this.prepareStateTransition(profile, this.buser, this.getBUserPrivateKey().toString('hex'));
 
-  // const txid = await this.broadcastTransition(
-  //   serializedTransaction, serializedPacket,
-  // );
-  const txid = 0;
+  const txid = await this.broadcastTransition(
+    serializedTransaction, serializedPacket,
+  );
+  // const txid = 0;
 
   console.log(`Profile ${displayName}  Registered (txid ${txid}.`);
   return txid;

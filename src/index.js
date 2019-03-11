@@ -17,7 +17,11 @@ const searchProfile = require('./profile/searchProfile.js');
 
 const sendContactRequest = require('./contact/sendContactRequest');
 const getPendingContactRequests = require('./contact/getPendingContactRequests');
+const getDeniedContactRequests = require('./contact/getDeniedContactRequests');
+const getDeletedContactRequests = require('./contact/getDeletedContactRequests');
 const acceptContactRequest = require('./contact/acceptContactRequest');
+const deleteContactRequest = require('./contact/deleteContactRequest');
+const denyContactRequest = require('./contact/denyContactRequest');
 const getContacts = require('./contact/getContacts');
 
 const registerBUser = require('./user/registerBUser.js');
@@ -31,7 +35,7 @@ const getBUsernameRegistrationId = require('./user/getBUsernameRegistrationId.js
 const getBUserRegistrationId = require('./user/getBUserRegistrationId.js');
 const topUpBUser = require('./user/topUpBUser.js');
 
-const prepareStateTransition = require('./prepareStateTransition')
+const prepareStateTransition = require('./prepareStateTransition');
 
 class DashPayDAP extends plugins.DAP {
   constructor(opts = {}) {
@@ -57,9 +61,13 @@ class DashPayDAP extends plugins.DAP {
       getBUser,
       searchBUsers,
       acceptContactRequest,
+      denyContactRequest,
+      getDeniedContactRequests,
+      getDeletedContactRequests,
       getBUsernameRegistrationId,
       getBUserRegistrationId,
       getBUserPrivateKey,
+      deleteContactRequest,
       getBUserPreviousStId,
       searchProfile,
       getBUserByPubkey,
@@ -73,7 +81,7 @@ class DashPayDAP extends plugins.DAP {
 
     this.username = opts.username;
     this.buser = null;
-    this.profile = null
+    this.profile = null;
 
     this.dapSchema = Object.assign({}, dashPaySchema);
 
@@ -93,7 +101,7 @@ class DashPayDAP extends plugins.DAP {
       try {
         this.buser = await this.getBUserByUname(this.username);
         // try{
-          // this.profile =
+        // this.profile =
         // }
       } catch (e) {
         if (e.message.split('Code:')[1] !== '-1"') {
@@ -113,131 +121,6 @@ class DashPayDAP extends plugins.DAP {
     // }
   }
 
-  async registerSchema(regTxId, regTxPrivKey, prevStId) {
-    let { stpacket: stPacket } = Schema.create.stpacket();
-    stPacket = Object.assign(stPacket, this.dapContract);
-
-    const transaction = new Dashcore.Transaction()
-      .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
-
-    const serializedPacket = Schema.serialize.encode(stPacket);
-    const stPacketHash = doubleSha256(serializedPacket).toString('hex');
-
-    console.log(`DAP ${this.dapContract.dapcontract.dapname} (ID:${this.dapId}) Registered.`);
-
-    transaction.extraPayload
-      .setRegTxId(regTxId)
-      .setHashPrevSubTx(prevStId)
-      .setHashSTPacket(stPacketHash)
-      .setCreditFee(1000)
-      .sign(regTxPrivKey);
-
-    const txid = await this.broadcastTransition(transaction.serialize(), serializedPacket.toString('hex'));
-    return txid;
-  }
-
-
-  async getUserRegTxIdAndPrevSubTx(userId) {
-    return await require('./getUserRegTxIdAndPrevSubTx')(this.transport.transport, userId);
-  }
-
-  async getUser(username) {
-    return this.transport.transport.getUserByName(username);
-  }
-
-  /**
-   * @param {string} userId
-   * @param {number} amount - top up amount in duffs
-   * @return {Promise<string>} - tx id
-   */
-  async topUpUserCredits(userId, amount) {
-    throw new Error('Not implemented');
-  }
-
-
-  payToUsername(userId, amount) {
-    throw new Error('Not implemented');
-  }
-
-  sendPaymentRequests(opts) { // only to people who have added them as contacts
-    throw new Error('Not implemented');
-  }
-
-  async createContactRequest(userId) {
-    const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
-    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
-
-    return await createContactRequest(
-      Dashcore,
-      this.transport.transport,
-      this.userId,
-      this.dapId,
-      privateKey,
-      userRegTxId,
-      prevSubTx,
-    );
-  }
-
-  async getContactRequests() { // from people that sent requests to current account
-    return await require('./getContactRequests')(
-      this.transport.transport,
-      this.dapId,
-    );
-  }
-
-  getContactProposals() { // from current account that sent requests to people
-    throw new Error('Not implemented');
-  }
-
-  async acceptContactRequest(userId) {
-    const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
-    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
-
-    return await acceptContactRequest(
-      Dashcore,
-      this.transport.transport,
-      this.userId,
-      this.dapId,
-      privateKey,
-      userRegTxId,
-      prevSubTx,
-    );
-  }
-
-  denyContactRequest(opts) {
-    throw new Error('Not implemented');
-  }
-
-  getIgnoredContacts() {
-    throw new Error('Not implemented');
-  }
-
-  async removeContact(userId) {
-    const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
-    const { userRegTxId, prevSubTx } = await this.getUserRegTxIdAndPrevSubTx(userId);
-
-    return await removeContact(
-      Dashcore,
-      this.transport.transport,
-      this.userId,
-      this.dapId,
-      privateKey,
-      userRegTxId,
-      prevSubTx,
-    );
-  }
-
-  async getContacts() {
-    return await require('./getContacts')(
-      this.transport.transport,
-      this.dapId,
-      this.userId,
-    );
-  }
-
-  getAccountHistory(opts) { // payments sent,payments received, contacts confirmed, contacts requests canceled etc.
-    throw new Error('Not implemented');
-  }
 }
 
 module.exports = DashPayDAP;

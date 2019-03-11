@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = async function getPendingContactRequests() {
+module.exports = async function getDeniedContactRequests() {
   const result = {
     sent: [],
     received: [],
@@ -8,14 +8,13 @@ module.exports = async function getPendingContactRequests() {
   const contacts = await this.getContacts(true);
 
   _.each(contacts, (contact, contactName) => {
-    if (contact.status === 'requested') {
+    if (contact.status === 'denied') {
       const isRequester = (contact.requester === this.buser.uname);
 
       const type = (isRequester) ? 'sent' : 'received';
       result[type].push(contactName);
     }
   });
-
 
   return result;
 };
