@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
-
 module.exports = async function deleteContactRequest(bUserName) {
   if (this.buser === null) {
     throw new Error('BUser not registered. Can\'t delete contact');
@@ -33,11 +32,11 @@ module.exports = async function deleteContactRequest(bUserName) {
     serializedPacket,
   } = this.prepareStateTransition(contact, this.buser, this.getBUserPrivateKey().toString('hex'));
 
-  // const txid = await this.broadcastTransition(
-  //   serializedTransaction, serializedPacket,
-  // );
-  //
-  const txid = 0;
+  const txid = await this.broadcastTransition(
+    serializedTransaction, serializedPacket,
+  );
+
+  // const txid = 0;
 
   console.log(`Deny contact to ${bUserName} sent (txid ${txid}.`);
   return txid;

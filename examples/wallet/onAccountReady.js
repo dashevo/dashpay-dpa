@@ -53,7 +53,7 @@ const onAccountReady = async (account) => {
   //   {
   //     avatar: 'https://pbs.twimg.com/profile_images/736134012369043456/lCbfoCFb_400x400.jpg',
   //     bio: 'still testing',
-  //     displayName: 'Alex Werner6',
+  //     displayName: 'Alex Werner7',
   //     bUserName: username,
   //   });
 
@@ -106,7 +106,7 @@ const onAccountReady = async (account) => {
    * Sending contact request
    */
 
-  // const send = await dpp.sendContactRequest('AlexWerner3');
+  // const send = await dpp.sendContactRequest('AlexWerner7');
 
   /**
    * Deny contact request
@@ -118,15 +118,12 @@ const onAccountReady = async (account) => {
   /**
    * Sending accept request
    */
-  // const send = await dpp.acceptContactRequest('AlexWerner6');
-
-  // const contact = (await dpp.transport.transport.fetchDapObjects(dpp.dapId, 'contact', {}))
-  // console.log(contact)
+  // const send = await dpp.acceptContactRequest('AlexWerner3');
 
   /**
    * Delete a contact
    */
-  // const del = await dpp.deleteContactRequest('AlexWerner4');
+  // const del = await dpp.deleteContactRequest('AlexWerner3');
 
 
   /**

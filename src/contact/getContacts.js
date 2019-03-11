@@ -35,7 +35,7 @@ module.exports = async function getContacts(displayAll = false) {
         case 'deny':
           contacts[relationUname].status = 'denied';
           break;
-        case 'deleted':
+        case 'delete':
           contacts[relationUname].status = 'deleted';
           break;
         default:
@@ -46,7 +46,7 @@ module.exports = async function getContacts(displayAll = false) {
 
     if (!displayAll) {
       _.each(contacts, (contactEl, contactName) => {
-        if (['requested', 'denied'].includes(contactEl.status)) {
+        if (['requested', 'denied', 'deleted'].includes(contactEl.status)) {
           delete contacts[contactName];
         }
       });
