@@ -4,11 +4,6 @@ const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 const dashPaySchema = require('./schema/dashpay.schema.json');
 
 const { doubleSha256 } = utils;
-const {
-  acceptContactRequest,
-  createContactRequest,
-  removeContact,
-} = require('./contactAction');
 
 const broadcastTransition = require('./broadcastTransition');
 
@@ -17,7 +12,13 @@ const registerSchema = require('./schema/registerSchema');
 
 const isProfileRegistered = require('./profile/isProfileRegistered');
 const registerProfile = require('./profile/registerProfile.js');
+const searchProfile = require('./profile/searchProfile.js');
 
+
+const sendContactRequest = require('./contact/sendContactRequest');
+const getPendingContactRequests = require('./contact/getPendingContactRequests');
+const acceptContactRequest = require('./contact/acceptContactRequest');
+const getContacts = require('./contact/getContacts');
 
 const registerBUser = require('./user/registerBUser.js');
 const getBUserPreviousStId = require('./user/getBUserPreviousStId.js');
@@ -30,6 +31,7 @@ const getBUsernameRegistrationId = require('./user/getBUsernameRegistrationId.js
 const getBUserRegistrationId = require('./user/getBUserRegistrationId.js');
 const topUpBUser = require('./user/topUpBUser.js');
 
+const prepareStateTransition = require('./prepareStateTransition')
 
 class DashPayDAP extends plugins.DAP {
   constructor(opts = {}) {
@@ -54,25 +56,31 @@ class DashPayDAP extends plugins.DAP {
       isProfileRegistered,
       getBUser,
       searchBUsers,
+      acceptContactRequest,
       getBUsernameRegistrationId,
       getBUserRegistrationId,
       getBUserPrivateKey,
       getBUserPreviousStId,
+      searchProfile,
       getBUserByPubkey,
       getBUserByUname,
+      sendContactRequest,
+      prepareStateTransition,
+      getPendingContactRequests,
       topUpBUser,
+      getContacts,
     });
 
     this.username = opts.username;
     this.buser = null;
-
+    this.profile = null
 
     this.dapSchema = Object.assign({}, dashPaySchema);
 
     this.dapContract = Schema.create.dapcontract(this.dapSchema);
 
 
-    this.dapContract.dapcontract.meta.id = 'ab6cb0c0266a02565b6bc87c5993430495e827ac0221d4fbfe7c412c7704c996';
+    // this.dapContract.dapcontract.meta.id = 'ab6cb0c0266a02565b6bc87c5993430495e827ac0221d4fbfe7c412c7704c996';
 
     this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
   }
@@ -84,6 +92,9 @@ class DashPayDAP extends plugins.DAP {
     if (this.username !== null) {
       try {
         this.buser = await this.getBUserByUname(this.username);
+        // try{
+          // this.profile =
+        // }
       } catch (e) {
         if (e.message.split('Code:')[1] !== '-1"') {
           console.error('Expected "not found answer" got ', e.message, 'instead');
@@ -92,7 +103,7 @@ class DashPayDAP extends plugins.DAP {
         this.buser = null;
       }
     }
-    //Pseudo-logic for when we will be able to search by pubKey
+    // Pseudo-logic for when we will be able to search by pubKey
 
     // const regTxPubKey = this.getBUserPrivateKey().publicKey.toAddress().toString();
     // const users = this.getBUserByPubkey(regTxPubKey);

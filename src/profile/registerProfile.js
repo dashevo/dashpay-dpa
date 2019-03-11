@@ -4,6 +4,7 @@ const { doubleSha256 } = require('../utils/crypto.js');
 const dapschema = require('../schema/dashpay.schema');
 const { utils } = require('@dashevo/wallet-lib');
 
+
 /**
  *
  * @param avatar - b64 representation or url of the avatar
@@ -12,9 +13,7 @@ const { utils } = require('@dashevo/wallet-lib');
  * @param props - string - stringified object of additional props.
  * @return {Promise<string>}
  */
-module.exports = async function registerProfile(avatar = '', bio = '', displayName = '', props = '') {
-  const creditFeeSet = 1000;
-
+module.exports = async function registerProfile(avatar = '', bio = '', displayName = '', bUserName = '') {
   if (this.buser === null) {
     throw new Error('BUser not registered. Can\'t register profile');
   }
@@ -24,48 +23,21 @@ module.exports = async function registerProfile(avatar = '', bio = '', displayNa
 
   profile.act = 0;
   Object.assign(profile, {
-    // avatar,
+    avatar,
     displayName,
-    // props,
+    bUserName,
     bio,
   });
 
-  const { stpacket: stPacket } = Schema.create.stpacket();
-  stPacket.dapobjects = [profile];
-  stPacket.dapid = this.dapId;
-
-  // const stPacket = Schema.create.stpacket(profile);
-  // console.log(stPacket);
-  // stPacket.dapid = this.dapId;
-  // stPacket.dapobjects = [profile];
-  console.log(stPacket);
-  const serializedPacket = Schema.serialize.encode(stPacket);
-  const stPacketHash = doubleSha256(serializedPacket).toString('hex');
-
-  const transaction = new Dashcore.Transaction()
-    .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
-
-  const hashPrevSubTx = (this.buser.subtx.length === 0)
-    ? this.buser.regtxid
-    : Array.from(this.buser.subtx).pop();
-
-  const payload = transaction.extraPayload
-    .setRegTxId(this.buser.regtxid)
-    .setHashPrevSubTx(hashPrevSubTx)
-    .setHashSTPacket(stPacketHash)
-    .setCreditFee(creditFeeSet)
-    .sign(this.getBUserPrivateKey().toString('hex'));
-
-  // Attach payload to transaction object
-  transaction
-    .setExtraPayload(payload);
-
-  const signedTransaction = transaction.sign(this.getBUserPrivateKey());
+  const {
+    serializedTransaction,
+    serializedPacket,
+  } = this.prepareStateTransition(profile, this.buser, this.getBUserPrivateKey().toString('hex'));
 
   // const txid = await this.broadcastTransition(
-  //   signedTransaction.serialize(),
-  //   serializedPacket.toString('hex'),
+  //   serializedTransaction, serializedPacket,
   // );
+  const txid = 0;
 
   console.log(`Profile ${displayName}  Registered (txid ${txid}.`);
   return txid;
