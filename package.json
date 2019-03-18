@@ -1,6 +1,6 @@
 {
   "name": "@dashevo/dashpay-dap",
-  "version": "1.0.4",
+  "version": "1.0.10",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/dashevo/dashpay-dap/#readme",
   "dependencies": {
     "@dashevo/dashcore-lib": "github:dashevo/dashcore-lib#v1.0.0-alpha.19",
-    "@dashevo/dash-schema": "github:dashevo/dash-schema#v3_develop",
+    "@dashevo/dash-schema": "github:dashevo/dash-schema#v3.0.0-alpha.3",
     "@dashevo/wallet-lib": "github:dashevo/wallet-lib"
   },
   "devDependencies": {
