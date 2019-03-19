@@ -1,0 +1,11 @@
+{
+  "name": "@dashevo/dash-schema",
+  "description": "",
+  "main": "dash-schema-lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@dashevo/dashcore-lib": "1.0.0-alpha.15",
+    "ajv": "^6.5.1",
+    "cbor": "^4.1.0"
+  }
+}
