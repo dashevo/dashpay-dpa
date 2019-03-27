@@ -2,6 +2,7 @@ const Dashcore = require('@dashevo/dashcore-lib');
 const { CONSTANTS } = require('@dashevo/wallet-lib');
 const { doubleSha256 } = require('../utils/crypto');
 
+const { convertPrivateKeyToPubKeyId } = Dashcore.Transaction.Payload.SubTxRegisterPayload;
 /**
 * @param {string} username - string representation of the user desired username
 * @param {number} [funding] - default funding for the account in duffs. Optional.
@@ -68,6 +69,9 @@ module.exports = async function registerBUser(uname, funding = 10000) {
   const signedTransaction = transaction.sign(privateKeys, Dashcore.crypto.Signature.SIGHASH_ALL);
 
   const regtxid = await this.broadcastTransaction(signedTransaction.toString());
+
+  const pubkeyid = convertPrivateKeyToPubKeyId(privateKey).toString('hex');
+
   this.buser = {
     uname,
     regtxid,
