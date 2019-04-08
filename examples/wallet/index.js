@@ -1,5 +1,4 @@
-// const { Wallet, EVENTS } = require('@dashevo/wallet-lib');
-const { Wallet, EVENTS } = require('../../../dash-wallet-lib');
+const { Wallet, EVENTS } = require('@dashevo/wallet-lib');
 const DAPIClient = require('@dashevo/dapi-client');
 const DashpayDap = require('../../index.js');
 const onAccountReady = require('./onAccountReady');

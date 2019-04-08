@@ -33,7 +33,7 @@ module.exports = async function registerBUser(uname, funding = 10000) {
     return total >= totalFee;
   };
 
-  for (let i = utxos.length - 1; i >= 0; i++) {
+  for (let i = utxos.length - 1; i >= 0; i--) {
     const utxo = utxos[i];
     filteredUtxosList.push(utxo);
     if (isEnougthOutputForFees(filteredUtxosList, requiredSatoshisForFees)) break;
