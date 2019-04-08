@@ -40,6 +40,7 @@ const prepareStateTransition = require('./prepareStateTransition');
 class DashPayDAP extends plugins.DAP {
   constructor(opts = {}) {
     super({
+      name: 'DashPayDAP',
       dependencies: [
         'getUTXOS',
         'getBalance',
@@ -120,7 +121,6 @@ class DashPayDAP extends plugins.DAP {
     //   this.buser = users[0];
     // }
   }
-
 }
 
 module.exports = DashPayDAP;
