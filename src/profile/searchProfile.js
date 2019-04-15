@@ -1,14 +1,16 @@
-module.exports = async function searchProfile(pattern) {
-  const search = {
-    totalCount: 0,
-    results: [],
+module.exports = async function searchProfile(searchString = '', fieldName = 'bUserName') {
+  const trimmedSearchString = searchString.trim();
+  if (trimmedSearchString === '') {
+    return [];
+  }
+  const options = {
+    where: {
+      [`data.${fieldName}`]: {
+        $regex: trimmedSearchString,
+        $options: 'i',
+      },
+    },
   };
-  const profiles = (await this.transport.transport.fetchDapObjects(this.dapId, 'profile', {}));
-  profiles.forEach((profile) => {
-    if (profile.bUserName === pattern) {
-      search.results.push(profile);
-      search.totalCount += 1;
-    }
-  });
-  return search;
+  const profiles = await this.transport.transport.fetchDapObjects(this.dapId, 'profile', options);
+  return profiles;
 };
