@@ -12,6 +12,7 @@ export interface privateKey {
     toString(): string;
     toAddress(): string;
 }
+
 declare namespace DashPayDAP {
     class DashPayDAP {
         constructor();
@@ -24,7 +25,6 @@ declare namespace DashPayDAP {
         getBUserRegistrationId(): string;
         registerBUser(uname: string, funding: number): buser;
         registerProfile(avatar: string, bio: string, displayName: string, props: string): string;
-
     }
 }
 

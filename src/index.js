@@ -8,6 +8,7 @@ const {
   createContactRequest,
   removeContact,
 } = require('./contactAction');
+const registerBUser = require('./user/registerBUser.js');
 
 const registerProfile = require('./profile/registerProfile.js');
 
@@ -38,7 +39,6 @@ class DashPayDAP extends plugins.DAP {
       getBUserRegistrationId,
       getBUserPrivateKey
     })
-
     this.buser = null;
     this.dapContract = Schema.create.dapcontract(dashPaySchema);
     this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
