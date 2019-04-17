@@ -8,10 +8,8 @@ const {
   createContactRequest,
   removeContact,
 } = require('./contactAction');
-const registerBUser = require('./user/registerBUser.js');
 
 const registerProfile = require('./profile/registerProfile.js');
-
 const registerBUser = require('./user/registerBUser.js');
 const getBUserPrivateKey = require('./user/getBUserPrivateKey.js');
 const getBUser = require('./user/getBUser.js');
