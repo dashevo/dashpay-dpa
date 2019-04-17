@@ -1,7 +1,7 @@
 {
   "$id": "http://dash.org/schemas/sys/dapschema",
   "title": "DashPay",
-  "user": {
+  "profile": {
     "$id": "http://dash.org/schemas/sys/dapobject",
     "_isrole": true,
     "allOf": [
@@ -15,6 +15,12 @@
       },
       "avatar": {
         "type": "string"
+      },
+      "displayName": {
+        "type": "string"
+      },
+      "props": {
+        "type": "string"
       }
     }
   },
@@ -26,19 +32,20 @@
       }
     ],
     "properties": {
-      "hdextpubkey": {
+      "act": {
         "type": "string"
       },
-      "user": {
+      "content": {
+        "type": "string"
+      },
+      "relation": {
         "$ref": "http://dash.org/schemas/sys#/definitions/relation"
-      },
-      "pub": {
-        "type": "string"
       }
     },
     "required": [
-      "hdextpubkey",
-      "user"
+      "act",
+      "content",
+      "relation"
     ]
   },
   "store": {
@@ -50,8 +57,11 @@
       }
     ],
     "properties": {
-      "storename": {
+      "wtheme": {
         "type": "number"
+      },
+      "wexternalcontacts": {
+        "type": "string"
       }
     }
   }

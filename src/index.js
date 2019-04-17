@@ -1,7 +1,7 @@
 const { plugins, CONSTANTS, utils } = require('@dashevo/wallet-lib');
 const Dashcore = require('@dashevo/dashcore-lib');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-const dashPaySchema = require('./dashpay.schema.json');
+const dashPaySchema = require('./schema/dashpay.schema.json');
 const {doubleSha256} = utils;
 const {
   acceptContactRequest,
