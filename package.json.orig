@@ -1,0 +1,40 @@
+{
+  "name": "@dashevo/dashpay-dap",
+  "version": "1.0.10",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "mocha --recursive test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dashevo/dashpay-dap.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dashevo/dashpay-dap/issues"
+  },
+  "homepage": "https://github.com/dashevo/dashpay-dap/#readme",
+  "dependencies": {
+    "@dashevo/dapi-client": "github:dashevo/dapi-client#4af8a7e8b8b5a634f1f5a933dd811796780d0c69",
+    "@dashevo/dash-schema": "github:dashevo/dap-playground#dash-schema",
+    "@dashevo/dashcore-lib": "^0.16.9",
+    "@dashevo/wallet-lib": "github:dashevo/wallet-lib#demo",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
+    "mocha": "^5.2.0"
+  }
+}
