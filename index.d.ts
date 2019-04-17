@@ -7,6 +7,12 @@ export interface buser {
     subtx?: [string];
     data?: string;
 }
+
+export interface privateKey {
+    toString(): string;
+    toAddress(): string;
+}
+
 declare namespace DashPayDAP {
     class DashPayDAP {
         constructor();
@@ -14,8 +20,11 @@ declare namespace DashPayDAP {
         buser: buser;
         dapContract: string;
 
+        getBUser(): buser;
+        getBUserPrivateKey(): privateKey;
+        getBUserRegistrationId(): string;
         registerBUser(uname: string, funding: number): buser;
-
+        registerProfile(avatar: string, bio: string, displayName: string, props: string): string;
     }
 }
 
