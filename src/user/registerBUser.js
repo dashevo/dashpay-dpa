@@ -1,13 +1,15 @@
+const Dashcore = require('@dashevo/dashcore-lib');
+const { CONSTANTS } = require('@dashevo/wallet-lib');
 const { doubleSha256 } = require('../utils/crypto');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 
+const { convertPrivateKeyToPubKeyId } = Dashcore.Transaction.Payload.SubTxRegisterPayload;
 /**
 * @param {string} username - string representation of the user desired username
 * @param {number} [funding] - default funding for the account in duffs. Optional.
 * If left empty funding will be 10000.
 * @return {user} - user object
 */
-module.exports = async function registerBUser(uname, funding = 10000){
+module.exports = async function registerBUser(uname, funding = 10000) {
   const { address } = this.getUnusedAddress();
   const balance = await this.getBalance();
 
@@ -31,7 +33,7 @@ module.exports = async function registerBUser(uname, funding = 10000){
     return total >= totalFee;
   };
 
-  for (let i = utxos.length - 1; i >= 0; i++) {
+  for (let i = utxos.length - 1; i >= 0; i--) {
     const utxo = utxos[i];
     filteredUtxosList.push(utxo);
     if (isEnougthOutputForFees(filteredUtxosList, requiredSatoshisForFees)) break;
@@ -52,7 +54,7 @@ module.exports = async function registerBUser(uname, funding = 10000){
   const payload = new Dashcore.Transaction.Payload.SubTxRegisterPayload()
     .setUserName(uname)
     .setPubKeyIdFromPrivateKey(privateKey)
-    .sign(privateKey);
+    .sign(this.getBUserPrivateKey());
 
   // Attach payload to transaction object
   transaction
@@ -67,15 +69,18 @@ module.exports = async function registerBUser(uname, funding = 10000){
   const signedTransaction = transaction.sign(privateKeys, Dashcore.crypto.Signature.SIGHASH_ALL);
 
   const regtxid = await this.broadcastTransaction(signedTransaction.toString());
+
+  const pubkeyid = convertPrivateKeyToPubKeyId(privateKey).toString('hex');
+
   this.buser = {
     uname,
     regtxid,
     pubkeyid,
     credits: funding,
-    state: "broadcasted",
-    subtx:[regtxid],
-    data: null //We probably can get this one too (hash of whole ?).
+    state: 'broadcasted',
+    subtx: [regtxid],
+    data: null, // We probably can get this one too (hash of whole ?).
   };
 
-  return buser;
-}
+  return this.buser;
+};

@@ -19,7 +19,7 @@
       "displayName": {
         "type": "string"
       },
-      "props": {
+      "bUserName": {
         "type": "string"
       }
     }
@@ -32,7 +32,7 @@
       }
     ],
     "properties": {
-      "act": {
+      "action": {
         "type": "string"
       },
       "content": {
@@ -43,7 +43,7 @@
       }
     },
     "required": [
-      "act",
+      "action",
       "content",
       "relation"
     ]
