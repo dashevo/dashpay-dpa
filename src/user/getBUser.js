@@ -4,6 +4,7 @@
  * @return {Promise<*>} buser - Blockchain User
  */
 module.exports = async function getBUser(userId = this.getBUserRegistrationId()) {
-  this.buser = await this.transport.transport.getUserById(userId)
+  const buser = await this.transport.transport.getUserById(userId);
+  this.buser = buser;
   return buser;
-}
+};

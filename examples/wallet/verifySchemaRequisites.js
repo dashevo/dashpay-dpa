@@ -12,7 +12,7 @@ const verifySchemaRequisites = async (dpp) => {
     console.log('Using', regTxId, regTxPrivKey);
     console.log('User last stId', prevStId);
     const register = await dpp.registerSchema(regTxId, regTxPrivKey, prevStId);
-    console.log(register)
+    console.log(register);
   } else {
     console.log('Already registered');
   }

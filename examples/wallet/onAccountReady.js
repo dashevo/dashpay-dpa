@@ -1,6 +1,6 @@
-const verifyBUserRequisites = require('./verifyBUserRequisites');
-const verifySchemaRequisites = require('./verifySchemaRequisites');
-const verifyProfileRequisites = require('./verifyProfileRequisites');
+// const verifyBUserRequisites = require('./verifyBUserRequisites');
+// const verifySchemaRequisites = require('./verifySchemaRequisites');
+// const verifyProfileRequisites = require('./verifyProfileRequisites');
 
 
 const onAccountReady = async (account) => {
@@ -131,6 +131,5 @@ const onAccountReady = async (account) => {
    *   (Not ready dapi-client side)
    */
   // await dpp.topUpBUser();
-
 };
 module.exports = onAccountReady;
