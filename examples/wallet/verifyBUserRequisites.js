@@ -20,11 +20,12 @@ const verifyBUserRequisites = async (dpp) => {
 
     console.log('Registering BUser with...', funding, 'credits');
     try {
-      const reg = await dpp.registerBUser(username, funding);
-    } catch (e) {
-      if (e.message === 'DAPI RPC error: sendRawTransaction: Error: DAPI RPC error: sendRawTransaction: 16: bad-subtx-dupusername') {
+      await dpp.registerBUser(username, funding);
+    } catch (registrationError) {
+      if (registrationError.message === 'DAPI RPC error: sendRawTransaction: Error: DAPI RPC error: sendRawTransaction: 16: bad-subtx-dupusername') {
         console.log('Found already existing duplicate');
-        dpp.buser = await dpp.getBUserByUname(username);
+        // TODO: needs to be refactored
+        dpp.buser = await dpp.getBUserByUname(username); // eslint-disable-line
       }
     }
   }

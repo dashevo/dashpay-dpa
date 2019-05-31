@@ -1,9 +1,13 @@
-sudo: required
-dist: trusty
 language: node_js
 
 node_js:
-- 'node'
+  - lts/*
 
-install:
-- npm install
+cache: npm
+
+jobs:
+  include:
+    - stage: lint
+      script: npm run lint
+    - stage: test
+      script: npm test

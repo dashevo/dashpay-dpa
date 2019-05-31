@@ -1,5 +1,4 @@
-const { plugins, CONSTANTS, utils } = require('@dashevo/wallet-lib');
-const Dashcore = require('@dashevo/dashcore-lib');
+const { plugins, utils } = require('@dashevo/wallet-lib');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 const dashPaySchema = require('./schema/dashpay.schema.json');
 
@@ -87,9 +86,6 @@ class DashPayDAP extends plugins.DAP {
     this.dapSchema = Object.assign({}, dashPaySchema);
 
     this.dapContract = Schema.create.dapcontract(this.dapSchema);
-
-
-    // this.dapContract.dapcontract.meta.id = 'ab6cb0c0266a02565b6bc87c5993430495e827ac0221d4fbfe7c412c7704c996';
 
     this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
   }

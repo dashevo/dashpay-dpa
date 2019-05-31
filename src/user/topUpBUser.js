@@ -1,12 +1,8 @@
 const Dashcore = require('@dashevo/dashcore-lib');
-const { CONSTANTS } = require('@dashevo/wallet-lib');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 const { utils } = require('@dashevo/wallet-lib');
-const { doubleSha256 } = require('../utils/crypto');
 
 module.exports = async function topUpBUser(funding = 10000) {
-  const dapContract = await this.dapContract;
-  const dapid = this.dapId
+  const dapid = this.dapId;
   console.log(`DAP ID : ${dapid}`);
 
   // Prepare the SubRegTx payload

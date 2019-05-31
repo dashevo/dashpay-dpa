@@ -1,13 +1,11 @@
 const Dashcore = require('@dashevo/dashcore-lib');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
 const { doubleSha256 } = require('../utils/crypto.js');
-const dapschema = require('../schema/dashpay.schema');
-const { utils } = require('@dashevo/wallet-lib');
 
 module.exports = async function registerSchema() {
   const creditFeeSet = 1000;
 
-  const dapContract = this.dapContract;
+  const { dapContract } = this;
   const dapid = this.dapId;
   console.log(`DAP ID : ${dapid}`);
 
@@ -71,6 +69,7 @@ module.exports = async function registerSchema() {
 //     .setCreditFee(1000)
 //     .sign(regTxPrivKey);
 //
-//   const txid = await this.broadcastTransition(transaction.serialize(), serializedPacket.toString('hex'));
+//   const txid = await this
+//     .broadcastTransition(transaction.serialize(), serializedPacket.toString('hex'));
 //   return txid;
 // }

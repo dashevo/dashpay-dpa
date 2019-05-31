@@ -1,6 +1,4 @@
-const Dashcore = require('@dashevo/dashcore-lib');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-const { doubleSha256 } = require('../utils/crypto.js');
 
 
 module.exports = async function sendContactRequest(bUserName) {
@@ -16,8 +14,6 @@ module.exports = async function sendContactRequest(bUserName) {
   const contact = Schema.create.dapobject('contact');
   contact.act = 0;
 
-  const cUser = await this.getBUserByUname(bUserName);
-
   const contactNb = 0;
   const path = `m/2/0/${contactNb.toFixed()}`;
 
@@ -30,7 +26,7 @@ module.exports = async function sendContactRequest(bUserName) {
     from: this.buser.uname,
   });
 
-  console.log(contact)
+  console.log(contact);
   const {
     serializedTransaction,
     serializedPacket,

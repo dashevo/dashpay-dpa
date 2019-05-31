@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const { Wallet } = require('@dashevo/wallet-lib');
 
 const DashPayDAP = require('../src/index');
@@ -21,11 +20,4 @@ describe('DashPay DAP', function suite() {
       done();
     });
   });
-  // it('should be able to create a blockchain username', async () => {
-  //
-  //
-  // });
-  // it('should be able to pay to a username', () => {
-  //
-  // });
 });

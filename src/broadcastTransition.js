@@ -3,4 +3,4 @@ module.exports = async function broadcastTransition(rawTransaction, rawTransacti
     rawTransaction,
     rawTransactionPacket,
   );
-}
+};

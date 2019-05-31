@@ -1,6 +1,5 @@
 const Dashcore = require('@dashevo/dashcore-lib');
 const { CONSTANTS } = require('@dashevo/wallet-lib');
-const { doubleSha256 } = require('../utils/crypto');
 
 const { convertPrivateKeyToPubKeyId } = Dashcore.Transaction.Payload.SubTxRegisterPayload;
 /**
@@ -33,7 +32,7 @@ module.exports = async function registerBUser(uname, funding = 10000) {
     return total >= totalFee;
   };
 
-  for (let i = utxos.length - 1; i >= 0; i--) {
+  for (let i = utxos.length - 1; i >= 0; i -= 1) {
     const utxo = utxos[i];
     filteredUtxosList.push(utxo);
     if (isEnougthOutputForFees(filteredUtxosList, requiredSatoshisForFees)) break;

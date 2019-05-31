@@ -6,7 +6,7 @@ module.exports = async function getRemovedContact(bUserName) {
     try {
       this.buser = await this.getBUserByUname(this.username);
     } catch (e) {
-      throw new Error('BUser not registered. Can\'t remove a get removed contaxct' );
+      throw new Error('BUser not registered. Can\'t remove a get removed contaxct');
     }
   }
 
@@ -19,9 +19,6 @@ module.exports = async function getRemovedContact(bUserName) {
   // We prepare our object
   const contact = Schema.create.dapobject('contact');
   contact.act = 0;
-
-  const contactNb = 0;
-  const path = `m/2/0/${contactNb.toFixed()}`;
 
   Object.assign(contact, {
     action: 'removed',

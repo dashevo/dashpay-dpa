@@ -5,8 +5,9 @@ const verifyProfileRequisites = async (dpp, props) => {
   let isRegistered = await dpp.isProfileRegistered(props);
   if (!isRegistered) {
     console.log('Profile not registered. Registering..');
-    const register = await dpp.registerProfile(props.avatar, props.bio, props.displayName, props.bUserName);
-    console.log('Register', register)
+    const register = await dpp
+      .registerProfile(props.avatar, props.bio, props.displayName, props.bUserName);
+    console.log('Register', register);
     // if (register) {
     //   isRegistered = true;
     // }

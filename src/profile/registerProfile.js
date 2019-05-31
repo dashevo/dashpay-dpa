@@ -1,9 +1,4 @@
-const Dashcore = require('@dashevo/dashcore-lib');
 const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-const { doubleSha256 } = require('../utils/crypto.js');
-const dapschema = require('../schema/dashpay.schema');
-const { utils } = require('@dashevo/wallet-lib');
-
 
 /**
  *
