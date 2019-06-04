@@ -1,68 +1,56 @@
 {
-  "$id": "http://dash.org/schemas/sys/dapschema",
-  "title": "DashPay",
   "profile": {
-    "$id": "http://dash.org/schemas/sys/dapobject",
-    "_isrole": true,
-    "allOf": [
+    "indices": [
       {
-        "$ref": "http://dash.org/schemas/sys#/definitions/dapobjectbase"
+        "properties": [
+          {
+            "$userId": "asc"
+          }
+        ],
+        "unique": true
       }
     ],
     "properties": {
-      "bio": {
-        "type": "string"
+      "avatarUrl": {
+        "type": "string",
+        "format": "url"
       },
-      "avatar": {
+      "about": {
         "type": "string"
-      },
-      "displayName": {
-        "type": "string"
-      },
-      "bUserName": {
-        "type": "string"
-      }
-    }
-  },
-  "contact": {
-    "$id": "http://dash.org/schemas/sys/dapobject",
-    "allOf": [
-      {
-        "$ref": "http://dash.org/schemas/sys#/definitions/dapobjectbase"
-      }
-    ],
-    "properties": {
-      "action": {
-        "type": "string"
-      },
-      "content": {
-        "type": "string"
-      },
-      "relation": {
-        "$ref": "http://dash.org/schemas/sys#/definitions/relation"
       }
     },
     "required": [
-      "action",
-      "content",
-      "relation"
-    ]
+      "avatarUrl",
+      "about"
+    ],
+    "additionalProperties": false
   },
-  "store": {
-    "$id": "http://dash.org/schemas/sys/dapobject",
-    "_isrole": true,
-    "allOf": [
+  "contact": {
+    "indices": [
       {
-        "$ref": "http://dash.org/schemas/sys#/definitions/dapobjectbase"
+        "properties": [
+          {
+            "$userId": "asc"
+          },
+          {
+            "toUserId": "asc"
+          }
+        ],
+        "unique": true
       }
     ],
     "properties": {
-      "wtheme": {
-        "type": "number"
+      "toUserId": {
+        "type": "string"
       },
-      "wexternalcontacts": {
+      "publicKey": {
         "type": "string"
       }
-    }
+    },
+    "required": [
+      "toUserId",
+      "publicKey"
+    ],
+    "additionalProperties": false
   }
 }

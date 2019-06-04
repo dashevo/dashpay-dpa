@@ -1,8 +1,8 @@
-const { plugins, utils } = require('@dashevo/wallet-lib');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-const dashPaySchema = require('./schema/dashpay.schema.json');
+const {plugins, utils} = require('@dashevo/wallet-lib');
+const DashPlatformProtocol = require('@dashevo/dpp');
+const DashPaySchema = require('./schema/dashpay.schema.json');
 
-const { doubleSha256 } = utils;
+const {doubleSha256} = utils;
 
 const broadcastTransition = require('./broadcastTransition');
 
@@ -83,11 +83,13 @@ class DashPayDAP extends plugins.DAP {
     this.buser = null;
     this.profile = null;
 
-    this.dapSchema = Object.assign({}, dashPaySchema);
+    this.dpp = new DashPlatformProtocol();
+    this.dapSchema = Object.assign({}, DashPaySchema);
 
-    this.dapContract = Schema.create.dapcontract(this.dapSchema);
-
-    this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
+    this.dapContract = this.dpp.contract.create('DPDPA', this.dapSchema);
+    if(!this.dpp.contract.validate(this.dapContract).isValid()){
+      throw new Error('Invalid DashPayDPA contract');
+    }
   }
 
   // Method started after wallet-lib injection
