@@ -1,16 +1,9 @@
 const Dashcore = require('@dashevo/dashcore-lib');
-const DashPlatformProtocol = require('@dashevo/dpp');
-const dpp = new DashPlatformProtocol();
 const { doubleSha256 } = require('./utils/crypto.js');
 
 const prepareStateTransition = function (object, buser, privKey) {
   const creditFeeSet = 1000;
-  const { stpacket: stPacket } = dpp.document.create();
-  stPacket.dapobjects = [object];
-  stPacket.dapid = this.dapId;
-
-  const serializedPacket = Schema.serialize.encode(stPacket);
-  const stPacketHash = doubleSha256(serializedPacket).toString('hex');
+  const stPacket = this.dpp.packet.create(this.dpp.getContract());
 
   const transaction = new Dashcore.Transaction()
     .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
@@ -22,7 +15,7 @@ const prepareStateTransition = function (object, buser, privKey) {
   const payload = transaction.extraPayload
     .setRegTxId(buser.regtxid)
     .setHashPrevSubTx(hashPrevSubTx)
-    .setHashSTPacket(stPacketHash)
+    .setHashSTPacket(stPacket.hash())
     .setCreditFee(creditFeeSet)
     .sign(privKey);
 
@@ -34,7 +27,7 @@ const prepareStateTransition = function (object, buser, privKey) {
 
   return {
     serializedTransaction: signedTransaction.serialize(),
-    serializedPacket: serializedPacket.toString('hex'),
+    serializedPacket:  stPacket.serialize().toString('hex'),
   };
 };
 module.exports = prepareStateTransition;

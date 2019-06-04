@@ -90,6 +90,7 @@ class DashPayDAP extends plugins.DAP {
     if(!this.dpp.contract.validate(this.dapContract).isValid()){
       throw new Error('Invalid DashPayDPA contract');
     }
+    this.dpp.setContract(this.dapContract);
   }
 
   // Method started after wallet-lib injection

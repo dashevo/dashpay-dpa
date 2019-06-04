@@ -15,17 +15,17 @@ module.exports = async function registerProfile(avatar = '', bio = '', displayNa
     }
   }
 
+  //TODO : Clean me up, I might not be at the best spot
+  await this.getBUser(this.username);
+  console.log(this.buser.regtxid);
+  this.dpp.setUserId(this.buser.regtxid)
   // We prepare our object
-  const profile = this.dpp.document.create('profile');
-
-  profile.act = 0;
-  Object.assign(profile, {
-    avatar,
-    displayName,
-    bUserName,
-    bio,
+  const profile = this.dpp.document.create('profile',{
+    avatarUrl: avatar,
+    about: bio,
   });
 
+  console.log('Validating profile contract', this.dpp.document.validate(profile).isValid());
   const {
     serializedTransaction,
     serializedPacket,
