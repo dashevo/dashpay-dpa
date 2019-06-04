@@ -1,5 +1,3 @@
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-
 /**
  *
  * @param avatar - b64 representation or url of the avatar
@@ -18,7 +16,7 @@ module.exports = async function registerProfile(avatar = '', bio = '', displayNa
   }
 
   // We prepare our object
-  const profile = Schema.create.dapobject('profile');
+  const profile = this.dpp.document.create('profile');
 
   profile.act = 0;
   Object.assign(profile, {

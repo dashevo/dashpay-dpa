@@ -1,10 +1,11 @@
 const Dashcore = require('@dashevo/dashcore-lib');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
+const DashPlatformProtocol = require('@dashevo/dpp');
+const dpp = new DashPlatformProtocol();
 const { doubleSha256 } = require('./utils/crypto.js');
 
 const prepareStateTransition = function (object, buser, privKey) {
   const creditFeeSet = 1000;
-  const { stpacket: stPacket } = Schema.create.stpacket();
+  const { stpacket: stPacket } = dpp.document.create();
   stPacket.dapobjects = [object];
   stPacket.dapid = this.dapId;
 

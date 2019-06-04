@@ -1,6 +1,3 @@
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-
-
 module.exports = async function denyContactRequest(bUserName) {
   if (this.buser === null) {
     try {
@@ -18,7 +15,7 @@ module.exports = async function denyContactRequest(bUserName) {
   }
 
   // We prepare our object
-  const contact = Schema.create.dapobject('contact');
+  const contact = this.dpp.document.create('contact');
   contact.act = 0;
 
   Object.assign(contact, {

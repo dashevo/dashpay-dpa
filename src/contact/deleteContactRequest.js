@@ -1,5 +1,4 @@
-const _ = require('lodash');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
+const {each} = require('lodash');
 
 module.exports = async function deleteContactRequest(bUserName) {
   if (this.buser === null) {
@@ -13,7 +12,7 @@ module.exports = async function deleteContactRequest(bUserName) {
   const contacts = await this.getContacts();
 
   let existContact = false;
-  _.each(contacts, (contact, contactName) => {
+  each(contacts, (contact, contactName) => {
     if (contactName === bUserName) existContact = true;
   });
   if (!existContact) {
@@ -21,7 +20,7 @@ module.exports = async function deleteContactRequest(bUserName) {
   }
 
   // We prepare our object
-  const contact = Schema.create.dapobject('contact');
+  const contact = this.dpp.document.create('contact');
   contact.act = 0;
 
   Object.assign(contact, {
