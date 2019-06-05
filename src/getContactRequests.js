@@ -1,5 +1,5 @@
-module.exports = async (transport, dapId, userId) => {
-  const a = await transport.fetchDapObjects(dapId, 'contact', { blockchainUserId: userId });
-  const b = await transport.fetchDapObjects(dapId, 'user', { 'object.user': userId });
+module.exports = async function getContactRequests(transport, userId) {
+  const a = await transport.fetchDocuments(this.dpp.getContract().getId(), 'contact', { blockchainUserId: userId });
+  const b = await transport.fetchDocuments(this.dpp.getContract().getId(), 'user', { 'object.user': userId });
   return [a, b];
 };

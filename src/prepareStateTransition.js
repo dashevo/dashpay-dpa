@@ -1,6 +1,6 @@
 const Dashcore = require('@dashevo/dashcore-lib');
 
-const prepareStateTransition = function (object, buser, privKey) {
+const prepareStateTransition = (object, buser, privKey) => {
   const creditFeeSet = 1000;
   const stPacket = this.dpp.packet.create(this.dpp.getContract());
 

@@ -94,15 +94,16 @@ class DashPayDAP extends plugins.DAP {
   // Method started after wallet-lib injection
   // It's here that we can access to dependencies.
   async onInjected() {
+    const { username } = this;
     // It is currently not possible to fetch BUser by PubKey. So we do by username for now;
-    if (this.username !== null) {
+    if (username !== null) {
       try {
-        this.buser = await this.getBUserByUname(this.username);
+        this.buser = await this.getBUserByUname(username);
         // try{
         // this.profile =
         // }
       } catch (e) {
-        if (e.message.split('Code:')[1] !== '-1"') {
+        if (!e.message.includes(`user ${username} not found`)) {
           console.error('Expected "not found answer" got ', e.message, 'instead');
           console.error(e);
         }

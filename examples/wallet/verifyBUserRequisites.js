@@ -1,4 +1,4 @@
-const verifyBUserRequisites = async (dpp) => {
+module.exports = async function verifyBUserRequisites(dpp) {
   const { username } = dpp;
   console.log('Verifying BUser requisites');
   // We check again buser ourself, in case one would have registered recently.
@@ -31,4 +31,3 @@ const verifyBUserRequisites = async (dpp) => {
 
   console.log('BUser found', buser);
 };
-module.exports = verifyBUserRequisites;

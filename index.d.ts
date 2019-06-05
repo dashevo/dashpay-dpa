@@ -15,7 +15,6 @@ export interface privateKey {
 declare namespace DashPayDAP {
     class DashPayDAP {
         constructor();
-        dapId: string;
         buser: buser;
         dapContract: string;
 

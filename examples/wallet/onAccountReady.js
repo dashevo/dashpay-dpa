@@ -1,5 +1,5 @@
 // const verifyBUserRequisites = require('./verifyBUserRequisites');
-// const verifySchemaRequisites = require('./verifySchemaRequisites');
+const verifySchemaRequisites = require('./verifySchemaRequisites');
 // const verifyProfileRequisites = require('./verifyProfileRequisites');
 
 
@@ -18,7 +18,7 @@ const onAccountReady = async (account) => {
   }
 
   console.log('Retrieve/Register :', username);
-  console.log('New unused address (for fundign)', account.getUnusedAddress().address);
+  console.log('New unused address (for funding)', account.getUnusedAddress().address);
 
   // First, we need to verify using our provided username
   // if we already have an existing username created.
@@ -29,22 +29,21 @@ const onAccountReady = async (account) => {
 
   // await verifyBUserRequisites(dpp);
 
-
   // const height = await dpp.transport.transport.getBestBlockHeight();
   // const hash = await dpp.transport.transport.getBlockHash(height);
   // const raw = await dpp.transport.transport.getRawBlock(hash)
   // console.log(raw)
   // This method ensure a schema is registered
-
-  // await verifySchemaRequisites(dpp);
-
+  await verifySchemaRequisites(dpp);
 
   // List all existing profile on DashPay
-  const profiles = (await dpp.transport.transport.fetchDapObjects(dpp.dapId, 'profile', {})).reduce((prev, curr) => { prev.push(curr.bUserName); return prev; }, []);
+  const profiles = (await dpp.transport.transport.fetchDocuments(dpp.dpp.getContract().getId(), 'profile', {})).reduce((prev, curr) => { prev.push(curr.bUserName); return prev; }, []);
 
   console.log('Profiles : ', profiles);
 
-  // console.log(await dpp.transport.transport.fetchDapObjects(dpp.dapId, 'contact', {}));
+  // console.log(await dpp.transport.transport.fetchDocuments(
+  //  dpp.dpp.getContract().getId(), 'contact', {}),
+  // );
   /**
    * Ensure we do have a profile on Dashpay DAP
    * If we do not have a profile existing, then we create a new with passed arguments

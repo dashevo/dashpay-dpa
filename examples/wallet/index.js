@@ -14,7 +14,7 @@ const transport = new DAPIClient({
   retries: 15,
 });
 
-const username = 'AlexWerner3';
+const username = 'dashpayteam';
 const dashpayDap = new DashpayDap({
   username,
 });

@@ -4,8 +4,6 @@ module.exports = async function registerSchema() {
   const creditFeeSet = 1000;
 
   const { dapContract } = this;
-  const dapid = this.dapId;
-  console.log(`DAP ID : ${dapid}`);
 
   // We prepare our state transition
   const dapName = 'dashdpaporto';
@@ -41,6 +39,6 @@ module.exports = async function registerSchema() {
     stPacket.serialize().toString('hex'),
   );
 
-  console.log(`DAP ${dapContract.dapcontract.dapname} (ID:${dapid}) Registered (txid ${txid}.`);
+  console.log(`DAP ${dapContract.dapcontract.dapname} Registered (txid ${txid}.`);
   return txid;
 };

@@ -1,5 +1,4 @@
-
-const verifySchemaRequisites = async (dpp) => {
+module.exports = async function verifySchemaRequisites(dpp) {
   console.log('Verifying schema requisites');
 
   const isRegistered = await dpp.isSchemaRegistered();
@@ -17,4 +16,3 @@ const verifySchemaRequisites = async (dpp) => {
     console.log('Already registered');
   }
 };
-module.exports = verifySchemaRequisites;

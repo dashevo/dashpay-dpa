@@ -1,5 +1,4 @@
-
-const verifyProfileRequisites = async (dpp, props) => {
+module.exports = async function verifyProfileRequisites(dpp, props) {
   console.log('Verifying profile requisites');
 
   let isRegistered = await dpp.isProfileRegistered(props);
@@ -26,4 +25,3 @@ const verifyProfileRequisites = async (dpp, props) => {
   }
   return isRegistered;
 };
-module.exports = verifyProfileRequisites;

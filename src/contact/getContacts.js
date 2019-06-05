@@ -8,7 +8,7 @@ module.exports = async function getContacts(displayAll = false) {
       throw new Error('BUser not registered. Can\'t get contacts');
     }
   }
-  const dapObjects = await this.transport.transport.fetchDapObjects(this.dapId, 'contact', {});
+  const dapObjects = await this.transport.transport.fetchDocuments(this.dpp.getContract().getId(), 'contact', {});
 
   const contacts = {};
 

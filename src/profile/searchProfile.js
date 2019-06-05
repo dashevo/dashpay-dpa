@@ -11,6 +11,6 @@ module.exports = async function searchProfile(searchString = '', fieldName = 'bU
       },
     },
   };
-  const profiles = await this.transport.transport.fetchDapObjects(this.dapId, 'profile', options);
+  const profiles = await this.transport.transport.fetchDocuments(this.dpp.getContract().getId(), 'profile', options);
   return profiles;
 };
