@@ -1,4 +1,3 @@
-
 const verifyBUserRequisites = async (dpp) => {
   const { username } = dpp;
   console.log('Verifying BUser requisites');

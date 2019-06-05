@@ -3,8 +3,13 @@ const DAPIClient = require('@dashevo/dapi-client');
 const DashpayDap = require('../../index.js');
 const onAccountReady = require('./onAccountReady');
 
+const seeds = [
+  '18.237.69.61',
+  '18.236.234.255',
+  '34.222.93.218',
+].map(ip => ({ service: `${ip}:3000` }));
 const transport = new DAPIClient({
-  seeds: [{ ip: '54.187.113.35', port: 3000 }],
+  seeds,
   timeout: 20000,
   retries: 15,
 });
