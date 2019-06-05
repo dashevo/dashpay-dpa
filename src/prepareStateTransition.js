@@ -1,5 +1,4 @@
 const Dashcore = require('@dashevo/dashcore-lib');
-const { doubleSha256 } = require('./utils/crypto.js');
 
 const prepareStateTransition = function (object, buser, privKey) {
   const creditFeeSet = 1000;
@@ -27,7 +26,7 @@ const prepareStateTransition = function (object, buser, privKey) {
 
   return {
     serializedTransaction: signedTransaction.serialize(),
-    serializedPacket:  stPacket.serialize().toString('hex'),
+    serializedPacket: stPacket.serialize().toString('hex'),
   };
 };
 module.exports = prepareStateTransition;

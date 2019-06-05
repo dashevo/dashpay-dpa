@@ -1,4 +1,4 @@
-const {each} = require('lodash');
+const { each } = require('lodash');
 
 module.exports = async function deleteContactRequest(bUserName) {
   if (this.buser === null) {
