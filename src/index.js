@@ -83,18 +83,13 @@ class DashPayDAP extends plugins.DAP {
 
     this.dpp = new DashPlatformProtocol();
     this.dapSchema = Object.assign({}, DashPaySchema);
-
-    this.dapContract = this.dpp.contract.create('DPDPA', this.dapSchema);
-    if (!this.dpp.contract.validate(this.dapContract).isValid()) {
-      throw new Error('Invalid DashPayDPA contract');
-    }
-    this.dpp.setContract(this.dapContract);
   }
 
   // Method started after wallet-lib injection
   // It's here that we can access to dependencies.
   async onInjected() {
     const { username } = this;
+    await this.setContract();
     // It is currently not possible to fetch BUser by PubKey. So we do by username for now;
     if (username !== null) {
       try {
@@ -118,6 +113,16 @@ class DashPayDAP extends plugins.DAP {
     //   console.log('Previous user found');
     //   this.buser = users[0];
     // }
+  }
+
+  async setContract() {
+    this.dapContract = await this.transport.transport.fetchContract('5dGE2WKGTmon9waLrakPLuVApNQmhfT2dStL7Po3tWV5');
+    // this.dapContract = await this.dpp.contract.create('DPDPA', this.dapSchema);
+
+    if (!this.dpp.contract.validate(this.dapContract).isValid()) {
+      throw new Error('Invalid DashPayDPA contract');
+    }
+    this.dpp.setContract(this.dapContract);
   }
 }
 
