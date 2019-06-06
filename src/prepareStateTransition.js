@@ -2,7 +2,8 @@ const Dashcore = require('@dashevo/dashcore-lib');
 
 const prepareStateTransition = (object, buser, privKey) => {
   const creditFeeSet = 1000;
-  const stPacket = this.dpp.packet.create(this.dpp.getContract());
+  const { dpp } = this;
+  const stPacket = dpp.packet.create([object]);
 
   const transaction = new Dashcore.Transaction()
     .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);

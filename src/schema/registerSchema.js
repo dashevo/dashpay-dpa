@@ -3,11 +3,9 @@ const Dashcore = require('@dashevo/dashcore-lib');
 module.exports = async function registerSchema() {
   const creditFeeSet = 1000;
 
-  const { dapContract } = this;
+  const { dapContract, dpp } = this;
 
-  // We prepare our state transition
-  const dapName = 'dashdpaporto';
-  const stPacket = this.dpp.contract.create(dapName, dapContract);
+  const stPacket = dpp.packet.create(dpp.getContract());
 
   const transaction = new Dashcore.Transaction()
     .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
