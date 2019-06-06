@@ -116,8 +116,11 @@ class DashPayDAP extends plugins.DAP {
   }
 
   async setContract() {
-    this.dapContract = await this.transport.transport.fetchContract('5dGE2WKGTmon9waLrakPLuVApNQmhfT2dStL7Po3tWV5');
-    // this.dapContract = await this.dpp.contract.create('DPDPA', this.dapSchema);
+    const contractName = 'DPDPA';
+    this.dapContract = await this.dpp.contract.create(contractName, this.dapSchema);
+    // this.dapContract = await this.transport.transport.fetchContract(
+    //   '5dGE2WKGTmon9waLrakPLuVApNQmhfT2dStL7Po3tWV5',
+    // );
 
     if (!this.dpp.contract.validate(this.dapContract).isValid()) {
       throw new Error('Invalid DashPayDPA contract');

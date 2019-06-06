@@ -1,6 +1,6 @@
 const Dashcore = require('@dashevo/dashcore-lib');
 
-const prepareStateTransition = (object, buser, privKey) => {
+module.exports = function prepareStateTransition(object, buser, privKey) {
   const creditFeeSet = 1000;
   const { dpp } = this;
   const stPacket = dpp.packet.create([object]);
@@ -30,4 +30,3 @@ const prepareStateTransition = (object, buser, privKey) => {
     serializedPacket: stPacket.serialize().toString('hex'),
   };
 };
-module.exports = prepareStateTransition;

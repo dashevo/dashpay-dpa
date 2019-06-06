@@ -1,5 +1,5 @@
 // const verifyBUserRequisites = require('./verifyBUserRequisites');
-const verifySchemaRequisites = require('./verifySchemaRequisites');
+// const verifySchemaRequisites = require('./verifySchemaRequisites');
 // const verifyProfileRequisites = require('./verifyProfileRequisites');
 
 
@@ -34,7 +34,7 @@ const onAccountReady = async (account) => {
   // const raw = await dpp.transport.transport.getRawBlock(hash)
   // console.log(raw)
   // This method ensure a schema is registered
-  await verifySchemaRequisites(dpp);
+  // await verifySchemaRequisites(dpp);
 
   // List all existing profile on DashPay
   const profiles = (await dpp.transport.transport.fetchDocuments(dpp.dpp.getContract().getId(), 'profile', {})).reduce((prev, curr) => { prev.push(curr.bUserName); return prev; }, []);
