@@ -1,21 +1,21 @@
 const BUserNotFoundError = require('../errors/BUserNotFoundError');
 const { is } = require('../utils');
-
 /**
- * getBUsernameRegistrationId
+ *
+ * @param userId - (default : regid)
  * @return {Promise<*>} buser - Blockchain User
- * @param username - default : busername
  */
-module.exports = async function getBUserByUname(uname = this.buser.uname) {
-  if (is.userid(uname)) throw new Error('Invalid Username provided. Are you looking for getBUserByUID ?');
+module.exports = async function getBUserByUID(userId = this.getBUserRegistrationId()) {
+  if (!is.userid(userId)) throw new Error('Invalid UserID provided. Are you looking for getBUserByUname ?');
   try {
-    const buser = await this.transport.transport.getUserByName(uname);
+    const buser = await
+      this.transport.transport.getUserById(userId);
     this.buser = buser;
     return buser;
   } catch (e) {
     const isUserNotFoundError = new RegExp('user.*not.*found.*', 'g');
     if (isUserNotFoundError.test(e.message)) {
-      throw new BUserNotFoundError(uname);
+      throw new BUserNotFoundError(userId);
     } else {
       throw e;
     }

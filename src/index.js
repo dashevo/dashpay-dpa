@@ -26,7 +26,7 @@ const getBUserPreviousStId = require('./user/getBUserPreviousStId.js');
 const getBUserPrivateKey = require('./user/getBUserPrivateKey.js');
 const getBUserByPubkey = require('./user/getBUserByPubkey.js');
 const getBUserByUname = require('./user/getBUserByUname.js');
-const getBUser = require('./user/getBUser.js');
+const getBUserByUID = require('./user/getBUserByUID.js');
 const searchBUsers = require('./user/searchBUsers.js');
 const getBUsernameRegistrationId = require('./user/getBUsernameRegistrationId.js');
 const getBUserRegistrationId = require('./user/getBUserRegistrationId.js');
@@ -56,7 +56,7 @@ class DashPayDAP extends plugins.DAP {
       registerSchema,
       isSchemaRegistered,
       isProfileRegistered,
-      getBUser,
+      getBUserByUID,
       searchBUsers,
       acceptContactRequest,
       denyContactRequest,
