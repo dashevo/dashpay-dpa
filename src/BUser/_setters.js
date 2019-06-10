@@ -22,7 +22,8 @@ const setters = {
     this.subtx = subtx;
   },
   setIsOwned(isowned, replace = false) {
-    // When we call dpd.get(), we pass network information to BUSer, therefore we inherits default opts
+    // When we call dpd.get(), we pass network information to BUSer,
+    // therefore we inherits default opts
     // Which for isOwned is false. Let's keep real value except if replace is true.
     if (this.isOwned === true && isowned === false && !replace) {
       return;

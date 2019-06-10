@@ -1,9 +1,9 @@
 const Dashcore = require('@dashevo/dashcore-lib');
+const { CONSTANTS } = require('@dashevo/wallet-lib');
 const STATES = require('./STATES');
-const _setters = require('./_setters');
+const setters = require('./_setters');
 
 const { convertPrivateKeyToPubKeyId } = Dashcore.Transaction.Payload.SubTxRegisterPayload;
-const { CONSTANTS } = require('@dashevo/wallet-lib');
 
 async function launchMinedIntervalChecker() {
   const self = this;
@@ -12,7 +12,6 @@ async function launchMinedIntervalChecker() {
     await self.synchronize();
     if (!self.from_mempool && self.state === STATES.OPEN) {
       clearInterval(minedInterval);
-      return true;
     }
   }, 10 * 1000);
 }
@@ -30,8 +29,7 @@ async function launchMempoolIntervalChecker() {
   }, 1 * 1000);
 }
 module.exports = async function register(funding = 10000) {
-  const canRegister = this.canRegister();
-  if (!canRegister) return canRegister;
+  this.canRegister();
 
   const { address } = this.getUnusedAddress();
   const balance = await this.getBalance();
@@ -107,12 +105,12 @@ module.exports = async function register(funding = 10000) {
       .toString('hex');
 
     const state = STATES.BROADCASTED;
-    _setters.setState.call(this, state);
+    setters.setState.call(this, state);
     const subtx = [regtxid];
-    _setters.setRegTxId.call(this, regtxid);
-    _setters.setPubKeyId.call(this, pubkeyid);
-    _setters.setCredits.call(this, funding);
-    _setters.setSubTx.call(this, subtx);
+    setters.setRegTxId.call(this, regtxid);
+    setters.setPubKeyId.call(this, pubkeyid);
+    setters.setCredits.call(this, funding);
+    setters.setSubTx.call(this, subtx);
 
     // We manually keep synchronizing every 5s until we got in mempool then in block
     await launchMempoolIntervalChecker.call(this);

@@ -21,8 +21,6 @@ const onAccountReady = async (account) => {
   const danceBUser = await dpd.buser.get('danceuser');
   console.log('Fetched BUSer danceuser', danceBUser);
 
-  throw new Error();
-
   /**
    * In this example, we will simulate a user that which to register a new Blockchain username
    */
@@ -71,7 +69,9 @@ const onAccountReady = async (account) => {
 
   // const { username } = dpp;
   // if (username === null) {
-  //   throw new Error('Impossible to retrieve nor register without a username (see DashPayDap doc)');
+  //   throw new Error(
+  //     'Impossible to retrieve nor register without a username (see DashPayDap doc)'
+  //   );
   // }
 
   // console.log('Retrieve/Register :', username);
@@ -94,7 +94,9 @@ const onAccountReady = async (account) => {
   // await verifySchemaRequisites(dpp);
 
   // List all existing profile on DashPay
-  // const profiles = (await dpp.transport.transport.fetchDocuments(dpp.dpp.getContract().getId(), 'profile', {})).reduce((prev, curr) => { prev.push(curr.bUserName); return prev; }, []);
+  // const profiles = (
+  //   await dpp.transport.transport.fetchDocuments(dpp.dpp.getContract().getId(), 'profile', {})
+  // ).reduce((prev, curr) => { prev.push(curr.bUserName); return prev; }, []);
 
   // console.log('Profiles : ', profiles);
 

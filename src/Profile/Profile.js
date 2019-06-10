@@ -6,9 +6,9 @@ const defaultOpts = {
   bio: '',
 };
 
-function isStringInput(args) {
-  return args && args[0].constructor.name === String.name;
-}
+// function isStringInput(args) {
+//   return args && args[0].constructor.name === String.name;
+// }
 
 function isObjectInput(args) {
   return args && args[0].constructor.name === Object.name;

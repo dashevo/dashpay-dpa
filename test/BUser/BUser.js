@@ -1,6 +1,6 @@
 const { expect } = require('chai');
-const BUser = require('../../src/BUser/BUser');
 const { PrivateKey } = require('@dashevo/dashcore-lib');
+const BUser = require('../../src/BUser/BUser');
 
 const expectedBasicBUser = {
   state: 'unknown',

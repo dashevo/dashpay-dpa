@@ -38,7 +38,7 @@ module.exports = async function registerBUser(uname, funding = 10000) {
 
   // We send back to ourself the remaining units that won't be used for funding
   const outputSat = availableSat - requiredSatoshisForFees;
-  const outputsList = [{ address, satoshis: outputSat }];
+  const outputsList = [{ uname, satoshis: outputSat }];
 
   const { privateKey } = this.keyChain.getKeyForPath('m/2/0');
   const transaction = Dashcore.Transaction().from(filteredUtxosList).to(outputsList);
@@ -57,7 +57,7 @@ module.exports = async function registerBUser(uname, funding = 10000) {
     .addFundingOutput(funding);
 
   const privateKeys = this.getPrivateKeys(filteredUtxosList
-    .map(item => item.address))
+    .map(item => item.uname))
     .map(hdpk => hdpk.privateKey);
 
   const signedTransaction = transaction.sign(privateKeys, Dashcore.crypto.Signature.SIGHASH_ALL);

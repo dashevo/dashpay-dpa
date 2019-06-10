@@ -14,8 +14,9 @@ module.exports = function toJSON() {
         'data',
         'from_mempool',
       ].includes(a)) {
-        return a;
+        return true;
       }
+      return false;
     })
     .reduce((a, b) => {
       // eslint-disable-next-line no-param-reassign

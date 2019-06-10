@@ -64,16 +64,6 @@ class BUser {
     this.state = json.state;
     this.subtx = json.subtx;
   }
-
-  synchronize() {
-    if (this.username) {
-
-    } else if (this.regtxid) {
-
-    } else {
-      throw new Error('Cannot synchronize, missing a Username or RegTxId');
-    }
-  }
 }
 
 BUser.prototype.getSigningPrivateKey = getSigningPrivateKey;

@@ -4,6 +4,8 @@ const Profile = require('../Profile/Profile.js');
  * Profile needs some function from Wallet-lib, theses are passed to ProfileFacade via `this.parent`
  * We can use that to overwrite our Profile method.
  */
+
+/* eslint-disable no-param-reassign */
 const overwritedProfile = (self, profile) => {
   profile.getBUserSigningPrivateKey = (...args) => self.parent.getBUserSigningPrivateKey(...args);
   profile.prepareStateTransition = (...args) => self.parent.prepareStateTransition(...args);
@@ -11,8 +13,8 @@ const overwritedProfile = (self, profile) => {
 
   return profile;
 };
+/* eslint-enable no-param-reassign */
 
-/* eslint-disable no-param-reassign */
 class ProfileFacade {
   constructor(transporter, parent) {
     if (transporter) {
