@@ -18,6 +18,4 @@ module.exports = function fromJSON(object) {
   each(object, (val, propName) => {
     handleProperty(propName, val);
   });
-
-
 };

@@ -1,5 +1,6 @@
 const DashPlatformProtocol = require('@dashevo/dpp');
 const DashPaySchema = require('../schema/dashpay.schema.json');
+
 const defaultOpts = {
   avatar: '',
   bio: '',

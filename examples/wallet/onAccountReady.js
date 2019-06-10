@@ -31,7 +31,7 @@ const onAccountReady = async (account) => {
     .replace(/[^a-z]+/g, '')
     .substr(0, 5);
 
-  const expectedBlockchainUsername = 'dashpaydap_example_' + notRandomButGoodEnoughtForUsername;
+  const expectedBlockchainUsername = `dashpaydap_example_${notRandomButGoodEnoughtForUsername}`;
 
   /**
    * Let's first create a BUser with that username as argument
@@ -56,11 +56,11 @@ const onAccountReady = async (account) => {
    */
   await expectedBUser.synchronize();
   console.log('Synchronized BUser', expectedBUser);
-  console.log('Is BUser free to register ? ', expectedBUser.canRegister())
+  console.log('Is BUser free to register ? ', expectedBUser.canRegister());
   /**
    * Good, it's free, let's register it then
    */
-  await expectedBUser
+  await expectedBUser;
   // const
 
   /**

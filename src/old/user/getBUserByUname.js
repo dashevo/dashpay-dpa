@@ -8,7 +8,7 @@ const { is } = require('../utils');
  * @return {Promise<*>} BUser - Blockchain User
  */
 module.exports = async function getBUserByUname(username) {
-  if (!username) throw new Error(`Missing Username parameter`);
+  if (!username) throw new Error('Missing Username parameter');
   if (is.userid(username)) throw new Error('Invalid Username provided. Are you looking for getBUserByUID ?');
   try {
     const buser = await this.transport.transport.getUserByName(username);

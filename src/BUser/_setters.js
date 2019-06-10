@@ -34,7 +34,7 @@ const setters = {
   },
   setSynchronizedLast(synclast) {
     this.synchronizedLast = synclast;
-  }
+  },
 };
 // Aliases
 // Aliases

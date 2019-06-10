@@ -43,7 +43,6 @@ describe('DashPay DAP - BUser', () => {
     expect(buser.synchronizedLast)
       .to
       .equal(expectedBasicBUser.synchronizedLast);
-
   });
   it('should export to JSON and be valid', () => {
     const buser = new BUser(expectedBasicBUser);

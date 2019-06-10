@@ -11,7 +11,7 @@ module.exports = async function synchronize() {
     this.fromJSON(buserFromNetwork);
     // Small special handling for from_mempool that doesn't get returned if false.
     const fromMempoolPropDisapeared = this.from_mempool && !buserFromNetwork.from_mempool;
-    if(fromMempoolPropDisapeared){
+    if (fromMempoolPropDisapeared) {
       this.from_mempool = false;
       delete this.from_mempool;
     }

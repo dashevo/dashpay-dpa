@@ -22,4 +22,4 @@ module.exports = function toJSON() {
       a[b] = this[b];
       return a;
     }, {});
-}
+};

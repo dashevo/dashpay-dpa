@@ -25,7 +25,6 @@ class ProfileFacade {
     const buser = overwritedProfile(this, new Profile(args));
     return buser;
   }
-
 }
 
 module.exports = ProfileFacade;

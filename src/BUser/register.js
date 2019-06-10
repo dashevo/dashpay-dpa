@@ -28,7 +28,7 @@ async function launchMempoolIntervalChecker() {
       await launchMinedIntervalChecker.call(self);
     }
   }, 1 * 1000);
-};
+}
 module.exports = async function register(funding = 10000) {
   const canRegister = this.canRegister();
   if (!canRegister) return canRegister;
