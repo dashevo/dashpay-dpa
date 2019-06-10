@@ -6,7 +6,8 @@ module.exports = function prepareStateTransition(object, buser, privKey) {
   // console.log(privKey);
 
   const creditFeeSet = 1000;
-  const { dpp } = this;
+  const { dpp } = buser;
+  console.log(object);
   const stPacket = dpp.packet.create([object]);
 
   const transaction = new Transaction()
@@ -17,8 +18,8 @@ module.exports = function prepareStateTransition(object, buser, privKey) {
     : Array.from(buser.subtx)
       .pop();
 
-  // console.log(buser.regtxid);
-  // console.log(hashPrevSubTx);
+  console.log(buser.regtxid);
+  console.log(hashPrevSubTx);
   // console.log(stPacket.hash());
   // console.log(creditFeeSet);
   // console.log(privKey);

@@ -41,16 +41,16 @@ class Profile {
     if (!this.buser) throw new Error('Require to first attach a buser to profile');
     if (this.buser.state !== 'open') throw new Error('Expected state to be open. Are you sync ?');
     if (!this.buser.isOwned) throw new Error('Expected BUser to be owned. Did you try `own(privKey`) ?');
-    if (!this.dpp) {
+    if (!this.buser.dpp) {
       throw new Error('Missing dpp - Did you attach to a buser ?');
     }
     // We prepare our object
-    const profile = this.dpp.document.create('profile', {
+    const profile = this.buser.dpp.document.create('profile', {
       avatarUrl: this.avatar,
       about: this.bio,
     });
 
-    console.log('Validating profile contract', this.dpp.document.validate(profile)
+    console.log('Validating profile contract', this.buser.dpp.document.validate(profile)
       .isValid());
     const {
       serializedTransaction,
@@ -69,11 +69,11 @@ class Profile {
   attachBUser(buser) {
     this.buser = buser;
 
-    this.dpp = new DashPlatformProtocol();
-    const contract = getValidContract(this.dpp, 'dashpaydap', Object.assign({}, DashPaySchema));
-    this.dpp.setContract(contract);
+    this.buser.dpp = new DashPlatformProtocol();
+    const contract = getValidContract(this.buser.dpp, 'dashpaydap', Object.assign({}, DashPaySchema));
+    this.buser.dpp.setContract(contract);
 
-    this.dpp.setUserId(this.buser.regtxid);
+    this.buser.dpp.setUserId(this.buser.regtxid);
   }
 }
 
