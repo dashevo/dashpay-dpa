@@ -22,14 +22,15 @@ const dashpayDap = new DashpayDap({
 const startWallet = async () => {
   const wallet = new Wallet({
     // mnemonic: 'box machine exotic aerobic empty delay cruise salute stand slam truth airport',
-    mnemonic: 'seat indoor shoe senior funny eye million trap mention van slab few',
+    // mnemonic: 'seat indoor shoe senior funny eye million trap mention van slab few',
+    mnemonic: 'slim inch mixed alert canyon square spatial metal vintage jazz satisfy cheap',
     transport,
     // offlineMode: true,
     allowSensitiveOperations: true,
     plugins: [dashpayDap],
   });
 
-  const account = wallet.getAccount({ index: 3 });
+  const account = wallet.getAccount({ index: 0 });
   account.events.on(EVENTS.GENERATED_ADDRESS, () => { console.log('GENERATED_ADDRESS'); });
   account.events.on(EVENTS.BALANCE_CHANGED, (info) => { console.log('Balance Changed', info, info.delta); });
   account.events.on(EVENTS.UNCONFIRMED_BALANCE_CHANGED, (info) => { console.log('UNCONFIRMED_BALANCE_CHANGED', info); });

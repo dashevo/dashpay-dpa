@@ -1,7 +1,7 @@
 module.exports = async function verifyBUserRequisites(dpp) {
   const { username } = dpp;
   console.log('Verifying BUser requisites');
-  // We check again buser ourself, in case one would have registered recently.
+  // We check again BUser ourself, in case one would have registered recently.
   let buser;
   try {
     buser = await dpp.getBUserByUname(username);

@@ -1,35 +1,29 @@
 const { plugins } = require('@dashevo/wallet-lib');
 const DashPlatformProtocol = require('@dashevo/dpp');
 const DashPaySchema = require('./schema/dashpay.schema.json');
+const BUserFacade = require('./BUserFacade/BUserFacade');
 
-const broadcastTransition = require('./broadcastTransition');
+function getValidContract(dpp, dapName, dapSchema) {
+  const contract = dpp.contract.create(dapName, dapSchema);
 
-const isSchemaRegistered = require('./schema/isSchemaRegistered');
-const registerSchema = require('./schema/registerSchema');
+  if (!dpp.contract.validate(contract)
+    .isValid()) {
+    throw new Error('Invalid DashPayDPA contract');
+  }
+  return contract;
+}
 
-const isProfileRegistered = require('./profile/isProfileRegistered');
-const registerProfile = require('./profile/registerProfile.js');
-const searchProfile = require('./profile/searchProfile.js');
-
-
-const sendContactRequest = require('./contact/sendContactRequest');
-const getPendingContactRequests = require('./contact/getPendingContactRequests');
-const getDeniedContactRequests = require('./contact/getDeniedContactRequests');
-const getDeletedContactRequests = require('./contact/getDeletedContactRequests');
-const acceptContactRequest = require('./contact/acceptContactRequest');
-const deleteContactRequest = require('./contact/deleteContactRequest');
-const denyContactRequest = require('./contact/denyContactRequest');
-const getContacts = require('./contact/getContacts');
-
-const registerBUser = require('./user/registerBUser.js');
-const getBUserPreviousStId = require('./user/getBUserPreviousStId.js');
-const getBUserByUname = require('./user/getBUserByUname.js');
-const getBUserByUID = require('./user/getBUserByUID.js');
-const searchBUsers = require('./user/searchBUsers.js');
-const getBUserRegistrationId = require('./user/getBUserRegistrationId.js');
-const topUpBUser = require('./user/topUpBUser.js');
-
-const prepareStateTransition = require('./prepareStateTransition');
+const setFacades = function (transporter) {
+  this.buser = new BUserFacade(transporter, this);
+};
+const setDapSchema = function () {
+  this.dapSchema = Object.assign({}, DashPaySchema);
+};
+const setDapContract = function () {
+  this.dapName = 'dashpaydap';
+  this.dapContract = getValidContract(this.dpp, this.dapName, this.dapSchema);
+  this.dpp.setContract(this.dapContract);
+};
 
 class DashPayDAP extends plugins.DAP {
   constructor() {
@@ -44,56 +38,48 @@ class DashPayDAP extends plugins.DAP {
         'keyChain',
         'getPrivateKeys',
         'transport',
+        'offlineMode',
       ],
-    });
-    Object.assign(DashPayDAP.prototype, {
-      broadcastTransition,
-      registerProfile,
-      registerBUser,
-      registerSchema,
-      isSchemaRegistered,
-      isProfileRegistered,
-      getBUserByUID,
-      searchBUsers,
-      acceptContactRequest,
-      denyContactRequest,
-      getDeniedContactRequests,
-      getDeletedContactRequests,
-      getBUserRegistrationId,
-      deleteContactRequest,
-      getBUserPreviousStId,
-      searchProfile,
-      getBUserByUname,
-      sendContactRequest,
-      prepareStateTransition,
-      getPendingContactRequests,
-      topUpBUser,
-      getContacts,
     });
 
     this.dpp = new DashPlatformProtocol();
-    this.dapSchema = Object.assign({}, DashPaySchema);
+    this.offlineMode = false;
+
+    setDapSchema.call(this);
+    setDapContract.call(this);
   }
 
-  // Method started after wallet-lib injection
-  // It's here that we can access to dependencies.
+  getBUserSigningPrivateKey() {
+    // FIXME : This should ideally be a method in keychain itself :
+    // this.keyChain.getFeatureHardenedPath();
+    const cointype = 1;
+    const hardenedFeatureKey = this.keyChain.HDPrivateKey
+      .deriveChild('m', true)
+      .deriveChild(44, true)
+      .deriveChild(cointype);
+
+    // Full path on testnet will be : m/44'/1'/5/0/0
+
+    return hardenedFeatureKey
+      .deriveChild(5)
+      .deriveChild(0)
+      .deriveChild(0)
+      .privateKey
+      .toString();
+  }
+
   async onInjected() {
-    await this.setContract();
-  }
+    // Method started after wallet-lib injection
+    // It's here that we can access to dependencies.
 
-  async setContract() {
-    const contractName = 'dashpaydap';
-    this.dapContract = await this.dpp.contract.create(contractName, this.dapSchema);
-    // this.dapContract = await this.transport.transport.fetchContract(
-    //   '5dGE2WKGTmon9waLrakPLuVApNQmhfT2dStL7Po3tWV5',
-    // );
-
-    if (!this.dpp.contract.validate(this.dapContract)
-      .isValid()) {
-      throw new Error('Invalid DashPayDPA contract');
+    // We will need to set our current transporter to the facade
+    // Private calling due to avoid any access to setFacades later on.
+    if (this.offlineMode) {
+      console.info('DashpayDap : Offline mode active, no transporter available');
+      this.offlineMode = true;
     }
-    this.dpp.setContract(this.dapContract);
+    setFacades.call(this, this.transport.transport);
   }
-  }
+}
 
 module.exports = DashPayDAP;
