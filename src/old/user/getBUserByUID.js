@@ -5,7 +5,7 @@ const { is } = require('../utils');
 /**
  * Will get the Blockchain User corresponding to the userid
  * @param userId - the requested userID (or regId)
- * @return {Promise<*>} buser - Blockchain User
+ * @return {Promise<*>} BUser - Blockchain User
  */
 module.exports = async function getBUserByUID(userId) {
   if (!userId) throw new Error('Missing userID.');

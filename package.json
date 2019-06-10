@@ -22,17 +22,17 @@
   },
   "homepage": "https://github.com/dashevo/dashpay-dap/#readme",
   "dependencies": {
-    "@dashevo/dashcore-lib": "^0.16.9",
+    "@dashevo/dashcore-lib": "^0.17.4",
     "@dashevo/dapi-client": "github:dashevo/dapi-client#v0.5.0",
     "@dashevo/wallet-lib": "github:dashevo/wallet-lib#feat/porto",
     "@dashevo/dpp": "^0.7.1",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^4.19.1",
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.3",
-    "mocha": "^5.2.0"
+    "mocha": "^6.1.4"
   }
 }

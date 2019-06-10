@@ -5,7 +5,7 @@ const { is } = require('../utils');
 /**
  * Will get the Blockchain User corresponding to the requested username
  * @param username - the requested username
- * @return {Promise<*>} buser - Blockchain User
+ * @return {Promise<*>} BUser - Blockchain User
  */
 module.exports = async function getBUserByUname(username) {
   if (!username) throw new Error(`Missing Username parameter`);

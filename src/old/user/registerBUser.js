@@ -9,10 +9,8 @@ const { convertPrivateKeyToPubKeyId } = Dashcore.Transaction.Payload.SubTxRegist
 * @return {user} - user object
 */
 module.exports = async function registerBUser(uname, funding = 10000) {
-  const { address } = this.getUnusedAddress();
-  const balance = await this.getBalance();
 
-  if (balance === 0) throw new Error('Insufficient funds');
+
 
   // Utxos are returned sorted
   const utxos = await this.getUTXOS();

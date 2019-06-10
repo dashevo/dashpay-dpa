@@ -13,8 +13,8 @@ module.exports = async function verifyProfileRequisites(dpp, props) {
     // const regTxPrivKey = dpp.getBUserPrivateKey().toString('hex');
     // const regTxPubAddr = dpp.getBUserPrivateKey().publicKey.toAddress()
 
-    // const regTxId = await dpp.buser.regtxid;
-    // const prevStId = await dpp.getBUserPreviousStId(dpp.buser.regtxid);
+    // const regTxId = await dpp.BUser.regtxid;
+    // const prevStId = await dpp.getBUserPreviousStId(dpp.BUser.regtxid);
     // console.log('Using', regTxId, regTxPrivKey);
     // console.log('User last stId', prevStId);
     // const register = await dpp.registerSchema(regTxId, regTxPrivKey, prevStId);
