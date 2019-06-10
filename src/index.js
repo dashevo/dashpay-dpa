@@ -2,6 +2,7 @@ const { plugins } = require('@dashevo/wallet-lib');
 const DashPlatformProtocol = require('@dashevo/dpp');
 const DashPaySchema = require('./schema/dashpay.schema.json');
 const BUserFacade = require('./BUserFacade/BUserFacade');
+const ProfileFacade = require('./ProfileFacade/ProfileFacade');
 
 function getValidContract(dpp, dapName, dapSchema) {
   const contract = dpp.contract.create(dapName, dapSchema);
@@ -15,6 +16,7 @@ function getValidContract(dpp, dapName, dapSchema) {
 
 const setFacades = function (transporter) {
   this.buser = new BUserFacade(transporter, this);
+  this.profile = new ProfileFacade(transporter, this);
 };
 const setDapSchema = function () {
   this.dapSchema = Object.assign({}, DashPaySchema);
@@ -81,5 +83,8 @@ class DashPayDAP extends plugins.DAP {
     setFacades.call(this, this.transport.transport);
   }
 }
+
+DashPayDAP.prototype.broadcastTransition = require('./broadcastTransition');
+DashPayDAP.prototype.prepareStateTransition = require('./prepareStateTransition');
 
 module.exports = DashPayDAP;

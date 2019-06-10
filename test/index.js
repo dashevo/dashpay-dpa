@@ -193,4 +193,20 @@ describe('DashPay DAP', function suite() {
     //     return checkForMined(availableBUser);
     //   });
     // });
+    it('should be able to really register a profile', async () => {
+      const dpd = account.getDAP('dashpaydap');
+      // const availableBUser = dpd.buser.create(availableUsername);
+      const buser = dpd.buser.create(takenUsername);
+      buser.own(takenUserPrivateKey);
+      const profile = dpd.profile.create({
+        avatar: 'https://api.adorable.io/avatars/285/dashpaydap@adorable.png',
+        bio: 'Something that describe myself',
+      });
+      await buser.synchronize();
+      profile.attachBUser(buser);
+
+      await profile.register();
+      console.log(profile);
+    });
   });
+});
