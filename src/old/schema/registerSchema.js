@@ -1,6 +1,6 @@
 const Dashcore = require('@dashevo/dashcore-lib');
 
-module.exports = async function registerSchema() {
+module.exports = async function registerSchema(buser, signingKey) {
   const creditFeeSet = 1000;
 
   const { dapContract, dpp } = this;
@@ -10,16 +10,16 @@ module.exports = async function registerSchema() {
   const transaction = new Dashcore.Transaction()
     .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
 
-  const hashPrevSubTx = (this.buser.subtx.length === 0)
+  const hashPrevSubTx = (buser.subtx.length === 0)
     ? this.buser.regtxid
-    : Array.from(this.buser.subtx).pop();
+    : Array.from(buser.subtx).pop();
 
   const payload = transaction.extraPayload
-    .setRegTxId(this.buser.regtxid)
+    .setRegTxId(buser.regtxid)
     .setHashPrevSubTx(hashPrevSubTx)
     .setHashSTPacket(stPacket.hash())
     .setCreditFee(creditFeeSet)
-    .sign(this.getBUserPrivateKey().toString('hex'));
+    .sign(signingKey.getBUserPrivateKey().toString('hex'));
 
   // Attach payload to transaction object
   transaction
@@ -30,7 +30,7 @@ module.exports = async function registerSchema() {
   transaction
     .setExtraPayload(payload);
 
-  const signedTransaction = transaction.sign(this.getBUserPrivateKey());
+  const signedTransaction = transaction.sign(signingKey);
 
   const txid = await this.broadcastTransition(
     signedTransaction.serialize(),
