@@ -99,7 +99,6 @@ module.exports = async function register(funding = 10000) {
   const signedTransaction = transaction.sign(privateKeys, Dashcore.crypto.Signature.SIGHASH_ALL);
 
   try {
-    console.log('Signed', signedTransaction);
     const regtxid = await this.broadcastTransaction(signedTransaction.toString());
     console.log('Broadcasted! RegTxId :', regtxid);
     const pubkeyid = convertPrivateKeyToPubKeyId(privateKey)
