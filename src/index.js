@@ -42,6 +42,7 @@ class DashPayDAP extends plugins.DAP {
         'transport',
         'offlineMode',
       ],
+      schema: DashPaySchema,
     });
 
     this.dpp = new DashPlatformProtocol();
