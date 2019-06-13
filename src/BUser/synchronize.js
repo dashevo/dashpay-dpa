@@ -9,6 +9,10 @@ module.exports = async function synchronize() {
   try {
     const buserFromNetwork = await this.get(this.username);
     this.fromJSON(buserFromNetwork);
+    if (this.regtxid) {
+      // As soon as we got our regtxid, we can already register our contract and set it's userid.
+      this.setDPP();
+    }
     // Small special handling for from_mempool that doesn't get returned if false.
     const fromMempoolPropDisapeared = this.from_mempool && !buserFromNetwork.from_mempool;
     if (fromMempoolPropDisapeared) {

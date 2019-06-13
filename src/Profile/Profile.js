@@ -1,6 +1,3 @@
-const DashPlatformProtocol = require('@dashevo/dpp');
-const DashPaySchema = require('../schema/dashpay.schema.json');
-
 const defaultOpts = {
   avatar: '',
   bio: '',
@@ -14,15 +11,6 @@ function isObjectInput(args) {
   return args && args[0].constructor.name === Object.name;
 }
 
-function getValidContract(dpp, dapName, dapSchema) {
-  const contract = dpp.contract.create(dapName, dapSchema);
-
-  if (!dpp.contract.validate(contract)
-    .isValid()) {
-    throw new Error('Invalid DashPayDPA contract');
-  }
-  return contract;
-}
 
 class Profile {
   constructor(...args) {
@@ -56,7 +44,8 @@ class Profile {
     const {
       serializedTransaction,
       serializedPacket,
-    } = this.prepareStateTransition(profile, this.buser, this.getBUserSigningPrivateKey());
+    } = this.prepareStateTransition(profile, this.buser, this.getBUserSigningPrivateKey(), this);
+
 
     const txid = await this.broadcastTransition(
       serializedTransaction, serializedPacket,
@@ -67,14 +56,12 @@ class Profile {
     return txid;
   }
 
-  attachBUser(buser) {
+  setOwner(buser) {
     this.buser = buser;
-
-    this.buser.dpp = new DashPlatformProtocol();
-    const contract = getValidContract(this.buser.dpp, 'dashpaydap', Object.assign({}, DashPaySchema));
-    this.buser.dpp.setContract(contract);
-
-    this.buser.dpp.setUserId(this.buser.regtxid);
+    if (!this.buser.dpp) {
+      console.error('Missing DPP for this BUser. Creating it.');
+      this.buser.setDPP();
+    }
   }
 }
 

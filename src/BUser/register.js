@@ -1,5 +1,6 @@
 const Dashcore = require('@dashevo/dashcore-lib');
 const { CONSTANTS } = require('@dashevo/wallet-lib');
+
 const STATES = require('./STATES');
 const setters = require('./_setters');
 

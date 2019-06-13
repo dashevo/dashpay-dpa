@@ -24,6 +24,7 @@ const overwritedBuser = (self, buser) => {
   buser.getBUserSigningPrivateKey = (...args) => self.parent.getBUserSigningPrivateKey(...args);
   buser.getPrivateKeys = (...args) => self.parent.getPrivateKeys(...args);
   buser.broadcastTransaction = (...args) => self.parent.broadcastTransaction(...args);
+  buser.transporter = self.parent.transport;
   return buser;
 };
 

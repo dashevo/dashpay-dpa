@@ -1,5 +1,17 @@
+const DashPlatformProtocol = require('@dashevo/dpp');
 const STATES = require('./STATES');
 const BUserAlreadyExistError = require('../errors/BUserAlreadyExistError');
+const DashPaySchema = require('../schema/dashpay.schema.json');
+
+function getValidContract(dpp, dapName, dapSchema) {
+  const contract = dpp.contract.create(dapName, dapSchema);
+
+  if (!dpp.contract.validate(contract)
+    .isValid()) {
+    throw new Error('Invalid DashPayDPA contract');
+  }
+  return contract;
+}
 
 function isStringInput(args) {
   return args && args[0].constructor.name === String.name;
@@ -44,6 +56,13 @@ class BUser {
     // Todo : Either here or on synchronize method, we should actually test if that is a
     // valid key :)
     this.isOwned = true;
+  }
+
+  setDPP() {
+    this.dpp = new DashPlatformProtocol();
+    const contract = getValidContract(this.dpp, 'dashpaydap', Object.assign({}, DashPaySchema));
+    this.dpp.setContract(contract);
+    this.dpp.setUserId(this.regtxid);
   }
 }
 
