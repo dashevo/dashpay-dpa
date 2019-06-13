@@ -26,8 +26,7 @@
     "@dashevo/dashcore-lib": "^0.17.4",
     "@dashevo/dpp": "^0.7.1",
     "@dashevo/wallet-lib": "github:dashevo/wallet-lib#feat/dap-verify",
-    "lodash": "^4.17.11",
-    "nodemon": "^1.19.1"
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "chai": "^4.2.0",

@@ -1,6 +1,6 @@
 const { Transaction } = require('@dashevo/dashcore-lib');
 
-module.exports = function prepareStateTransition(object, buser, privKey, self) {
+module.exports = function prepareStateTransition(object, buser, privKey) {
   const creditFeeSet = 1000;
   const { dpp } = buser;
   const stPacket = dpp.packet.create([object]);

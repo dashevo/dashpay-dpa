@@ -22,13 +22,13 @@ const checkForBroadcasted = async user => new Promise((resolve, reject) => {
     console.log(`Check for broadcast - State ${user.state} - Regtxid ${user.regtxid}`);
     if (user.state === 'broadcasted') {
       clearInterval(int);
-      return resolve(true);
+      resolve(true);
     }
   }, 150);
 
   setTimeout(() => {
     clearInterval(int);
-    return reject(new Error('Failed to broadcast'));
+    reject(new Error('Failed to broadcast'));
   }, 25000);
 });
 
@@ -37,7 +37,7 @@ const checkForMempool = async user => new Promise((resolve, reject) => {
     console.log(`Check for mempool - State ${user.state} - Mempool ${user.from_mempool}`);
     if (user.state === 'open' && user.from_mempool) {
       clearInterval(int);
-      return resolve(true);
+      resolve(true);
     }
   }, 400);
 
@@ -52,7 +52,7 @@ const checkForMined = async user => new Promise((resolve, reject) => {
     console.log(`Check for mined - State ${user.state} - Mempool ${user.from_mempool}`);
     if (user.state === 'open' && !user.from_mempool) {
       clearInterval(int);
-      return resolve(true);
+      resolve(true);
     }
   }, 5000);
 
