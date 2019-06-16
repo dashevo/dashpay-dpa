@@ -27,7 +27,8 @@ module.exports = async function synchronize() {
     if (isBUserNotFound) {
       this.state = STATES.AVAILABLE;
     } else {
-      throw e;
+      console.error(e);
+      // throw e;
     }
   }
   // TODO : Ideally, synchronizing should, if existing, try with passed privateKey

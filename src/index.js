@@ -1,7 +1,10 @@
-const { plugins } = require('@dashevo/wallet-lib');
+// const { plugins } = require('@dashevo/wallet-lib');
+const { plugins } = require('../../dash-wallet-lib');
 const DashPlatformProtocol = require('@dashevo/dpp');
 const DashPaySchema = require('./schema/dashpay.schema.json');
 const BUserFacade = require('./BUserFacade/BUserFacade');
+const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
+const ContactFacade = require('./ContactFacade/ContactFacade');
 const ProfileFacade = require('./ProfileFacade/ProfileFacade');
 
 function getValidContract(dpp, dapName, dapSchema) {
@@ -16,13 +19,16 @@ function getValidContract(dpp, dapName, dapSchema) {
 
 const setFacades = function (transporter) {
   this.buser = new BUserFacade(transporter, this);
+  this.contact = new ContactFacade(transporter, this);
+  this.contactRequest = new ContactRequestFacade(transporter, this);
   this.profile = new ProfileFacade(transporter, this);
 };
 const setDapSchema = function () {
   this.dapSchema = Object.assign({}, DashPaySchema);
 };
 const setDapContract = function () {
-  this.dapName = 'dashpaydap';
+  this.dapName = 'DashPayNativePreDemo1';
+  // this.dapName = 'dashpaydap';
   this.dapContract = getValidContract(this.dpp, this.dapName, this.dapSchema);
   this.dpp.setContract(this.dapContract);
 };
@@ -43,6 +49,7 @@ class DashPayDAP extends plugins.DAP {
         'offlineMode',
       ],
       schema: DashPaySchema,
+      verifyOnInjected: false
     });
 
     this.dpp = new DashPlatformProtocol();

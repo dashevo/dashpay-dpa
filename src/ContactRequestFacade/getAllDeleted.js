@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { each } = require('lodash');
 
 
 // Only the person that has deleted the contact won't see it, the other will
@@ -9,8 +9,7 @@ module.exports = async function getDeletedContactRequests() {
     received: [],
   };
   const contacts = await this.getContacts(true);
-
-  _.each(contacts, (contact, contactName) => {
+  each(contacts, (contact, contactName) => {
     if (contact.status === 'deleted') {
       const isRequester = (contact.requester === this.buser.uname);
       if (isRequester) {

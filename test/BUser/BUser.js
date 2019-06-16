@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const { PrivateKey } = require('@dashevo/dashcore-lib');
 const BUser = require('../../src/BUser/BUser');
+const BUserFacade = require('../../src/BUserFacade/BUserFacade');
 
 const expectedBasicBUser = {
   state: 'unknown',
@@ -8,7 +9,13 @@ const expectedBasicBUser = {
   username: 'unittest_username1',
   synchronizedLast: null,
 };
+let facade;
 describe('DashPay DAP - BUser', () => {
+  before((done) => {
+    // const transport =
+    // facade = new BUserFacade(transport)
+    // done();
+  });
   it('should create an object from a username', () => {
     const buser = new BUser('unittest_username1');
     expect(buser.state)
@@ -57,16 +64,19 @@ describe('DashPay DAP - BUser', () => {
       .deep
       .equal(buser);
   });
-  it('should be able to synchronize', () => {
+  it('should be able to synchronize', async () => {
     const buser = new BUser(expectedBasicBUser);
-    const privateKey = new PrivateKey();
-    buser.own(privateKey);
-    expect(buser.privateKey)
+    let called = 0;
+    const get = () => {
+      called += 1;
+    };
+    buser.get = get;
+
+    await buser.synchronize();
+    expect(called)
       .to
-      .equal(privateKey.toString());
-    expect(buser.isOwned)
-      .to
-      .equal(true);
+      .equal(1);
+
   });
   it('should be able to own', () => {
     const buser = new BUser(expectedBasicBUser);
