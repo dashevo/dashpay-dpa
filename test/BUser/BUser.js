@@ -11,11 +11,11 @@ const expectedBasicBUser = {
 };
 let facade;
 describe('DashPay DAP - BUser', () => {
-  before((done) => {
+  // before((done) => {
     // const transport =
     // facade = new BUserFacade(transport)
     // done();
-  });
+  // });
   it('should create an object from a username', () => {
     const buser = new BUser('unittest_username1');
     expect(buser.state)
