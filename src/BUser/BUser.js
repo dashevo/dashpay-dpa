@@ -20,7 +20,7 @@ class BUser {
     this.state = defaultOpts.state;
     this.isOwned = defaultOpts.isOwned;
     this.synchronizedLast = defaultOpts.synchronizedLast;
-    if (args.length > 0) {
+    if (args.length > 0 && args[0] !== null) {
       if (isStringInput(args)) {
         return this.fromUsername(args[0]);
       }

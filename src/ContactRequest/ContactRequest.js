@@ -25,9 +25,9 @@ class ContactRequest {
       if (args[0].constructor === ContactRequest) {
         this.fromJSON(args[0].toJSON());
       }
-    }
-    if (isObjectInput(args)) {
-      this.fromJSON(args[0]);
+      if (isObjectInput(args)) {
+        this.fromJSON(args[0]);
+      }
     }
   }
 
