@@ -13,6 +13,7 @@ const overwritedProfile = (self, profile) => {
 
   return profile;
 };
+
 /* eslint-enable no-param-reassign */
 
 class ProfileFacade {
@@ -28,7 +29,8 @@ class ProfileFacade {
     return buser;
   }
 
-  get(identifier){
+  get() {
+    if (!this.transporter) throw new Error('Transporter expected to get a profile');
     return null;
   }
 }

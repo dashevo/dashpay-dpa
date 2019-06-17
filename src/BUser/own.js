@@ -4,4 +4,4 @@ module.exports = function own(privateKey) {
   // Todo : Either here or on synchronize method, we should actually test if that is a
   // valid key :)
   this.isOwned = true;
-}
+};

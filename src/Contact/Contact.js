@@ -1,4 +1,6 @@
-const defaultOpts = {};
+const defaultOpts = {
+  publicKey: null,
+};
 
 // function isStringInput(args) {
 //   return args && args[0].constructor.name === String.name;
@@ -11,6 +13,7 @@ function isObjectInput(args) {
 
 class Contact {
   constructor(...args) {
+    this.publicKey = defaultOpts.publicKey;
     if (args) {
       if (args[0].constructor === Contact) {
         this.fromJSON(args[0].toJSON());
@@ -23,11 +26,15 @@ class Contact {
 
   fromJSON(json) {
     const obj = (json.constructor === String) ? JSON.parse(json) : json;
+    if (obj.publicKey) this.publicKey = obj.publicKey;
+    return this;
   }
 
   toJSON() {
-    const {} = this;
-    const json = JSON.stringify({});
+    const { publicKey } = this;
+    const json = JSON.stringify({
+      publicKey,
+    });
     return json;
   }
 }

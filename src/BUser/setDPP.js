@@ -15,4 +15,4 @@ module.exports = function setDPP() {
   const contract = getValidContract(this.dpp, 'DashPayNativePreDemo1', Object.assign({}, DashPaySchema));
   this.dpp.setContract(contract);
   this.dpp.setUserId(this.regtxid);
-}
+};

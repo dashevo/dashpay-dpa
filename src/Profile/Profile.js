@@ -42,8 +42,6 @@ class Profile {
   }
 
 
-
-
   setOwner(buser) {
     this.buser = buser;
     if (!this.buser.dpp) {

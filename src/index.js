@@ -1,6 +1,5 @@
-// const { plugins } = require('@dashevo/wallet-lib');
-const { plugins } = require('../../dash-wallet-lib');
 const DashPlatformProtocol = require('@dashevo/dpp');
+const { plugins } = require('@dashevo/wallet-lib');
 const DashPaySchema = require('./schema/dashpay.schema.json');
 const BUserFacade = require('./BUserFacade/BUserFacade');
 const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
@@ -49,7 +48,7 @@ class DashPayDAP extends plugins.DAP {
         'offlineMode',
       ],
       schema: DashPaySchema,
-      verifyOnInjected: false
+      verifyOnInjected: false,
     });
 
     this.dpp = new DashPlatformProtocol();

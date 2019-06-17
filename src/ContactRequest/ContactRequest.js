@@ -1,4 +1,10 @@
-const defaultOpts = {};
+const STATES = require('./STATES');
+
+const defaultOpts = {
+  receiver: null,
+  sender: null,
+  state: STATES.UNKNOWN,
+};
 
 // function isStringInput(args) {
 //   return args && args[0].constructor.name === String.name;
@@ -12,6 +18,9 @@ function isObjectInput(args) {
 class ContactRequest {
   // toJson, fromJson as called in constructor cannot be move to individual file
   constructor(...args) {
+    this.receiver = defaultOpts.receiver;
+    this.sender = defaultOpts.sender;
+    this.state = defaultOpts.state;
     if (args) {
       if (args[0].constructor === ContactRequest) {
         this.fromJSON(args[0].toJSON());
@@ -24,11 +33,18 @@ class ContactRequest {
 
   fromJSON(json) {
     const obj = (json.constructor === String) ? JSON.parse(json) : json;
+    if (obj.receiver) this.receiver = obj.receiver;
+    if (obj.sender) this.sender = obj.sender;
+    if (obj.state) this.state = obj.state;
   }
 
   toJSON() {
-    const {} = this;
-    const json = JSON.stringify({});
+    const { receiver, sender, state } = this;
+    const json = JSON.stringify({
+      receiver,
+      sender,
+      state,
+    });
     return json;
   }
 }

@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 const Contact = require('../Contact/Contact.js');
-const { is } = require('../utils');
 
 /**
  * BUser needs some function from Wallet-lib, theses are passed to BUserFacade via `this.parent`

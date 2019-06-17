@@ -1,7 +1,6 @@
 const STATES = require('./STATES');
 
 
-
 function isStringInput(args) {
   return args && args[0].constructor.name === String.name;
 }
@@ -30,8 +29,6 @@ class BUser {
       }
     }
   }
-
-
 }
 
 BUser.prototype.canRegister = require('./canRegister');
