@@ -5,7 +5,7 @@ module.exports = async function getPendingContactRequests() {
     sent: [],
     received: [],
   };
-  const contacts = await this.getContacts(true);
+  const contacts = await this.parent.contact.getAll(true);
 
   each(contacts, (contact, contactName) => {
     if (contact.status === 'requested') {

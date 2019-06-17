@@ -1,6 +1,6 @@
 const { expect } = require('chai');
-// const { Wallet } = require('@dashevo/wallet-lib');
-const { Wallet } = require('../../dash-wallet-lib');
+const { Wallet } = require('@dashevo/wallet-lib');
+// const { Wallet } = require('../../dash-wallet-lib');
 const DashPayDAP = require('../src/index');
 
 const notRandomButGoodEnoughtForUsername = Math.random()
