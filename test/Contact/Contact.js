@@ -5,13 +5,13 @@ const expectedContact = {
 };
 
 describe('DashPay DAP - Contact', () => {
-  it('should create an profile', () => {
+  it('should create a contact', () => {
     const contact = new Contact(expectedContact);
     expect(contact.constructor.name).to.equal(Contact.name);
   });
   it('should export', () => {
-    const profile = new Contact(expectedContact);
-    const json = profile.toJSON();
+    const contact = new Contact(expectedContact);
+    const json = contact.toJSON();
     expect(json)
       .to
       .be
@@ -19,12 +19,12 @@ describe('DashPay DAP - Contact', () => {
       .equal(JSON.stringify(expectedContact));
   });
   it('should clone', () => {
-    const profile1 = new Contact(expectedContact);
-    const profile2 = new Contact(profile1);
-    expect(profile1)
+    const contact1 = new Contact(expectedContact);
+    const contact2 = new Contact(contact1);
+    expect(contact1)
       .to
       .be
       .deep
-      .equal(profile2);
+      .equal(contact2);
   });
 });
