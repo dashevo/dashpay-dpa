@@ -8,7 +8,7 @@ module.exports = async function synchronize() {
   // The `.get` method is injected in BUserFacade.`create` method.
   try {
     const buserFromNetwork = await this.get(this.username);
-    this.fromJSON(buserFromNetwork);
+    this.send(buserFromNetwork);
     if (this.regtxid) {
       // As soon as we got our regtxid, we can already register our contract and set it's userid.
       this.setDPP();

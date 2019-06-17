@@ -10,6 +10,7 @@ function isObjectInput(args) {
 
 
 class ContactRequest {
+  // toJson, fromJson as called in constructor cannot be move to individual file
   constructor(...args) {
     if (args) {
       if (args[0].constructor === ContactRequest) {
@@ -32,5 +33,6 @@ class ContactRequest {
   }
 }
 
+ContactRequest.prototype.send = require('./send');
 
 module.exports = ContactRequest;

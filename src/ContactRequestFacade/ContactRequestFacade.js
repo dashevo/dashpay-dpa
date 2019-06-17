@@ -25,36 +25,13 @@ class ContactRequestFacade {
     const contact = overwritedContact(this, new Contact(args));
     return contact;
   }
-
-  /**
-   * Return all the pending contact request
-   */
-  getAllPending(){
-
-  }
-  getAllDenied(){
-
-  }
-  getAllDeleted(){
-
-  }
-
-  send(){
-
-  }
-
-  deny(contact){
-
-  }
-  delete(contact){
-
-  }
-  accept(contact){
-
-  }
 }
-ContactRequestFacade.prototype.accept = require("./accept");
-ContactRequestFacade.prototype.delete = require("./delete");
-ContactRequestFacade.prototype.deny = require("./deny");
+
+ContactRequestFacade.prototype.getAllDeleted = require('./getAllDeleted');
+ContactRequestFacade.prototype.getAllDenied = require('./getAllDenied');
+ContactRequestFacade.prototype.getAllPending = require('./getAllPending');
+ContactRequestFacade.prototype.accept = require('./accept');
+ContactRequestFacade.prototype.delete = require('./delete');
+ContactRequestFacade.prototype.deny = require('./deny');
 
 module.exports = ContactRequestFacade;
