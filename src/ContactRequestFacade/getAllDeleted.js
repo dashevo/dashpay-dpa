@@ -8,16 +8,16 @@ module.exports = async function getDeletedContactRequests() {
     sent: [],
     received: [],
   };
-  const contacts = await this.getContacts(true);
-  each(contacts, (contact, contactName) => {
-    if (contact.status === 'deleted') {
-      const isRequester = (contact.requester === this.buser.uname);
-      if (isRequester) {
-        const type = (isRequester) ? 'sent' : 'received';
-        result[type].push(contactName);
-      }
-    }
-  });
+  // const contacts = await this.getContacts(true);
+  // each(contacts, (contact, contactName) => {
+  //   if (contact.status === 'deleted') {
+  //     const isRequester = (contact.requester === this.buser.uname);
+  //     if (isRequester) {
+  //       const type = (isRequester) ? 'sent' : 'received';
+  //       result[type].push(contactName);
+  //     }
+  //   }
+  // });
 
   return result;
 };
