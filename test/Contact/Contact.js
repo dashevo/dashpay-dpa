@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const Contact = require('../../src/Contact/Contact');
 
 const expectedContact = {
+  publicKey:null
 };
 
 describe('DashPay DAP - Contact', () => {

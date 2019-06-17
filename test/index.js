@@ -173,7 +173,7 @@ describe('DashPay DAP', function suite() {
     });
     it('should be able to create a new contact request', async () => {
       const dpd = account.getDAP('dashpaydap');
-      const buser = dbd.buser.get(takenUsername);
+      const buser = dpd.buser.get(takenUsername);
       const bobProfile = await dpd.profile.get('bob');
       const contactRequest = dpd.contactRequest.create(bobProfile);
       // contactRequest.send();

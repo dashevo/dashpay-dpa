@@ -21,7 +21,7 @@ class ContactRequest {
     this.receiver = defaultOpts.receiver;
     this.sender = defaultOpts.sender;
     this.state = defaultOpts.state;
-    if (args) {
+    if (args && args[0] !== null) {
       if (args[0].constructor === ContactRequest) {
         this.fromJSON(args[0].toJSON());
       }

@@ -16,7 +16,7 @@ class Profile {
   constructor(...args) {
     this.avatar = defaultOpts.avatar;
     this.bio = defaultOpts.bio;
-    if (args) {
+    if (args && args[0] !== null) {
       if (args[0].constructor === Profile) {
         this.fromJSON(args[0].toJSON());
       }

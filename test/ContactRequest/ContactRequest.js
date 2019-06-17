@@ -2,6 +2,9 @@ const { expect } = require('chai');
 const ContactRequest = require('../../src/ContactRequest/ContactRequest');
 
 const expectedContactRequest = {
+  receiver: null,
+  sender: null,
+  state: 'unknown'
 };
 
 describe('DashPay DAP - ContactRequest', () => {

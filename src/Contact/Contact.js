@@ -14,7 +14,7 @@ function isObjectInput(args) {
 class Contact {
   constructor(...args) {
     this.publicKey = defaultOpts.publicKey;
-    if (args) {
+    if (args && args[0] !== null) {
       if (args[0].constructor === Contact) {
         this.fromJSON(args[0].toJSON());
       }
