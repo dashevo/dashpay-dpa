@@ -161,21 +161,22 @@ describe('DashPay DAP', function suite() {
       // console.log('registered');
       // console.log(buser);
     });
-    it('should do contact', async () => {
+    it('should do contact lists', async () => {
       const dpd = account.getDAP('dashpaydap');
 
       // First we want to get our current contact list
-      const pending = false;
-      const contactList = await dpd.contact.();
-      const contactList = await dpd.contact.getAll();
-      const pendingList = await dpd.contactRequest.getAllPending();
+      // const contactList = await dpd.contact.getAll();
 
-      //But may be we want
-      const contact = await dpd.contact.;
+      // const pending = false;
+      // const pendingList = await dpd.contactRequest.getAllPending();
+
     });
-    it('should do contact', async () => {
+    it('should be able to create a new contact request', async () => {
       const dpd = account.getDAP('dashpaydap');
-      const contact = await dpd.contact.getAll('');
+      const buser = dbd.buser.get(takenUsername);
+      const bobProfile = await dpd.profile.get('bob');
+      const contactRequest = dpd.contactRequest.create(bobProfile);
+      // contactRequest.send();
     });
     // it('should be able to deal with unavailable BUser', async () => {
     // const dpd = account.getDAP('dashpaydap');
