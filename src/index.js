@@ -19,20 +19,22 @@ function getValidContract(dpp, dapName, dapSchema) {
 const setFacades = function (transporter) {
   const {
     broadcastTransition,
+    broadcastTransaction,
     getUnusedAddress,
     getPrivateKeys,
     getBalance,
     getUTXOS,
-    keyChain,
-    getBUserSigningPrivateKey,
   } = this;
+
+  const buserSigningPrivateKey = this.getBUserSigningPrivateKey();
+
   this.buser = new BUserFacade(transporter, {
     broadcastTransition,
+    broadcastTransaction,
     getUnusedAddress,
     getBalance,
     getUTXOS,
-    keyChain,
-    getBUserSigningPrivateKey,
+    getBUserSigningPrivateKey: () => buserSigningPrivateKey,
     getPrivateKeys,
   });
   this.contact = new ContactFacade(transporter, { broadcastTransition });
@@ -70,23 +72,14 @@ class DashPayDAP extends plugins.DAP {
 
     this.dpp = new DashPlatformProtocol();
     this.offlineMode = false;
+    this.hardenedFeaturePath = null;
 
     setDapSchema.call(this);
     setDapContract.call(this);
   }
 
   getBUserSigningPrivateKey() {
-    // FIXME : This should ideally be a method in keychain itself :
-    // this.keyChain.getFeatureHardenedPath();
-    const cointype = 1;
-    const hardenedFeatureKey = this.keyChain.HDPrivateKey
-      .deriveChild('m', true)
-      .deriveChild(44, true)
-      .deriveChild(cointype);
-
-    // Full path on testnet will be : m/44'/1'/5/0/0
-
-    return hardenedFeatureKey
+    return this.hardenedFeaturePath
       .deriveChild(5)
       .deriveChild(0)
       .deriveChild(0)
@@ -104,6 +97,8 @@ class DashPayDAP extends plugins.DAP {
       console.info('DashpayDap : Offline mode active, no transporter available');
       this.offlineMode = true;
     }
+    const hardenedFeaturePath = this.keyChain.getHardenedFeaturePath();
+    this.hardenedFeaturePath = hardenedFeaturePath;
     setFacades.call(this, this.transport.transport);
   }
 }

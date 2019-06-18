@@ -192,7 +192,7 @@ describe('DashPay DAP', function suite() {
       await aliceBUser.synchronize();
       aliceBUser.own(takenAlicePrivateKey);
       await aliceBUser.register();
-      console.log(aliceBUser);
+      // console.log(aliceBUser);
       // await buser.synchronize();
       //
       // const bobBUser = await dpd.buser.create('buser')

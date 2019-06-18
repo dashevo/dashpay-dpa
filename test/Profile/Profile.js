@@ -82,10 +82,10 @@ describe('DashPay DAP - Profile', () => {
     // await buser.synchronize();
     profile.setOwner(buser);
     expect(buser.dpp).to.exist;
-    console.log(profile);
+    // console.log(profile);
 
 
-    console.log(buser);
+    // console.log(buser);
     // await profile.register();
   });
 });

@@ -28,8 +28,6 @@ const overwritedBuser = (self, buser) => {
   buser.getUnusedAddress = (...args) => getUnusedAddress(...args);
   buser.getBalance = (...args) => getBalance(...args);
   buser.getUTXOS = (...args) => getUTXOS(...args);
-  // We should only export the method `getFeatureHardenedPath` which is a todo for now.
-  buser.keyChain = self.importedMethods.keyChain;
   buser.getBUserSigningPrivateKey = (...args) => getBUserSigningPrivateKey(...args);
   buser.getPrivateKeys = (...args) => getPrivateKeys(...args);
   buser.broadcastTransaction = (...args) => broadcastTransaction(...args);

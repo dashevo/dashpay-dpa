@@ -7,7 +7,6 @@ const Profile = require('../Profile/Profile.js');
 
 /* eslint-disable no-param-reassign */
 const overwritedProfile = (self, profile) => {
-  profile.getBUserSigningPrivateKey = (...args) => self.parent.getBUserSigningPrivateKey(...args);
   profile.prepareStateTransition = (...args) => self.parent.prepareStateTransition(...args);
   profile.broadcastTransition = (...args) => self.parent.broadcastTransition(...args);
 
