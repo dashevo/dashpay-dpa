@@ -6,6 +6,10 @@ const expectedProfile = {
   avatar: 'https://api.adorable.io/avatars/285/abott@adorable.png',
   bio: 'Something that describe myself',
 };
+const expectedProfile2 = {
+  avatar: 'https://api.adorable.io/avatars/285/ttoba@adorable.png',
+  bio: 'Something that still describe myself',
+};
 const expectedBUser = {
   state: 'unknown',
   isOwned: false,
@@ -21,6 +25,14 @@ describe('DashPay DAP - Profile', () => {
     expect(profile.bio)
       .to
       .equal(expectedProfile.bio);
+
+    const profile2 = new Profile(expectedProfile2);
+    expect(profile2.avatar)
+      .to
+      .equal(expectedProfile2.avatar);
+    expect(profile2.bio)
+      .to
+      .equal(expectedProfile2.bio);
   });
   it('should export', () => {
     const profile = new Profile(expectedProfile);

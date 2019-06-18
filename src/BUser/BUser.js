@@ -9,7 +9,8 @@ function isObjectInput(args) {
   return args && args[0].constructor.name === Object.name;
 }
 
-const defaultOpts = {
+// eslint-disable-next-line no-underscore-dangle
+const _defaultOpts = {
   state: STATES.UNKNOWN,
   isOwned: false,
   synchronizedLast: null,
@@ -17,10 +18,11 @@ const defaultOpts = {
 
 class BUser {
   constructor(...args) {
+    const defaultOpts = JSON.parse(JSON.stringify(_defaultOpts));
     this.state = defaultOpts.state;
     this.isOwned = defaultOpts.isOwned;
     this.synchronizedLast = defaultOpts.synchronizedLast;
-    if (args.length > 0 && args[0] !== null) {
+    if (args.length > 0 && args[0] !== undefined) {
       if (isStringInput(args)) {
         return this.fromUsername(args[0]);
       }

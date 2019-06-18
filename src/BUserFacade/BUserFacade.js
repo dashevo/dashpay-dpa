@@ -13,27 +13,36 @@ const overwritedBuser = (self, buser) => {
   // We needed an already connected way to retrieve `get` a BUser, which is done by DPD already.
   buser.get = param => self.get(param);
 
+  const {
+    getUnusedAddress,
+    getBalance,
+    getUTXOS,
+    getBUserSigningPrivateKey,
+    getPrivateKeys,
+    broadcastTransaction,
+  } = self.importedMethods;
+
   // This set is used exclusively in register.js
   // We need those due to the manipulation done in registration. Those are already
   // configured / synchronized methods present in Wallet-Lib.
-  buser.getUnusedAddress = (...args) => self.parent.getUnusedAddress(...args);
-  buser.getBalance = (...args) => self.parent.getBalance(...args);
-  buser.getUTXOS = (...args) => self.parent.getUTXOS(...args);
+  buser.getUnusedAddress = (...args) => getUnusedAddress(...args);
+  buser.getBalance = (...args) => getBalance(...args);
+  buser.getUTXOS = (...args) => getUTXOS(...args);
   // We should only export the method `getFeatureHardenedPath` which is a todo for now.
-  buser.keyChain = self.parent.keyChain;
-  buser.getBUserSigningPrivateKey = (...args) => self.parent.getBUserSigningPrivateKey(...args);
-  buser.getPrivateKeys = (...args) => self.parent.getPrivateKeys(...args);
-  buser.broadcastTransaction = (...args) => self.parent.broadcastTransaction(...args);
-  buser.transporter = self.parent.transport;
+  buser.keyChain = self.importedMethods.keyChain;
+  buser.getBUserSigningPrivateKey = (...args) => getBUserSigningPrivateKey(...args);
+  buser.getPrivateKeys = (...args) => getPrivateKeys(...args);
+  buser.broadcastTransaction = (...args) => broadcastTransaction(...args);
+  buser.transporter = self.transporter;
   return buser;
 };
 
 class BUserFacade {
-  constructor(transporter, parent) {
+  constructor(transporter, importedMethods) {
     if (transporter) {
       this.transporter = transporter;
     }
-    this.parent = parent;
+    this.importedMethods = importedMethods;
   }
 
   create(args) {

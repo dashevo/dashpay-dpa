@@ -11,6 +11,12 @@ const notRandomButGoodEnoughtForUsername = Math.random()
 const takenUsername = 'unittest_dashpaydap';
 const takenUserPrivateKey = '182ab1bf10406fa1f235eff48724316ccb2c0fa10b03e43746e2e644b3e3c5bf';
 
+const takenAliceUsername = 'unittest_dashpaydap_alice';
+const takenAlicePrivateKey = '182ab1bf10406fa1f235eff48724316ccb2c0fa10b03e43746e2e644b3e3c5bf';
+
+const takenBobUsername = 'unittest_dashpaydap_bob';
+const takenBobPrivateKey = '182ab1bf10406fa1f235eff48724316ccb2c0fa10b03e43746e2e644b3e3c5bf';
+
 // We will use wallet private key for that user, check below
 const availableUsername = `unittest_dashpaydap_${notRandomButGoodEnoughtForUsername}`;
 
@@ -171,17 +177,40 @@ describe('DashPay DAP', function suite() {
       // const pendingList = await dpd.contactRequest.getAllPending();
 
     });
-    it('should be able to create a new contact request', async () => {
+    it('should match get and create+synchronize', async function () {
       // const dpd = account.getDAP('dashpaydap');
-      // const buser = dpd.buser.get(takenUsername);
+      // const buser = await dpd.buser.get(takenUsername);
+      // await buser.synchronize()
+      //
+      // const buser2 = await dpd.buser.create(takenUsername);
+      // await buser2.synchronize();
+      // expect(buser).to.equal(buser2);
+    });
+    it('should be able to create a new contact request', async () => {
+      const dpd = account.getDAP('dashpaydap');
+      const aliceBUser = await dpd.buser.create(takenAliceUsername);
+      await aliceBUser.synchronize();
+      aliceBUser.own(takenAlicePrivateKey);
+      await aliceBUser.register();
+      console.log(aliceBUser);
+      // await buser.synchronize();
+      //
+      // const bobBUser = await dpd.buser.create('buser')
+      // console.log(buser)
       // const bobProfile = await dpd.profile.get('bob');
       // const contactRequest = dpd.contactRequest.create(bobProfile);
       // contactRequest.send();
     });
     it('should be able to get all pending contact request', async () => {
-      const dpd = account.getDAP('dashpaydap');
-      const pendingRequest = await dpd.contactRequest.getAllPending();
-      console.log(pendingRequest);
+      // const dpd = account.getDAP('dashpaydap');
+      // const pendingRequest = await dpd.contactRequest.getAllPending();
+
+      // const bobContactRequest = dpp.document.create('contact', {
+      //   toUserId: aliceRegTxId,
+      //   publicKey: bobPrivateKey.toPublicKey().toString('hex'),
+      // });
+
+      // console.log(pendingRequest);
     });
     // it('should be able to deal with unavailable BUser', async () => {
     // const dpd = account.getDAP('dashpaydap');

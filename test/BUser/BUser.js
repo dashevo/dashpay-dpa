@@ -18,6 +18,7 @@ describe('DashPay DAP - BUser', () => {
   // });
   it('should create an object from a username', () => {
     const buser = new BUser('unittest_username1');
+    console.log(buser)
     expect(buser.state)
       .to
       .equal(expectedBasicBUser.state);

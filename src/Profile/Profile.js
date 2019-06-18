@@ -1,4 +1,5 @@
-const defaultOpts = {
+// eslint-disable-next-line no-underscore-dangle
+const _defaultOpts = {
   avatar: '',
   bio: '',
 };
@@ -14,9 +15,10 @@ function isObjectInput(args) {
 
 class Profile {
   constructor(...args) {
+    const defaultOpts = JSON.parse(JSON.stringify(_defaultOpts));
     this.avatar = defaultOpts.avatar;
     this.bio = defaultOpts.bio;
-    if (args && args[0] !== null) {
+    if (args && args[0] !== undefined) {
       if (args[0].constructor === Profile) {
         this.fromJSON(args[0].toJSON());
       }

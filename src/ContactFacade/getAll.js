@@ -1,21 +1,24 @@
 const { each } = require('lodash');
 
 module.exports = async function getContacts(displayAll = false) {
-  if (this.buser === null) {
+
+  const contacts = {};
+  return contacts;
+  /**if (this.buser === null) {
     try {
       this.buser = await this.getBUserByUname(this.username);
     } catch (e) {
       throw new Error('BUser not registered. Can\'t get contacts');
     }
   }
-  const contractId = this.parent.dpp.getContract().getId();
-  const dapObjects = await this.transporter.fetchDocuments(contractId, 'contact', {});
+   const contractId = this.parent.dpp.getContract().getId();
+   const dapObjects = await this.transporter.fetchDocuments(contractId, 'contact', {});
 
-  const contacts = {};
+   const contacts = {};
 
-  const { uname } = this.buser;
+   const { uname } = this.buser;
 
-  const ensureContact = (contact) => {
+   const ensureContact = (contact) => {
     const relationUname = (contact.from === uname) ? contact.relation : contact.from;
 
     if (!contacts[relationUname]) {
@@ -24,7 +27,7 @@ module.exports = async function getContacts(displayAll = false) {
       };
     }
   };
-  dapObjects.forEach((contact) => {
+   dapObjects.forEach((contact) => {
     if (contact.relation === uname || contact.from === uname) {
       ensureContact(contact);
       const relationUname = (contact.from === uname) ? contact.relation : contact.from;
@@ -58,5 +61,5 @@ module.exports = async function getContacts(displayAll = false) {
     }
   });
 
-  return contacts;
+   return contacts;**/
 };

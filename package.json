@@ -23,9 +23,9 @@
   "homepage": "https://github.com/dashevo/dashpay-dap/#readme",
   "dependencies": {
     "@dashevo/dapi-client": "github:dashevo/dapi-client#v0.5.0",
-    "@dashevo/dashcore-lib": "^0.17.4",
+    "@dashevo/dashcore-lib": "^0.17.6",
     "@dashevo/dpp": "^0.7.1",
-    "@dashevo/wallet-lib": "github:dashevo/wallet-lib",
+    "@dashevo/wallet-lib": "github:dashevo/wallet-lib#feat/hardened",
     "lodash": "^4.17.11"
   },
   "devDependencies": {

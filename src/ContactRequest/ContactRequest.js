@@ -1,6 +1,7 @@
 const STATES = require('./STATES');
 
-const defaultOpts = {
+// eslint-disable-next-line no-underscore-dangle
+const _defaultOpts = {
   receiver: null,
   sender: null,
   state: STATES.UNKNOWN,
@@ -18,10 +19,12 @@ function isObjectInput(args) {
 class ContactRequest {
   // toJson, fromJson as called in constructor cannot be move to individual file
   constructor(...args) {
+    const defaultOpts = JSON.parse(JSON.stringify(_defaultOpts));
+
     this.receiver = defaultOpts.receiver;
     this.sender = defaultOpts.sender;
     this.state = defaultOpts.state;
-    if (args && args[0] !== null) {
+    if (args && args[0] !== undefined) {
       if (args[0].constructor === ContactRequest) {
         this.fromJSON(args[0].toJSON());
       }

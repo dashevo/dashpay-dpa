@@ -2,8 +2,8 @@ const DashPlatformProtocol = require('@dashevo/dpp');
 const { plugins } = require('@dashevo/wallet-lib');
 const DashPaySchema = require('./schema/dashpay.schema.json');
 const BUserFacade = require('./BUserFacade/BUserFacade');
-const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
 const ContactFacade = require('./ContactFacade/ContactFacade');
+const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
 const ProfileFacade = require('./ProfileFacade/ProfileFacade');
 
 function getValidContract(dpp, dapName, dapSchema) {
@@ -17,10 +17,27 @@ function getValidContract(dpp, dapName, dapSchema) {
 }
 
 const setFacades = function (transporter) {
-  this.buser = new BUserFacade(transporter, this);
-  this.contact = new ContactFacade(transporter, this);
-  this.contactRequest = new ContactRequestFacade(transporter, this);
-  this.profile = new ProfileFacade(transporter, this);
+  const {
+    broadcastTransition,
+    getUnusedAddress,
+    getPrivateKeys,
+    getBalance,
+    getUTXOS,
+    keyChain,
+    getBUserSigningPrivateKey,
+  } = this;
+  this.buser = new BUserFacade(transporter, {
+    broadcastTransition,
+    getUnusedAddress,
+    getBalance,
+    getUTXOS,
+    keyChain,
+    getBUserSigningPrivateKey,
+    getPrivateKeys,
+  });
+  this.contact = new ContactFacade(transporter, { broadcastTransition });
+  this.contactRequest = new ContactRequestFacade(transporter, { broadcastTransition });
+  this.profile = new ProfileFacade(transporter, { broadcastTransition });
 };
 const setDapSchema = function () {
   this.dapSchema = Object.assign({}, DashPaySchema);
