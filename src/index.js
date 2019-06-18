@@ -40,7 +40,8 @@ const setFacades = function (transporter) {
     getPrivateKeys,
   });
   this.contact = new ContactFacade(transporter, { broadcastTransition });
-  this.contactRequest = new ContactRequestFacade(transporter, { broadcastTransition, sendRawTransition, prepareStateTransition });
+  this.contactRequest = new ContactRequestFacade(transporter,
+    { broadcastTransition, sendRawTransition, prepareStateTransition });
   this.profile = new ProfileFacade(transporter, { broadcastTransition });
 };
 const setDapSchema = function () {
@@ -54,7 +55,7 @@ const setDapContract = function () {
 };
 
 class DashPayDAP extends plugins.DAP {
-  constructor() {
+  constructor(opts = {}) {
     super({
       name: 'DashPayDAP',
       dependencies: [
@@ -69,7 +70,7 @@ class DashPayDAP extends plugins.DAP {
         'offlineMode',
       ],
       schema: DashPaySchema,
-      verifyOnInjected: false,
+      verifyOnInjected: (opts.verifyOnInjected) ? opts.verifyOnInjected : false,
     });
 
     this.dpp = new DashPlatformProtocol();

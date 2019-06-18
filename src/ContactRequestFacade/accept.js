@@ -1,7 +1,5 @@
+// eslint-disable-next-line no-unused-vars
 module.exports = async function acceptContactRequest(contactRequest) {
-
-
-
   return null;
   // if (this.buser === null) {
   //   try {
@@ -36,7 +34,8 @@ module.exports = async function acceptContactRequest(contactRequest) {
   // const {
   //   serializedTransaction,
   //   serializedPacket,
-  // } = this.prepareStateTransition(contact, this.buser, this.getBUserPrivateKey().toString('hex'));
+  // } = this.prepareStateTransition(contact, this.buser,
+  // this.getBUserPrivateKey().toString('hex'));
   //
   // const txid = await this.broadcastTransition(
   //   serializedTransaction, serializedPacket,

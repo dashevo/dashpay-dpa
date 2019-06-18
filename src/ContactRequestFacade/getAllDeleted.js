@@ -1,4 +1,4 @@
-const { each } = require('lodash');
+// const { each } = require('lodash');
 
 
 // Only the person that has deleted the contact won't see it, the other will

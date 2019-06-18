@@ -1,10 +1,11 @@
+// eslint-disable-next-line no-unused-vars
 const { each } = require('lodash');
 
+// eslint-disable-next-line no-unused-vars
 module.exports = async function getContacts(displayAll = false) {
-
   const contacts = {};
   return contacts;
-  /**if (this.buser === null) {
+  /** if (this.buser === null) {
     try {
       this.buser = await this.getBUserByUname(this.username);
     } catch (e) {
@@ -61,5 +62,5 @@ module.exports = async function getContacts(displayAll = false) {
     }
   });
 
-   return contacts;**/
+   return contacts;* */
 };

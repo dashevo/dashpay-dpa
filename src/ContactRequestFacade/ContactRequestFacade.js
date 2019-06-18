@@ -9,9 +9,10 @@ const overwritedContact = (self, contactReq) => {
   // this method is used exclusively by the synchronize method.
   // We needed an already connected way to retrieve `get` a BUser, which is done by DPD already.
   contactReq.broadcastTransition = (...args) => self.importedMethods.broadcastTransition(...args);
-  contactReq.broadcastTransaction = self.importedMethods.broadcastTransaction
-  contactReq.sendRawTransition = self.importedMethods.sendRawTransition
-  contactReq.prepareStateTransition = (...args) => self.importedMethods.prepareStateTransition(...args);
+  contactReq.broadcastTransaction = self.importedMethods.broadcastTransaction;
+  contactReq.sendRawTransition = self.importedMethods.sendRawTransition;
+  contactReq.prepareStateTransition = (...args) => self.importedMethods
+    .prepareStateTransition(...args);
   return contactReq;
 };
 
