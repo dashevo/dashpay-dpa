@@ -76,4 +76,7 @@ describe('DashPay DAP - Integration', function suite() {
       expect(deletedRequest).to.exist;
     });
   })
+  after(()=>{
+    wallet.disconnect()
+  })
 });

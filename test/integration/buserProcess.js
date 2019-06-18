@@ -24,46 +24,57 @@ let account;
 
 
 const checkForBroadcasted = async user => new Promise((resolve, reject) => {
-  const int = setInterval(() => {
+  let int = setInterval(() => {
     console.log(`Check for broadcast - State ${user.state} - Regtxid ${user.regtxid}`);
     if (user.state === 'broadcasted') {
       clearInterval(int);
+      int = null;
       resolve(true);
     }
   }, 150);
 
   setTimeout(() => {
     clearInterval(int);
+    int = null;
     reject(new Error('Failed to broadcast'));
   }, 25000);
 });
 
 const checkForMempool = async user => new Promise((resolve, reject) => {
-  const int = setInterval(() => {
+  let timeout;
+  let int = setInterval(() => {
     console.log(`Check for mempool - State ${user.state} - Mempool ${user.from_mempool}`);
     if (user.state === 'open' && user.from_mempool) {
       clearInterval(int);
+      clearTimeout(timeout)
+      int = null;
+
       resolve(true);
     }
   }, 400);
 
-  setTimeout(() => {
+  timeout = setTimeout(() => {
     clearInterval(int);
+    int = null;
     return reject(new Error('Failed to insert in mempool'));
   }, 25000);
 });
 
 const checkForMined = async user => new Promise((resolve, reject) => {
-  const int = setInterval(() => {
+  let timeout;
+  let int = setInterval(() => {
     console.log(`Check for mined - State ${user.state} - Mempool ${user.from_mempool}`);
     if (user.state === 'open' && !user.from_mempool) {
       clearInterval(int);
+      clearTimeout(timeout)
+       int = null;
       resolve(true);
     }
   }, 5000);
 
-  setTimeout(() => {
+  timeout = setTimeout(() => {
     clearInterval(int);
+    int = null;
     return reject(new Error('Failed to mine'));
   }, 200000);
 });
@@ -190,5 +201,8 @@ describe('DashPay DAP - Integration', function suite() {
       await checkForMempool(availableBUser);
       return checkForMined(availableBUser);
     });
+  })
+  after(()=>{
+     wallet.disconnect()
   })
 });

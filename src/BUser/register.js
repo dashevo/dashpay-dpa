@@ -8,27 +8,43 @@ const { convertPrivateKeyToPubKeyId } = Dashcore.Transaction.Payload.SubTxRegist
 
 async function launchMinedIntervalChecker() {
   const self = this;
-  const minedInterval = setInterval(async () => {
+  let timeout;
+  let minedInterval = setInterval(async () => {
     console.log('minedInterval check by sync');
     await self.synchronize();
     if (!self.from_mempool && self.state === STATES.OPEN) {
       clearInterval(minedInterval);
+      clearTimeout(timeout);
+      minedInterval = null;
     }
   }, 10 * 1000);
+  timeout = setTimeout(() => {
+    clearInterval(minedInterval);
+    minedInterval = null;
+  }, 60000);
 }
 
 async function launchMempoolIntervalChecker() {
   const self = this;
-  const mempoolInterval = setInterval(async () => {
+
+  let timeout;
+  let mempoolInterval = setInterval(async () => {
     console.log('Mempool check by sync');
     await self.synchronize();
     if (self.state === STATES.OPEN) {
       clearInterval(mempoolInterval);
+      clearTimeout(timeout);
+      mempoolInterval = null;
       // if(self.from_mempool)
       await launchMinedIntervalChecker.call(self);
     }
   }, 1 * 1000);
+  timeout = setTimeout(() => {
+    clearInterval(mempoolInterval);
+    mempoolInterval = null;
+  }, 20000);
 }
+
 module.exports = async function register(funding = 10000) {
   this.canRegister();
 
