@@ -54,7 +54,7 @@ const setDapContract = function () {
 };
 
 class DashPayDAP extends plugins.DAP {
-  constructor() {
+  constructor(opts = {}) {
     super({
       name: 'DashPayDAP',
       dependencies: [
@@ -69,7 +69,7 @@ class DashPayDAP extends plugins.DAP {
         'offlineMode',
       ],
       schema: DashPaySchema,
-      verifyOnInjected: false,
+      verifyOnInjected: (opts.verifyOnInjected) ? opts.verifyOnInjected : false,
     });
 
     this.dpp = new DashPlatformProtocol();
