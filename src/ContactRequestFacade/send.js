@@ -23,7 +23,7 @@ module.exports = async function sendContactRequest(bUserName) {
     from: this.buser.uname,
   });
 
-  console.log(contact);
+  // console.log(contact);
   const {
     serializedTransaction,
     serializedPacket,

@@ -17,9 +17,10 @@ const overwritedBuser = (self, buser) => {
     getUnusedAddress,
     getBalance,
     getUTXOS,
-    getBUserSigningPrivateKey,
     getPrivateKeys,
     broadcastTransaction,
+    broadcastTransition,
+    getBUserSigningPrivateKey,
   } = self.importedMethods;
 
   // This set is used exclusively in register.js
@@ -31,6 +32,7 @@ const overwritedBuser = (self, buser) => {
   buser.getBUserSigningPrivateKey = (...args) => getBUserSigningPrivateKey(...args);
   buser.getPrivateKeys = (...args) => getPrivateKeys(...args);
   buser.broadcastTransaction = (...args) => broadcastTransaction(...args);
+  buser.broadcastTransition = broadcastTransition;
   buser.transporter = self.transporter;
   return buser;
 };

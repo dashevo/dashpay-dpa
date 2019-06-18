@@ -5,11 +5,14 @@ const ContactRequest = require('../ContactRequest/ContactRequest.js');
  * BUser needs some function from Wallet-lib, theses are passed to BUserFacade via `this.parent`
  * We can use that to overwrite our BUser method.
  */
-const overwritedContact = (self, contact) => {
+const overwritedContact = (self, contactReq) => {
   // this method is used exclusively by the synchronize method.
   // We needed an already connected way to retrieve `get` a BUser, which is done by DPD already.
-  contact.broadcastTransaction = (...args) => self.importedMethods.broadcastTransaction(...args);
-  return contact;
+  contactReq.broadcastTransition = (...args) => self.importedMethods.broadcastTransition(...args);
+  contactReq.broadcastTransaction = self.importedMethods.broadcastTransaction
+  contactReq.sendRawTransition = self.importedMethods.sendRawTransition
+  contactReq.prepareStateTransition = (...args) => self.importedMethods.prepareStateTransition(...args);
+  return contactReq;
 };
 
 class ContactRequestFacade {
@@ -21,8 +24,8 @@ class ContactRequestFacade {
   }
 
   create(args) {
-    const contact = overwritedContact(this, new ContactRequest(args));
-    return contact;
+    const contactReq = overwritedContact(this, new ContactRequest(args));
+    return contactReq;
   }
 }
 

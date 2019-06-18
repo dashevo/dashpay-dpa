@@ -21,6 +21,8 @@ const setFacades = function (transporter) {
     broadcastTransition,
     broadcastTransaction,
     getUnusedAddress,
+    prepareStateTransition,
+    sendRawTransition,
     getPrivateKeys,
     getBalance,
     getUTXOS,
@@ -38,7 +40,7 @@ const setFacades = function (transporter) {
     getPrivateKeys,
   });
   this.contact = new ContactFacade(transporter, { broadcastTransition });
-  this.contactRequest = new ContactRequestFacade(transporter, { broadcastTransition });
+  this.contactRequest = new ContactRequestFacade(transporter, { broadcastTransition, sendRawTransition, prepareStateTransition });
   this.profile = new ProfileFacade(transporter, { broadcastTransition });
 };
 const setDapSchema = function () {

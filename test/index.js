@@ -191,15 +191,13 @@ describe('DashPay DAP', function suite() {
       const aliceBUser = await dpd.buser.create(takenAliceUsername);
       await aliceBUser.synchronize();
       aliceBUser.own(takenAlicePrivateKey);
-      await aliceBUser.register();
-      // console.log(aliceBUser);
-      // await buser.synchronize();
-      //
-      // const bobBUser = await dpd.buser.create('buser')
-      // console.log(buser)
-      // const bobProfile = await dpd.profile.get('bob');
-      // const contactRequest = dpd.contactRequest.create(bobProfile);
-      // contactRequest.send();
+
+      const bobBUser = await dpd.buser.create('buser')
+      await bobBUser.synchronize();
+      bobBUser.own(takenBobPrivateKey);
+
+      const contactRequest = dpd.contactRequest.create({receiver:bobBUser, sender:aliceBUser});
+      console.log('contactreqsend', await contactRequest.send());
     });
     it('should be able to get all pending contact request', async () => {
       // const dpd = account.getDAP('dashpaydap');
