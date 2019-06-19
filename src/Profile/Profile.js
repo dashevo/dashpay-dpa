@@ -53,5 +53,6 @@ class Profile {
   }
 }
 
+Profile.prototype.register = require('./register');
 
 module.exports = Profile;
