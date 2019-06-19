@@ -7,8 +7,9 @@ const Profile = require('../Profile/Profile.js');
 
 /* eslint-disable no-param-reassign */
 const overwritedProfile = (self, profile) => {
-  profile.prepareStateTransition = (...args) => self.parent.prepareStateTransition(...args);
-  profile.broadcastTransition = (...args) => self.parent.broadcastTransition(...args);
+  const { prepareStateTransition, broadcastTransition } = self.importedMethods;
+  profile.prepareStateTransition = (...args) => prepareStateTransition(...args);
+  profile.broadcastTransition = (...args) => broadcastTransition(...args);
 
   return profile;
 };
@@ -16,11 +17,11 @@ const overwritedProfile = (self, profile) => {
 /* eslint-enable no-param-reassign */
 
 class ProfileFacade {
-  constructor(transporter, parent) {
+  constructor(transporter, importedMethods) {
     if (transporter) {
       this.transporter = transporter;
     }
-    this.parent = parent;
+    this.importedMethods = importedMethods;
   }
 
   create(args) {
