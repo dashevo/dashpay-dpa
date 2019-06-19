@@ -34,8 +34,41 @@ const wallet = new Wallet({
 The `allowSensitiveOperations` has to be set at true. As we require an access to
 the keychain in order to sign a RegTx.
 
-Any plugin requiring this boolean to be true, should have extra look and be installed and fixed to a specific version.
+Any plugin requiring this boolean to be true, should have extra look and be installed and fixed to a specific version using the `--save-exact` npm flag.
 Futures updates should then be manual and go through a whole check again.
+
+## Accessing the plugin 
+
+`const dpd = account.getDAP('dashpaydap');`
+
+## BUser
+
+#### Create an BUser instance
+```
+    const buser = dpd.buser.create('myavailableusername');
+```
+
+#### Get a BUser from network
+
+Identifier can either be a username or a regTxId.
+```
+    const buser = dpd.buser.get('dashpayteam');
+```
+
+#### Register a BUser
+
+```
+   buser.own(dpd.getBUserSigningPrivateKey());
+   await availableBUser.synchronize();
+   await availableBUser.register()
+```
+
+## Profile
+
+## Contacts
+
+#### Get all pending requests
+
 
 ## Features
 
