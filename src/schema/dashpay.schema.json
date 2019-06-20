@@ -17,11 +17,15 @@
       },
       "about": {
         "type": "string"
+      },
+      "displayName": {
+        "type": "string"
       }
     },
     "required": [
       "avatarUrl",
-      "about"
+      "about",
+      "string"
     ],
     "additionalProperties": false
   },
