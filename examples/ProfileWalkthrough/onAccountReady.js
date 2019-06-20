@@ -10,28 +10,40 @@ const onAccountReady = async (account) => {
   await buser.synchronize();
   buser.own(dpd.getBUserSigningPrivateKey());
 
-  /**
-   * We will here want to register a new profile,
-   * so let's start with first creating our a profile object
-   */
-  const profileOpts = {
-    avatar: 'https://api.adorable.io/avatars/285/profile@dashevo.png',
-    bio: 'I am a simple walkthrough user',
-  };
-  const profile = dpd.profile.create(profileOpts);
-  console.log('==== Create a new Profile :');
-  console.log({ avatar: profile.avatar, bio: profile.bio });
 
-  /**
-   * We then need to assign our buser to it, as we will need to access the key
-   */
-  profile.setOwner(buser);
+  const id = '95a0046bf74a191668a3ed21bf93eff29a0114d9c179aae1cd24efd0be381964';
+  const getProfile = await dpd.profile.getByUserId(buser.regtxid);
 
-  /**
-   * And we can now register our profile
-   */
-  const profileregid = await profile.register();
+  console.log('==== GET PROFILE FROM ID');
+  console.log(getProfile);
 
-  console.log(profileregid);
+
+  // const profiles =
+
+  // console.log(profiles);
+
+  // /**
+  //  * We will here want to register a new profile,
+  //  * so let's start with first creating our a profile object
+  //  */
+  // const profileOpts = {
+  //   avatar: 'https://api.adorable.io/avatars/285/profile@dashevo.png',
+  //   bio: 'I am a simple walkthrough user',
+  // };
+  // const profile = dpd.profile.create(profileOpts);
+  // console.log('==== Create a new Profile :');
+  // console.log({ avatar: profile.avatar, bio: profile.bio });
+  //
+  // /**
+  //  * We then need to assign our buser to it, as we will need to access the key
+  //  */
+  // profile.setOwner(buser);
+  //
+  // /**
+  //  * And we can now register our profile
+  //  */
+  // // const profileregid = await profile.register();
+  // //
+  // // console.log(profileregid);
 };
 module.exports = onAccountReady;

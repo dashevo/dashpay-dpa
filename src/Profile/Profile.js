@@ -26,6 +26,7 @@ class Profile {
         this.fromJSON(args[0]);
       }
     }
+    this.setDPP();
   }
 
   fromJSON(json) {
@@ -53,6 +54,7 @@ class Profile {
   }
 }
 
+Profile.prototype.setDPP = require('./setDPP');
 Profile.prototype.register = require('./register');
 
 module.exports = Profile;

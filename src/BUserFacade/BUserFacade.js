@@ -52,6 +52,7 @@ class BUserFacade {
 
   async get(identifier) {
     if (!identifier) throw new Error('Expected valid identifier to be either Username or RegTxId');
+    if (!this.transporter) throw new Error('Transporter expected to get a buser');
     if (is.userid(identifier)) return this.getById(identifier);
     return this.getByUsername(identifier);
   }

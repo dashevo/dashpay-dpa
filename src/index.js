@@ -5,6 +5,7 @@ const BUserFacade = require('./BUserFacade/BUserFacade');
 const ContactFacade = require('./ContactFacade/ContactFacade');
 const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
 const ProfileFacade = require('./ProfileFacade/ProfileFacade');
+const { createNewDPP } = require('./utils');
 
 function getValidContract(dpp, dapName, dapSchema) {
   const contract = dpp.contract.create(dapName, dapSchema);
@@ -26,6 +27,7 @@ const setFacades = function (transporter) {
     getPrivateKeys,
     getBalance,
     getUTXOS,
+    dpp,
   } = this;
 
   const buserSigningPrivateKey = this.getBUserSigningPrivateKey();
@@ -44,22 +46,13 @@ const setFacades = function (transporter) {
     {
       broadcastTransition,
       sendRawTransition,
-      prepareStateTransition
+      prepareStateTransition,
     });
-  this.profile = new ProfileFacade(transporter, {
+  this.profile = new ProfileFacade(transporter, dpp, {
     broadcastTransition,
     prepareStateTransition,
-    sendRawTransition
+    sendRawTransition,
   });
-};
-const setDapSchema = function () {
-  this.dapSchema = Object.assign({}, DashPaySchema);
-};
-const setDapContract = function () {
-  this.dapName = 'DashPayNativePreDemo1';
-  // this.dapName = 'dashpaydap';
-  this.dapContract = getValidContract(this.dpp, this.dapName, this.dapSchema);
-  this.dpp.setContract(this.dapContract);
 };
 
 class DashPayDAP extends plugins.DAP {
@@ -81,12 +74,9 @@ class DashPayDAP extends plugins.DAP {
       verifyOnInjected: (opts.verifyOnInjected) ? opts.verifyOnInjected : false,
     });
 
-    this.dpp = new DashPlatformProtocol();
+    this.dpp = createNewDPP();
     this.offlineMode = false;
     this.hardenedFeaturePath = null;
-
-    setDapSchema.call(this);
-    setDapContract.call(this);
   }
 
   getBUserSigningPrivateKey() {

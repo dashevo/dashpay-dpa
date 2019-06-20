@@ -12,6 +12,9 @@ module.exports = async function register() {
     about: this.bio,
   });
 
+  profile.removeMetadata();
+  console.log(profile);
+
   console.log('Validating profile contract', buser.dpp.document.validate(profile)
     .isValid());
   const {
