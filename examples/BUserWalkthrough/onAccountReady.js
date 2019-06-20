@@ -1,8 +1,3 @@
-// const verifyBUserRequisites = require('./verifyBUserRequisites');
-// const verifySchemaRequisites = require('./verifySchemaRequisites');
-// const verifyProfileRequisites = require('./verifyProfileRequisites');
-
-
 const onAccountReady = async (account) => {
   console.log('DashPay DAP - Started');
   /**
@@ -70,8 +65,8 @@ const onAccountReady = async (account) => {
    * Good, it's free, let's register it then
    */
 
-  // const regtxid = await expectedBUser.register();
-
+  // await expectedBUser;
+  // const
 
   /**
    * Is there an existing user with it ?

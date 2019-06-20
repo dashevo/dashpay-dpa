@@ -20,6 +20,8 @@ Relies on :
 - [Features](#features)
 - [API](#api)
 - [Examples](#examples)
+  - [BUser walkthrough](/examples/BUserWalkthrough/)
+  - [Profile walkthrough](/examples/ProfileWalkthrough/)
 - [Credits](#credits)
 - [License](#license)
 
