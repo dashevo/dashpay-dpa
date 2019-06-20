@@ -48,7 +48,8 @@ const setFacades = function (transporter) {
       sendRawTransition,
       prepareStateTransition,
     });
-  this.profile = new ProfileFacade(transporter, dpp, {
+  const buserFacade = this.buser;
+  this.profile = new ProfileFacade(transporter, dpp, buserFacade, {
     broadcastTransition,
     prepareStateTransition,
     sendRawTransition,

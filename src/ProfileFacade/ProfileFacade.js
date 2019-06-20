@@ -28,10 +28,11 @@ const overwritedProfile = (self, profile) => {
 /* eslint-enable no-param-reassign */
 
 class ProfileFacade {
-  constructor(transporter, dpp, importedMethods) {
+  constructor(transporter, dpp, buserFacade, importedMethods) {
     if (transporter) {
       this.transporter = transporter;
     }
+    this.buserFacade = buserFacade;
     this.importedMethods = importedMethods;
     this.dpp = dpp;
   }
@@ -64,20 +65,13 @@ class ProfileFacade {
       if (profileJSON.length === 0) {
         return null;
       }
-      if (profileJSON.length > 1) {
-        return profileJSON.map((el) => {
-          // eslint-disable-next-line no-param-reassign
-          el.avatar = el.avatarUrl;
-          // eslint-disable-next-line no-param-reassign
-          el.bio = el.about;
-          return overwritedProfile(this, new Profile(el));
-        });
-      }
-      profileJSON[0].avatar = profileJSON[0].avatarUrl;
-      // eslint-disable-next-line no-param-reassign
-      profileJSON[0].bio = profileJSON[0].about;
-      const profile = overwritedProfile(this, new Profile(profileJSON[0]));
-      return profile;
+      return profileJSON.map((el) => {
+        // eslint-disable-next-line no-param-reassign
+        el.avatar = el.avatarUrl;
+        // eslint-disable-next-line no-param-reassign
+        el.bio = el.about;
+        return overwritedProfile(this, new Profile(el));
+      });
     } catch (e) {
       throw e;
     }
@@ -87,7 +81,7 @@ class ProfileFacade {
     try {
       if (!this.transporter) throw new Error('Missing transporter or offlineMode active');
 
-      const fetchOpts = { };
+      const fetchOpts = {};
       const contractId = this.dpp.getContract()
         .getId();
       const profilesJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
@@ -106,6 +100,7 @@ class ProfileFacade {
     }
   }
 
+
   /**
    * @private
    */
@@ -119,26 +114,30 @@ class ProfileFacade {
       const fetchOpts = { where: { _id: pid } };
       const contractId = this.dpp.getContract()
         .getId();
-      console.log(fetchOpts);
-      const profileJSON = await this.transporter.fetchDocuments(contractId, 'profile', {});
-      console.log(profileJSON);
-      return null;
-
-      console.log('PROFILEJSON');
-      console.log(profileJSON);
+      const profileJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
       const profile = overwritedProfile(this, new Profile(profileJSON));
       return profile;
     } catch (e) {
-      const isUserNotFoundError = new RegExp('user.*not.*found.*', 'g');
-      if (isUserNotFoundError.test(e.message)) {
-        throw new ProfileNotFoundError(uid);
-      } else {
-        throw e;
-      }
+      throw e;
     }
   }
 
-  getByProfilename(profileName) {
+  async getByBUser(buser) {
+    if (buser && buser.regtxid) {
+      return this.getByUserId(buser.regtxid);
+    }
+    return false;
+  }
+
+  async getByBUsername(busername) {
+    const buser = await this.buserFacade.get(busername);
+    if (buser) {
+      return this.getByBUser(buser);
+    }
+    return false;
+  }
+
+  getByDisplayName(profileName) {
     if (!profileName) throw new Error('Missing profileName parameter');
     return null;
   }
