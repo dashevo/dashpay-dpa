@@ -72,14 +72,35 @@ class ProfileFacade {
           el.bio = el.about;
           return overwritedProfile(this, new Profile(el));
         });
-      } else {
-        profileJSON[0].avatar = profileJSON[0].avatarUrl;
-        // eslint-disable-next-line no-param-reassign
-        profileJSON[0].bio = profileJSON[0].about;
-        const profile = overwritedProfile(this, new Profile(profileJSON[0]));
-        return profile;
       }
+      profileJSON[0].avatar = profileJSON[0].avatarUrl;
+      // eslint-disable-next-line no-param-reassign
+      profileJSON[0].bio = profileJSON[0].about;
+      const profile = overwritedProfile(this, new Profile(profileJSON[0]));
+      return profile;
+    } catch (e) {
+      throw e;
+    }
+  }
 
+  async getAll() {
+    try {
+      if (!this.transporter) throw new Error('Missing transporter or offlineMode active');
+
+      const fetchOpts = { };
+      const contractId = this.dpp.getContract()
+        .getId();
+      const profilesJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
+
+      const profiles = profilesJSON.map((profile) => {
+        // eslint-disable-next-line no-param-reassign
+        profile.bio = profile.about;
+        // eslint-disable-next-line no-param-reassign
+        profile.avatar = profile.avatarUrl;
+        return overwritedProfile(this, new Profile(profile));
+      });
+
+      return profiles;
     } catch (e) {
       throw e;
     }
