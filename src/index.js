@@ -41,8 +41,16 @@ const setFacades = function (transporter) {
   });
   this.contact = new ContactFacade(transporter, { broadcastTransition });
   this.contactRequest = new ContactRequestFacade(transporter,
-    { broadcastTransition, sendRawTransition, prepareStateTransition });
-  this.profile = new ProfileFacade(transporter, { broadcastTransition, prepareStateTransition });
+    {
+      broadcastTransition,
+      sendRawTransition,
+      prepareStateTransition
+    });
+  this.profile = new ProfileFacade(transporter, {
+    broadcastTransition,
+    prepareStateTransition,
+    sendRawTransition
+  });
 };
 const setDapSchema = function () {
   this.dapSchema = Object.assign({}, DashPaySchema);

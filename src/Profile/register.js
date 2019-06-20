@@ -21,7 +21,6 @@ module.exports = async function register() {
     profile,
     buser,
     buser.getBUserSigningPrivateKey(),
-    this,
   );
 
 
