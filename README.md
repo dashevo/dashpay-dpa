@@ -78,6 +78,7 @@ In order to be able to access to method of DashPay DPA. You first need to get th
 
 ## API
 
+- [DashPayDPA](/docs/DashPayDPA.md)
 - [BUser](/docs/BUser.md)
 - [Contact](/docs/Contact.md)
 - [ContactRequest](/docs/ContactRequest.md)
