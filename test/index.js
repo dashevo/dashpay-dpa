@@ -25,7 +25,9 @@ describe('DashPay DAP', function suite() {
   });
   it('should fetch a contract', async ()=>{
   const contract = await account.transport.transport.fetchContract('2TRFRpoGu3BpBKfFDmhbJJdDPzLdW4qbdfebkbeCHwj3');
+  const contract2 = await account.transport.transport.fetchContract('ypb95xVCHUmXNbNtUP83844qoMJcYd8dyn7QcDuiSyi');
   console.log(contract);
+  console.log(contract2);
   })
   it('should get the plugin ', () => {
     const dpd = account.getDAP('dashpaydap');

@@ -11,17 +11,20 @@
       }
     ],
     "properties": {
-      "avatarUrl": {
-        "type": "string",
-        "format": "url"
+      "avatar": {
+        "type": "string"
       },
-      "about": {
+      "bio": {
+        "type": "string"
+      },
+      "displayName": {
         "type": "string"
       }
     },
     "required": [
       "avatarUrl",
-      "about"
+      "about",
+      "displayName"
     ],
     "additionalProperties": false
   },

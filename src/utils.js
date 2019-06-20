@@ -14,7 +14,7 @@ const createNewDPP = () => {
   const dpp = new DashPlatformProtocol();
   const contract = getValidContract(
     dpp,
-    'DashPayNativePreDemo1',
+    'DashPayDPA',
     Object.assign({}, DashPaySchema),
   );
 
