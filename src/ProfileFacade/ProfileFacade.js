@@ -17,6 +17,7 @@ const overwritedProfile = (self, profile) => {
   } = self.importedMethods;
   const { transporter } = self;
 
+  // eslint-disable-next-line max-len
   profile.prepareStateTransition = (...args) => prepareStateTransition.call({ transporter }, ...args);
   profile.broadcastTransition = (...args) => broadcastTransition.call({ transporter }, ...args);
   profile.sendRawTransition = sendRawTransition;
@@ -56,8 +57,6 @@ class ProfileFacade {
     try {
       if (!this.transporter) throw new Error('Missing transporter or offlineMode active');
 
-      console.log(this);
-
       const fetchOpts = { where: { userId: uid } };
       const contractId = this.dpp.getContract()
         .getId();
@@ -65,13 +64,7 @@ class ProfileFacade {
       if (profileJSON.length === 0) {
         return null;
       }
-      return profileJSON.map((el) => {
-        // eslint-disable-next-line no-param-reassign
-        el.avatar = el.avatarUrl;
-        // eslint-disable-next-line no-param-reassign
-        el.bio = el.about;
-        return overwritedProfile(this, new Profile(el));
-      });
+      return profileJSON.map(profile => overwritedProfile(this, new Profile(profile)));
     } catch (e) {
       throw e;
     }
@@ -85,14 +78,8 @@ class ProfileFacade {
       const contractId = this.dpp.getContract()
         .getId();
       const profilesJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
-
-      const profiles = profilesJSON.map((profile) => {
-        // eslint-disable-next-line no-param-reassign
-        profile.bio = profile.about;
-        // eslint-disable-next-line no-param-reassign
-        profile.avatar = profile.avatarUrl;
-        return overwritedProfile(this, new Profile(profile));
-      });
+      const profiles = profilesJSON
+        .map(profile => overwritedProfile(this, new Profile(profile)));
 
       return profiles;
     } catch (e) {
@@ -109,14 +96,20 @@ class ProfileFacade {
     try {
       if (!this.transporter) throw new Error('Missing transporter or offlineMode active');
 
-      console.log(this);
-
       const fetchOpts = { where: { _id: pid } };
       const contractId = this.dpp.getContract()
         .getId();
-      const profileJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
-      const profile = overwritedProfile(this, new Profile(profileJSON));
-      return profile;
+      const profilesJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
+
+      const profiles = profilesJSON.map((profile) => {
+        // eslint-disable-next-line no-param-reassign
+        profile.bio = profile.about;
+        // eslint-disable-next-line no-param-reassign
+        profile.avatar = profile.avatarUrl;
+        return overwritedProfile(this, new Profile(profile));
+      });
+
+      return profiles;
     } catch (e) {
       throw e;
     }

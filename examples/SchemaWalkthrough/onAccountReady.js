@@ -3,22 +3,30 @@ const onAccountReady = async (account) => {
   const dpd = account.getDAP('dashpaydap');
 
   /**
-   * This will walkthrough the registration of our schema.
-   * First we need a owner.
+   * We first look up to see if a schema exist
    */
-
-  const buser = dpd.buser.create('dashpaydpa_schema_owner');
-  await buser.synchronize();
-  buser.own(dpd.getBUserSigningPrivateKey());
-  // const txid = (await dpd.register(buser));
-  //txid : a6c14cffd0ec539d77a4cb118cae3f070086a84ef9be040e4a3ff0ddf5377491';
-
   const contractId = dpd.dpp.getContract().getId();
-  console.log(contractId)
-  /**
-   * Let's check the id
-   *
-   */
-  console.log(await dpd.transport.transport.fetchContract(contractId));
+  try {
+    const contract = await dpd.transport.transport.fetchContract(contractId);
+    console.log(contract);
+  } catch (e) {
+    /**
+     * Contract do not exist, let's register it
+     */
+
+    /**
+     * This will walkthrough the registration of our schema.
+     * First we need a owner.
+     */
+    const buser = dpd.buser.create('dashpaydpa_schema_owner');
+    await buser.synchronize();
+    buser.own(dpd.getBUserSigningPrivateKey());
+
+
+    const contractTxId = (await dpd.register(buser));
+    // txid : 913b76f95aa763c6e5e25a716b5750731407e0955620b4ef9a061141b42f42eb';
+
+    console.log(contractTxId);
+  }
 };
 module.exports = onAccountReady;

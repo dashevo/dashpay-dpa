@@ -2,6 +2,7 @@
 const _defaultOpts = {
   avatar: '',
   bio: '',
+  displayName: '',
 };
 
 // function isStringInput(args) {
@@ -18,6 +19,7 @@ class Profile {
     const defaultOpts = JSON.parse(JSON.stringify(_defaultOpts));
     this.avatar = defaultOpts.avatar;
     this.bio = defaultOpts.bio;
+    this.displayUsername = defaultOpts.displayUsername;
     if (args && args[0] !== undefined) {
       if (args[0].constructor === Profile) {
         this.fromJSON(args[0].toJSON());
@@ -33,13 +35,15 @@ class Profile {
     const obj = (json.constructor === String) ? JSON.parse(json) : json;
     if (obj.avatar) this.avatar = obj.avatar;
     if (obj.bio) this.bio = obj.bio;
+    if (obj.displayName) this.displayName = obj.displayName;
   }
 
   toJSON() {
-    const { avatar, bio } = this;
+    const { avatar, bio, displayName } = this;
     const json = JSON.stringify({
       avatar,
       bio,
+      displayName,
     });
     return json;
   }

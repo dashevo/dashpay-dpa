@@ -8,8 +8,9 @@ module.exports = async function register() {
   }
   // We prepare our object
   const profile = buser.dpp.document.create('profile', {
-    avatarUrl: this.avatar,
-    about: this.bio,
+    avatar: this.avatar,
+    bio: this.bio,
+    displayName: this.displayName,
   });
 
   profile.removeMetadata();
