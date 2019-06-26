@@ -17,7 +17,7 @@ function getValidContract(dpp, dapName, dapSchema) {
   return contract;
 }
 
-const setFacades = function (transporter) {
+function setFacades(transporter) {
   const {
     broadcastTransition,
     broadcastTransaction,
@@ -42,19 +42,19 @@ const setFacades = function (transporter) {
     getPrivateKeys,
   });
   this.contact = new ContactFacade(transporter, { broadcastTransition });
-  this.contactRequest = new ContactRequestFacade(transporter,
-    {
-      broadcastTransition,
-      sendRawTransition,
-      prepareStateTransition,
-    });
+  this.contactRequest = new ContactRequestFacade(transporter, {
+    contact: this.contact,
+    broadcastTransition,
+    sendRawTransition,
+    prepareStateTransition,
+  });
   const buserFacade = this.buser;
   this.profile = new ProfileFacade(transporter, dpp, buserFacade, {
     broadcastTransition,
     prepareStateTransition,
     sendRawTransition,
   });
-};
+}
 
 class DashPayDAP extends plugins.DAP {
   constructor(opts = {}) {

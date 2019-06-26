@@ -21,6 +21,7 @@ class ContactRequestFacade {
     if (transporter) {
       this.transporter = transporter;
     }
+    this.contact = importedMethods.contact;
     this.importedMethods = importedMethods;
   }
 

@@ -155,8 +155,8 @@ const onAccountReady = async (account) => {
   /**
    * Get waiting receivedcontact request
    */
-  // const pendingWaitingReceived = await dpp.getPendingContactRequests();
-  // console.log('Pendign contact requests', pendingWaitingReceived);
+  const pendingWaitingReceived = await dpd.contactRequest.getAllPending();
+  console.log('Pending contact requests', pendingWaitingReceived);
 
 
   /**
