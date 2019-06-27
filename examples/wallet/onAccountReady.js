@@ -123,7 +123,6 @@ const onAccountReady = async (account) => {
   //   {
   //     avatar: 'https://pbs.twimg.com/profile_images/736134012369043456/lCbfoCFb_400x400.jpg',
   //     about: 'still testing',
-  //     displayName: 'Alex Werner7',
   //     bUserName: username,
   //   });
 

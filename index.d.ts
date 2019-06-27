@@ -22,7 +22,7 @@ declare namespace DashPayDAP {
         getBUserPrivateKey(): privateKey;
         getBUserRegistrationId(): string;
         registerBUser(uname: string, funding: number): buser;
-        registerProfile(avatar: string, about: string, displayName: string, props: string): string;
+        registerProfile(avatar: string, about: string, props: string): string;
 
     }
 }

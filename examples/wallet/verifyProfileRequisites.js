@@ -5,7 +5,7 @@ module.exports = async function verifyProfileRequisites(dpp, props) {
   if (!isRegistered) {
     console.log('Profile not registered. Registering..');
     const register = await dpp
-      .registerProfile(props.avatar, props.bio, props.displayName, props.bUserName);
+      .registerProfile(props.avatar, props.about);
     console.log('Register', register);
     // if (register) {
     //   isRegistered = true;

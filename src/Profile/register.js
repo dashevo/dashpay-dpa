@@ -10,10 +10,9 @@ module.exports = async function register() {
   const profile = buser.dpp.document.create('profile', {
     avatarUrl: this.avatarUrl,
     about: this.about,
-    displayName: this.displayName,
   });
 
-  console.log(profile);
+  console.log('DA PROFILE:')
   profile.removeMetadata();
   // delete profile.metadata;
 

@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-underscore-dangle
 const _defaultOpts = {
-  bio: '',
-  avatarUrl: '',
-  displayName: '',
+  about: '',
+  avatarUrl: 'http://api.adorable.io/avatars/285/profile@dashevo.png',
+  $meta: { userId: null },
 };
 
 // function isStringInput(args) {
@@ -17,9 +17,9 @@ function isObjectInput(args) {
 class Profile {
   constructor(...args) {
     const defaultOpts = JSON.parse(JSON.stringify(_defaultOpts));
-    this.bio = defaultOpts.bio;
+    this.about = defaultOpts.about;
     this.avatarUrl = defaultOpts.avatarUrl;
-    this.displayUsername = defaultOpts.displayUsername;
+    this.$meta = defaultOpts.$meta;
     if (args && args[0] !== undefined) {
       if (args[0].constructor === Profile) {
         this.fromJSON(args[0].toJSON());
@@ -33,17 +33,17 @@ class Profile {
 
   fromJSON(json) {
     const obj = (json.constructor === String) ? JSON.parse(json) : json;
-    if (obj.bio) this.about = obj.bio;
-    if (obj.avatarUrl) this.avatar = obj.avatarUrl;
-    if (obj.displayName) this.displayName = obj.displayName;
+    if (obj.about) this.about = obj.about;
+    if (obj.avatarUrl) this.avatarUrl = obj.avatarUrl;
+    if (obj.$meta) this.$meta = obj.$meta;
   }
 
   toJSON() {
-    const { avatarUrl, bio, displayName } = this;
+    const { avatarUrl, about, $meta } = this;
     const json = JSON.stringify({
+      about,
       avatarUrl,
-      bio,
-      displayName,
+      $meta,
     });
     return json;
   }

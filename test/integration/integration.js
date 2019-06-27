@@ -56,7 +56,7 @@ describe('DashPay DAP', function suite() {
   // await takenBuser.synchronize();
   // const profile = dpd.profile.create({
   //   avatar: 'https://api.adorable.io/avatars/285/dashpaydap@adorable.png',
-  //   bio: 'Something that describe myself',
+  //   about: 'Something that describe myself',
   // });
   // await takenBuser.synchronize();
   // profile.setOwner(takenBuser);
