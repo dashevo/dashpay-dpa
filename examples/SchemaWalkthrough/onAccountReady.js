@@ -9,6 +9,7 @@ const onAccountReady = async (account) => {
    * We first look up to see if a schema exist
    */
   const contractId = dpd.dpp.getContract().getId();
+  // const contractId = 'ypb95xVCHUmXNbNtUP83844qoMJcYd8dyn7QcDuiSyi'
   try {
     const contract = await dpd.transport.transport.fetchContract(contractId);
     console.log(contractId, contract);

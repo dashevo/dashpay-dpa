@@ -18,6 +18,7 @@ const onAccountReady = async (account) => {
   const profileOpts = {
     about: 'I am a simple walkthrough user',
     avatarUrl: 'http://api.adorable.io/avatars/285/profile@dashevo.png',
+    displayName: 'Walkthrough User',
   };
   const profile = dpd.profile.create(profileOpts);
   // console.log('==== Create a new Profile :');
@@ -31,11 +32,12 @@ const onAccountReady = async (account) => {
   /**
    * And we can now register our profile
    */
-  // const profileregid = await profile.register();
+  console.log(profile);
+  const profileregid = await profile.register();
   // const profileregid = '3b0b17bc0a0ddba02101687edc7f27cd0e605af4492e10e55e106c0879fc4390..';
   // const profileregid = '1742dda9d60002b9b91083d0c68128d0eefae34937e2af0d9d8116a869de4f24...';
   // const profileregid = '1742dda9d60002b9b91083d0c68128d0eefae34937e2af0d9d8116a869de4f24';
-  // console.log(profileregid);
+  console.log(profileregid);
 
 
   /**
@@ -46,6 +48,7 @@ const onAccountReady = async (account) => {
   // console.log('==== GET PROFILE FROM PID');
   // console.log(getProfileByProfileId);
 
+  return;
   /**
    * We can then perform a search from a BUsername
    */
@@ -55,12 +58,12 @@ const onAccountReady = async (account) => {
   console.log(getProfileByBUsernamme);
   /**
    * We can then perform a search from a DisplayName
-    * TODO : FIXME
+   * TODO : FIXME
    */
 
-  // const getProfileByDisplayname = await dpd.profile.getByDisplayName(profileOpts.displayName);
-  // console.log('==== GET PROFILE FROM DisplayName');
-  // console.log(getProfileByDisplayname);
+    // const getProfileByDisplayname = await dpd.profile.getByDisplayName(profileOpts.displayName);
+    // console.log('==== GET PROFILE FROM DisplayName');
+    // console.log(getProfileByDisplayname);
 
   const getProfileByUID = await dpd.profile.getByUserId(buser.regtxid);
   console.log('==== GET PROFILE FROM UID');

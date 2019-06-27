@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-underscore-dangle
 const _defaultOpts = {
   about: '',
+  displayName: '',
   avatarUrl: 'http://api.adorable.io/avatars/285/profile@dashevo.png',
   $meta: { userId: null },
 };
@@ -19,6 +20,7 @@ class Profile {
     const defaultOpts = JSON.parse(JSON.stringify(_defaultOpts));
     this.about = defaultOpts.about;
     this.avatarUrl = defaultOpts.avatarUrl;
+    this.displayName = defaultOpts.displayName;
     this.$meta = defaultOpts.$meta;
     if (args && args[0] !== undefined) {
       if (args[0].constructor === Profile) {
@@ -35,14 +37,16 @@ class Profile {
     const obj = (json.constructor === String) ? JSON.parse(json) : json;
     if (obj.about) this.about = obj.about;
     if (obj.avatarUrl) this.avatarUrl = obj.avatarUrl;
+    if (obj.displayName) this.displayName = obj.displayName;
     if (obj.$meta) this.$meta = obj.$meta;
   }
 
   toJSON() {
-    const { avatarUrl, about, $meta } = this;
+    const { avatarUrl, about, displayName, $meta } = this;
     const json = JSON.stringify({
       about,
       avatarUrl,
+      displayName,
       $meta,
     });
     return json;
