@@ -13,7 +13,7 @@ module.exports = async function register() {
     displayName: this.displayName,
   });
 
-  console.log('DA PROFILE:')
+  console.log('DA PROFILE:');
   profile.removeMetadata();
   // delete profile.metadata;
 
