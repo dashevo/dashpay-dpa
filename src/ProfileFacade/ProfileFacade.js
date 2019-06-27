@@ -48,7 +48,7 @@ class ProfileFacade {
     if (!this.transporter) throw new Error('Transporter expected to get a profile');
 
     if (is.profileid(identifier)) return this.getById(identifier);
-    return this.getByProfilename(identifier);
+    return this.getByDisplayName(identifier);
   }
 
 
@@ -128,7 +128,7 @@ class ProfileFacade {
 
   getByDisplayName(profileName) {
     if (!profileName) throw new Error('Missing profileName parameter');
-    return null;
+    return new Error('Not implemented');
   }
 }
 

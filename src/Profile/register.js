@@ -12,7 +12,7 @@ module.exports = async function register() {
     about: this.about,
   });
 
-  console.log('DA PROFILE:')
+  console.log('DA PROFILE:');
   profile.removeMetadata();
   // delete profile.metadata;
 
