@@ -5,7 +5,7 @@
 ```
    const profileOpts = {
      avatar: 'https://api.adorable.io/avatars/285/dashpayteam@adorable.png',
-     bio: 'Here is a good place to put some stuff about yourself',
+     about: 'Here is a good place to put some stuff about yourself',
    }
    const profile = dpd.profile.create(profileOpts)
    profile.setOwner(dashPayTeamBUser);

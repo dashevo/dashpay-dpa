@@ -1,12 +1,13 @@
-const { Wallet, EVENTS } = require('@dashevo/wallet-lib');
+const { Wallet, EVENTS } = require('../../../dash-wallet-lib');
 const DAPIClient = require('@dashevo/dapi-client');
 const DashpayDap = require('../../index.js');
 const onAccountReady = require('./onAccountReady');
 
 const seeds = [
-  '18.237.69.61',
-  '18.236.234.255',
-  '34.222.93.218',
+  // '18.237.69.61',
+  // '18.236.234.255',
+  // '34.222.93.218',
+  '18.237.69.61'
 ].map(ip => ({ service: `${ip}:3000` }));
 const transport = new DAPIClient({
   seeds,
@@ -19,6 +20,7 @@ const dashpayDap = new DashpayDap();
 const startWallet = async () => {
   const wallet = new Wallet({
     mnemonic: 'enter immune soap path ship access album exist surface surround erase digital',
+    // mnemonic: 'pistol drama blue timber now reunion carry hand august explain father west',
     transport,
     // offlineMode: true,
     allowSensitiveOperations: true,
@@ -26,6 +28,7 @@ const startWallet = async () => {
   });
   const account = wallet.getAccount({ index: 0 });
   console.log(account.getUnusedAddress());
+  console.log(wallet.exportWallet());
   account.events.on(EVENTS.GENERATED_ADDRESS, () => { console.log('GENERATED_ADDRESS'); });
   account.events.on(EVENTS.BALANCE_CHANGED, (info) => { console.log('Balance Changed', info, info.delta); });
   account.events.on(EVENTS.UNCONFIRMED_BALANCE_CHANGED, (info) => { console.log('UNCONFIRMED_BALANCE_CHANGED', info); });

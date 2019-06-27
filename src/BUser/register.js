@@ -45,7 +45,7 @@ async function launchMempoolIntervalChecker() {
   }, 20000);
 }
 
-module.exports = async function register(funding = 10000) {
+module.exports = async function register(funding = 100000) {
   this.canRegister();
 
   const { address } = this.getUnusedAddress();

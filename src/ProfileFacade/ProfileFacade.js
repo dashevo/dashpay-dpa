@@ -102,10 +102,6 @@ class ProfileFacade {
       const profilesJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
 
       const profiles = profilesJSON.map((profile) => {
-        // eslint-disable-next-line no-param-reassign
-        profile.bio = profile.about;
-        // eslint-disable-next-line no-param-reassign
-        profile.avatar = profile.avatarUrl;
         return overwritedProfile(this, new Profile(profile));
       });
 

@@ -1,36 +1,8 @@
 {
-  "profile": {
-    "indices": [
-      {
-        "properties": [
-          {
-            "$userId": "asc"
-          }
-        ],
-        "unique": true
-      }
-    ],
-    "properties": {
-      "avatar": {
-        "type": "string"
-      },
-      "bio": {
-        "type": "string"
-      },
-      "displayName": {
-        "type": "string"
-      }
-    },
-    "required": [
-      "avatar",
-      "bio",
-      "displayName"
-    ],
-    "additionalProperties": false
-  },
   "contact": {
     "indices": [
       {
+        "unique": true,
         "properties": [
           {
             "$userId": "asc"
@@ -38,9 +10,12 @@
           {
             "toUserId": "asc"
           }
-        ],
-        "unique": true
+        ]
       }
+    ],
+    "required": [
+      "toUserId",
+      "publicKey"
     ],
     "properties": {
       "toUserId": {
@@ -50,10 +25,32 @@
         "type": "string"
       }
     },
-    "required": [
-      "toUserId",
-      "publicKey"
+    "additionalProperties": false
+  },
+  "profile": {
+    "indices": [
+      {
+        "unique": true,
+        "properties": [
+          {
+            "$userId": "asc"
+          }
+        ]
+      }
     ],
+    "required": [
+      "avatarUrl",
+      "about"
+    ],
+    "properties": {
+      "about": {
+        "type": "string"
+      },
+      "avatarUrl": {
+        "type": "string",
+        "format": "url"
+      }
+    },
     "additionalProperties": false
   }
 }

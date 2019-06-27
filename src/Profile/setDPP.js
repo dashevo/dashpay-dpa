@@ -12,6 +12,6 @@ function getValidContract(dpp, dapName, dapSchema) {
 }
 module.exports = function setDPP() {
   this.dpp = new DashPlatformProtocol();
-  const contract = getValidContract(this.dpp, 'DashPayDPA', Object.assign({}, DashPaySchema));
+  const contract = getValidContract(this.dpp, 'DashPayNativePreDemo1', Object.assign({}, DashPaySchema));
   this.dpp.setContract(contract);
 };

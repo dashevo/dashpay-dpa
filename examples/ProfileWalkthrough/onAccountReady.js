@@ -16,13 +16,13 @@ const onAccountReady = async (account) => {
    * so let's start with first creating our a profile object
    */
   const profileOpts = {
-    avatar: 'https://api.adorable.io/avatars/285/profile@dashevo.png',
-    bio: 'I am a simple walkthrough user',
+    about: 'I am a simple walkthrough user',
+    avatarUrl: 'https://api.adorable.io/avatars/285/profile@dashevo.png',
     displayName: 'walkthough user',
   };
   const profile = dpd.profile.create(profileOpts);
   // console.log('==== Create a new Profile :');
-  // console.log({ avatar: profile.avatar, bio: profile.bio, displayName: profile.displayName });
+  // console.log({ avatar: profile.avatar, about: profile.about, displayName: profile.displayName });
 
   /**
    * We then need to assign our buser to it, as we will need to access the key

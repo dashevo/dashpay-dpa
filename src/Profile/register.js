@@ -8,13 +8,14 @@ module.exports = async function register() {
   }
   // We prepare our object
   const profile = buser.dpp.document.create('profile', {
-    avatar: this.avatar,
-    bio: this.bio,
+    avatarUrl: this.avatarUrl,
+    about: this.about,
     displayName: this.displayName,
   });
 
-  profile.removeMetadata();
   console.log(profile);
+  profile.removeMetadata();
+  // delete profile.metadata;
 
   console.log('Validating profile contract', buser.dpp.document.validate(profile)
     .isValid());

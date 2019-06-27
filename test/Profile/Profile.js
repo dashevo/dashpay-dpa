@@ -4,11 +4,11 @@ const BUser = require('../../src/BUser/BUser');
 
 const expectedProfile = {
   avatar: 'https://api.adorable.io/avatars/285/abott@adorable.png',
-  bio: 'Something that describe myself',
+  about: 'Something that describe myself',
 };
 const expectedProfile2 = {
   avatar: 'https://api.adorable.io/avatars/285/ttoba@adorable.png',
-  bio: 'Something that still describe myself',
+  about: 'Something that still describe myself',
 };
 const expectedBUser = {
   state: 'unknown',
@@ -22,17 +22,17 @@ describe('DashPay DAP - Profile', () => {
     expect(profile.avatar)
       .to
       .equal(expectedProfile.avatar);
-    expect(profile.bio)
+    expect(profile.about)
       .to
-      .equal(expectedProfile.bio);
+      .equal(expectedProfile.about);
 
     const profile2 = new Profile(expectedProfile2);
     expect(profile2.avatar)
       .to
       .equal(expectedProfile2.avatar);
-    expect(profile2.bio)
+    expect(profile2.about)
       .to
-      .equal(expectedProfile2.bio);
+      .equal(expectedProfile2.about);
   });
   it('should export', () => {
     const profile = new Profile(expectedProfile);

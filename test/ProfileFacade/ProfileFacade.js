@@ -40,8 +40,8 @@ describe('DashPay DAP - ProfileFacade', () => {
       .equal(importedMethods);
 
     const profile = fullMockedFacade.create();
-    expect(profile).to.have.property('avatar')
-    expect(profile).to.have.property('bio')
+    expect(profile).to.have.property('avatarUrl')
+    expect(profile).to.have.property('about')
     expect(profile).to.have.property('prepareStateTransition');
     expect(profile).to.have.property('broadcastTransition');
     expect(profile.prepareStateTransition()).to.equal(1);
