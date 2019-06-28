@@ -2,8 +2,8 @@ const DashPlatformProtocol = require('@dashevo/dpp');
 const { plugins } = require('@dashevo/wallet-lib');
 const DashPaySchema = require('./schema/dashpay.schema.json');
 const BUserFacade = require('./BUserFacade/BUserFacade');
-const ContactFacade = require('./ContactFacade/ContactFacade');
-const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
+// const ContactFacade = require('./ContactFacade/ContactFacade');
+// const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
 const ProfileFacade = require('./ProfileFacade/ProfileFacade');
 const { createNewDPP } = require('./utils');
 
@@ -38,15 +38,9 @@ function setFacades(transporter) {
     getUnusedAddress,
     getBalance,
     getUTXOS,
+    prepareStateTransition,
     getBUserSigningPrivateKey: () => buserSigningPrivateKey,
     getPrivateKeys,
-  });
-  this.contact = new ContactFacade(transporter, { broadcastTransition });
-  this.contactRequest = new ContactRequestFacade(transporter, {
-    contact: this.contact,
-    broadcastTransition,
-    sendRawTransition,
-    prepareStateTransition,
   });
   const buserFacade = this.buser;
   this.profile = new ProfileFacade(transporter, dpp, buserFacade, {

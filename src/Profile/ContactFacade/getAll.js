@@ -4,6 +4,33 @@ const { each } = require('lodash');
 // eslint-disable-next-line no-unused-vars
 module.exports = async function getContacts(displayAll = false) {
   const contacts = {};
+  const { buser } = this.profile;
+  const contractId = buser.dpp.getContract()
+    .getId();
+
+  const pubKey = buser.privateKey.toString('hex');
+  const { regtxid } = buser;
+
+
+  // const initiatedContactOpts = { where: { userId: regtxid } };
+  // const initiatedContact = await buser.transporter.fetchDocuments(contractId, 'contact', initiatedContactOpts);
+  // console.log(initiatedContact);
+
+  // const receivedContactOpts = { toUserId: regtxid };
+  // const receivedContactOpts = {toUserId: regtxid };
+  // console.log(receivedContactOpts, regtxid);
+  // const receivedContact = await buser.transporter.fetchDocuments(contractId, 'contact', receivedContactOpts);
+  // console.log(receivedContact);
+
+  const allContacts = await buser.transporter.fetchDocuments(contractId, 'contact', {});
+
+  const receivedContact = allContacts.filter(contact => contact.toUserId === regtxid);
+
+  const initiatedContact = allContacts.filter(contact => contact.$meta.userId === regtxid);
+
+  contacts.received = receivedContact;
+  contacts.sent = initiatedContact;
+
   return contacts;
   /** if (this.buser === null) {
     try {

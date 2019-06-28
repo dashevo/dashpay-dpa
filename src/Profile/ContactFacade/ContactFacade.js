@@ -13,10 +13,11 @@ const overwritedContact = (self, contact) => {
 };
 
 class ContactFacade {
-  constructor(transporter, importedMethods = {}) {
+  constructor(transporter, profile, importedMethods = {}) {
     if (transporter) {
       this.transporter = transporter;
     }
+    this.profile = profile;
     this.importedMethods = importedMethods;
   }
 

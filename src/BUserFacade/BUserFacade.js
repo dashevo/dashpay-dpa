@@ -18,6 +18,7 @@ const overwritedBuser = (self, buser) => {
     getBalance,
     getUTXOS,
     getPrivateKeys,
+    prepareStateTransition,
     broadcastTransaction,
     broadcastTransition,
     getBUserSigningPrivateKey,
@@ -26,6 +27,7 @@ const overwritedBuser = (self, buser) => {
   // This set is used exclusively in register.js
   // We need those due to the manipulation done in registration. Those are already
   // configured / synchronized methods present in Wallet-Lib.
+  buser.prepareStateTransition = (...args) => prepareStateTransition(...args);
   buser.getUnusedAddress = (...args) => getUnusedAddress(...args);
   buser.getBalance = (...args) => getBalance(...args);
   buser.getUTXOS = (...args) => getUTXOS(...args);

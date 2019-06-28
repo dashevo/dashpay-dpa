@@ -5,6 +5,8 @@ const _defaultOpts = {
   $meta: { userId: null },
 };
 
+const ContactFacade = require('./ContactFacade/ContactFacade');
+const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
 // function isStringInput(args) {
 //   return args && args[0].constructor.name === String.name;
 // }
@@ -55,6 +57,17 @@ class Profile {
       console.error('Missing DPP for this BUser. Creating it.');
       this.buser.setDPP();
     }
+    const {
+      transporter, broadcastTransition, sendRawTransition, prepareStateTransition,
+    } = this.buser;
+    this.contact = new ContactFacade(transporter, this, { broadcastTransition });
+
+    this.contactRequest = new ContactRequestFacade(transporter, this, {
+      contact: this.contact,
+      broadcastTransition,
+      sendRawTransition,
+      prepareStateTransition,
+    });
   }
 }
 

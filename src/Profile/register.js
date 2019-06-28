@@ -11,8 +11,6 @@ module.exports = async function register() {
     avatarUrl: this.avatarUrl,
     about: this.about,
   });
-
-  console.log('DA PROFILE:');
   profile.removeMetadata();
   // delete profile.metadata;
 
