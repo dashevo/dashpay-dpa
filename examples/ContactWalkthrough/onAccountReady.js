@@ -35,10 +35,10 @@ const onAccountReady = async (account) => {
   /**
      * Let's see our contacts
      */
-  const contacts = await profile.contact.getAll();
-  console.log(contacts);
+  // const contacts = await profile.contact.getAll();
+  // console.log(contacts);
 
-  console.log(await receiverProfile.contact.getAll());
+  console.log(await receiverProfile.contactRequest.getAllPending());
 
   // const contactRequest = profile.contactRequest.create({ receiver: receiverProfile });
   // console.log(await contactRequest.send());

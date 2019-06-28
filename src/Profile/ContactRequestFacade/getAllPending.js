@@ -5,19 +5,18 @@ module.exports = async function getPendingContactRequests() {
     sent: [],
     received: [],
   };
-  console.log(this)
 
   const contacts = await this.contact.getAll(true);
+  //
+  // each(contacts, (contact, contactName) => {
+  //   if (contact.status === 'requested') {
+  //     const isRequester = (contact.requester === this.buser.uname);
+  //
+  //     const type = (isRequester) ? 'sent' : 'received';
+  //     result[type].push(contactName);
+  //   }
+  // });
 
-  each(contacts, (contact, contactName) => {
-    if (contact.status === 'requested') {
-      const isRequester = (contact.requester === this.buser.uname);
 
-      const type = (isRequester) ? 'sent' : 'received';
-      result[type].push(contactName);
-    }
-  });
-
-
-  return result;
+  return contacts.pending;
 };
