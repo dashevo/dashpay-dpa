@@ -16,12 +16,15 @@ const onAccountReady = async (account) => {
   //
   const buserProfiles = await dpd.profile.getByBUser(buser);
   // profiletxid: caa565ebeb4f6b0168ed2633746473d8ea5190af309b1e59c5df157a99a39ae8.
+  if (!buserProfiles) {
+    console.error(buserProfiles);
+  }
   const profile = buserProfiles[0];
   profile.setOwner(buser);
 
   /**
-   * We look-up for another profile.
-   */
+     * We look-up for another profile.
+     */
   const username2 = 'dashpaydap_example_contact_walkthrough2';
   const buser2 = await dpd.buser.get(username2);
   buser2.own(dpd.getBUserSigningPrivateKey());
@@ -30,8 +33,8 @@ const onAccountReady = async (account) => {
   receiverProfile.setOwner(buser2);
 
   /**
-   * Let's see our contacts
-   */
+     * Let's see our contacts
+     */
   const contacts = await profile.contact.getAll();
   console.log(contacts);
 

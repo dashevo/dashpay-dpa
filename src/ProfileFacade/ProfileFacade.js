@@ -101,9 +101,7 @@ class ProfileFacade {
         .getId();
       const profilesJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
 
-      const profiles = profilesJSON.map((profile) => {
-        return overwritedProfile(this, new Profile(profile));
-      });
+      const profiles = profilesJSON.map(profile => overwritedProfile(this, new Profile(profile)));
 
       return profiles;
     } catch (e) {
