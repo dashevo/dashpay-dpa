@@ -7,7 +7,7 @@ module.exports = async function send() {
   }
   const contactReqDocument = this.sender.buser.dpp.document.create('contact', {
     toUserId: this.receiver.buser.regtxid,
-    publicKey: this.sender.buser.privateKey.toString('hex'),
+    publicKey: this.sender.buser.pubkeyid,
   });
   contactReqDocument.removeMetadata();
 
@@ -15,6 +15,7 @@ module.exports = async function send() {
   if (!result.isValid()) {
     throw new Error('Invalid request');
   }
+
   const {
     serializedTransaction,
     serializedPacket,
@@ -26,6 +27,6 @@ module.exports = async function send() {
     serializedPacket,
   );
 
-  console.log(`ContactRequest to ${this.receiver.username}  sent (txid ${txid}.`);
+  console.log(`ContactRequest to ${this.receiver.buser.username} sent (txid ${txid}.`);
   return txid;
 };
