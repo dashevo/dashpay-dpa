@@ -145,7 +145,7 @@ module.exports = async function getAll(displayAll = false) {
   const contractId = buser.dpp.getContract()
     .getId();
 
-  const pubKey = buser.privateKey.toString('hex');
+  // const pubKey = buser.getBUserSigningPrivateKey();
   const { regtxid } = buser;
 
 
