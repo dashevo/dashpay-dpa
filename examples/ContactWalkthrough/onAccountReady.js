@@ -59,9 +59,9 @@ const onAccountReady = async (account) => {
    * Which will then be displayed as pending.sent
    */
 
-  const senderContacts = await senderProfile.contact.getAll();
-  console.log('==Our pendings');
-  console.log(senderContacts.pending);
+  // const senderContacts = await senderProfile.contact.getAll();
+  // console.log('==Our pendings');
+  // console.log(senderContacts.pending);
 
   /**
    * Or received by the other
@@ -74,16 +74,24 @@ const onAccountReady = async (account) => {
   /**
    * We also do another request to another guy, this one having him to accept
    */
-  // const username3 = 'dashpaydap_example_contact_walkthrough3_v2';
-  // const buser3 = await dpd.buser.get(username3);
-  // buser3.own(dpd.getBUserSigningPrivateKey(2));
-  // const buser3ProfilesByBuser = await dpd.profile.getByBUser(buser3);
-  // const thirdProfile = buser3ProfilesByBuser[0];
-  // thirdProfile.setOwner(buser3);
+  const username3 = 'dashpaydap_example_contact_walkthrough3_v2';
+  const buser3 = await dpd.buser.get(username3);
+  buser3.own(dpd.getBUserSigningPrivateKey(2));
+  const buser3ProfilesByBuser = await dpd.profile.getByBUser(buser3);
+  const thirdProfile = buser3ProfilesByBuser[0];
+  thirdProfile.setOwner(buser3);
 
   // const request = await senderProfile.contactRequest.create({ receiver: thirdProfile });
   // const sent = await request.send();
-  // console.log(sent);
+
+  // console.log(await senderProfile.contact.getAll());
+  console.log(await senderProfile.contact.getPendingRequest());
+
+  // console.log(await thirdProfile.contact.getAll());
+  // console.log(await thirdProfile.contact.getPendingRequest());
+  // const thirdProfileContacts = await thirdProfile.contact.getAll();
+  // const receivedPendingRequest = thirdProfileContacts.pending;
+  // await thirdProfile.contactRequest.accept(receivedPendingRequest[0])
 
   /**
    * A yet another person, has sent us a request, let's accept it.

@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-module.exports = function overwritePRofile(self, profile) {
+module.exports = function overwriteProfile(self, profile) {
   const {
     prepareStateTransition,
     broadcastTransition,

@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = async function acceptContactRequest(contactRequest) {
+  console.log(contactRequest);
   return null;
   // if (this.buser === null) {
   //   try {

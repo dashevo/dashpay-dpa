@@ -8,7 +8,6 @@ const onAccountReady = require('./onAccountReady');
 const seeds = [
   '18.237.69.61',
   '18.236.234.255',
-  '34.222.93.218',
 ].map(ip => ({ service: `${ip}:3000` }));
 const transport = new DAPIClient({
   seeds,

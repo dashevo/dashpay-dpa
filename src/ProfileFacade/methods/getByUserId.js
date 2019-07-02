@@ -11,7 +11,6 @@ module.exports = async function getByUserId(regtxid) {
       .getId();
     const profileJSON = await this.transporter.fetchDocuments(contractId, 'profile', fetchOpts);
     if (profileJSON.length === 0) {
-      console.log(contractId, fetchOpts, profileJSON)
       return null;
     }
     return profileJSON.map(profile => overwriteProfile(this, new Profile(profile)));
