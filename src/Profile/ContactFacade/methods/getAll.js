@@ -23,18 +23,24 @@ module.exports = async function getAll(displayAll = false) {
   const receivedContactOpts = { where: { 'document.toUserId': regtxid } };
   const receivedContacts = documentsToContacts(await buser.transporter.fetchDocuments(contractId, 'contact', receivedContactOpts));
 
-  const allContacts = { initiated: initiatedContacts, received: receivedContacts };
+  const allContacts = {
+    initiated: initiatedContacts,
+    received: receivedContacts,
+  };
 
   // First we have to determine which one correspond to what
 
+  // console.log(allContacts);
+
   contacts.pending = determinePendingContact(allContacts, this.profile);
-  console.log(contacts.pending);
-  // contacts.accepted = determineAcceptedContact(allContacts, this.profile);
+  contacts.accepted = determineAcceptedContact(allContacts, this.profile);
+  // Question : How do we know that a document existed by got removed to not
+  // Mistakes it with a pendign ?
   // contacts.deleted = determineDeletedContact(allFilteredContacts, regtxid);
   // contacts.denied = determineDeniedContact(allFilteredContacts, regtxid);
 
-  // THen we determines profile from contacts.
-  // const allContacts = await fetchProfileFromContacts([].concat(receivedContact, initiatedContact), this.profile);
+  // We then determines profile from contacts.
+  const profiles = await fetchProfileFromContacts(contacts, this.profile);
 
   // console.log('All Profiles', allContacts);
 
@@ -49,7 +55,7 @@ module.exports = async function getAll(displayAll = false) {
   // contacts.sent = initiatedContact;
 
 
-  return contacts;
+  return profiles;
   /** if (this.buser === null) {
     try {
       this.buser = await this.getBUserByUname(this.username);
