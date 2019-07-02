@@ -1,3 +1,4 @@
+const { map } = require('lodash');
 const Profile = require('../../Profile/Profile');
 const overwriteProfile = require('../utils/overwriteProfile');
 
@@ -13,7 +14,8 @@ module.exports = async function getByUserId(regtxid) {
     if (profileJSON.length === 0) {
       return null;
     }
-    return profileJSON.map(profile => overwriteProfile(this, new Profile(profile)));
+    return Promise
+      .all(map(profileJSON, async profile => overwriteProfile(this, new Profile(profile))));
   } catch (e) {
     throw e;
   }

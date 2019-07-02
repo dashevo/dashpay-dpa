@@ -57,6 +57,7 @@ const onAccountReady = async (account) => {
 
   // We assign owner to these profile
   // FIXME : May be better way to do it :D
+  console.log(senderProfile);
   senderProfile.setOwner(buser);
   receiverProfile.setOwner(buser2);
 
@@ -106,7 +107,7 @@ const onAccountReady = async (account) => {
    * Both of us will be able to find our accepted contacts
    */
 
-  // console.log(await senderProfile.contact.getAll());
+  console.log(await senderProfile.contact.getAll());
   // console.log(await thirdProfile.contact.getAll());
 
   /**
