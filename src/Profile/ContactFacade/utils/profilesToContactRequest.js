@@ -12,6 +12,9 @@ module.exports = async function profilesToContactRequest(profiles, profile, isSe
     if (!request.sender.buser) {
       request.sender.buser = await profile.buser.getById(request.sender.$meta.userId);
     }
+    if (!request.receiver.buser) {
+      request.receiver.buser = await profile.buser.getById(request.receiver.$meta.userId);
+    }
   }));
   return requests;
   // return map(requests, reqType => map(reqType, _profile => console.log(_profile) && _profile));
