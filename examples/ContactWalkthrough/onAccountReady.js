@@ -35,6 +35,12 @@ const onAccountReady = async (account) => {
    */
   const buserProfilesByUserId = await dpd.profile.getByUserId(buser.regtxid);
 
+  /**
+   * Or by username
+   */
+  const buserProfilesByUsername = await dpd.profile.getByBUsername(buser.username);
+  console.log(buserProfilesByUsername, buser.username, dpd.profile.getByUserId)
+
 
   /**
    * We will now look-up another profile from someone else
