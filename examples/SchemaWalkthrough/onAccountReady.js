@@ -25,15 +25,14 @@ const onAccountReady = async (account) => {
     // const buser = dpd.buser.create('dashpaydpa_schema_owner');
     const buser = dpd.buser.create('dashpaydpa_schema_owner2');
     await buser.synchronize();
-    console.log(account.getBalance())
+    console.log(account.getBalance());
     buser.own(dpd.getBUserSigningPrivateKey());
     // const contractTxId = await buser.register();
 
     // const contractTxId = (await dpd.register(buser));
     // txid : 9caf16eb6f304e9fbc7ba2c1c6d79265a35d89c0f6068045edc090cd06fb83e7';
-    console.log(account.getBalance(true, true))
+    console.log(account.getBalance(true, true));
     // console.log(contractTxId);
   }
 };
 module.exports = onAccountReady;
-

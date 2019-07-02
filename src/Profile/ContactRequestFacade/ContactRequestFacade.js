@@ -14,8 +14,10 @@ const overwritedContact = (self, contactReq) => {
   const { transporter } = self;
   // this method is used exclusively by the synchronize method.
   // We needed an already connected way to retrieve `get` a BUser, which is done by DPD already.
-  contactReq.prepareStateTransition = (...args) => prepareStateTransition.call({ transporter }, ...args);
-  contactReq.broadcastTransition = (...args) => broadcastTransition.call({ transporter }, ...args);
+  contactReq.prepareStateTransition = (...args) => prepareStateTransition
+    .call({ transporter }, ...args);
+  contactReq.broadcastTransition = (...args) => broadcastTransition
+    .call({ transporter }, ...args);
   contactReq.sendRawTransition = sendRawTransition;
   return contactReq;
 };
@@ -37,9 +39,6 @@ class ContactRequestFacade {
   }
 }
 
-ContactRequestFacade.prototype.getAllDeleted = require('./methods/getAllDeleted');
-ContactRequestFacade.prototype.getAllDenied = require('./methods/getAllDenied');
-ContactRequestFacade.prototype.getAllPending = require('./methods/getAllPending');
 ContactRequestFacade.prototype.accept = require('./methods/accept');
 ContactRequestFacade.prototype.delete = require('./methods/delete');
 ContactRequestFacade.prototype.deny = require('./methods/deny');

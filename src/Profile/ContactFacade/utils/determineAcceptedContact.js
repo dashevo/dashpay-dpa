@@ -1,10 +1,8 @@
 const { each, filter } = require('lodash');
 
-const determineAcceptedContact = function (contacts, profile) {
-  const { regtxid } = profile.buser;
-
+const determineAcceptedContact = function (contacts) {
   const { initiated, received } = contacts;
-  const acceptedContact = []
+  const acceptedContact = [];
 
   // We detect which are the tx we sent and got exactly one answer back
   each(initiated, (initiatedEl) => {

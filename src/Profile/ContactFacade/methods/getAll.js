@@ -2,7 +2,6 @@
 const _ = require('lodash');
 const determineAcceptedContact = require('../utils/determineAcceptedContact');
 const documentsToContacts = require('../utils/documentsToContacts');
-const fetchProfileFromContactsUserId = require('../utils/fetchProfileFromContactsUserId');
 const fetchProfileFromContactsToUserId = require('../utils/fetchProfileFromContactsToUserId');
 // eslint-disable-next-line no-unused-vars
 module.exports = async function getAll(displayAll = false) {

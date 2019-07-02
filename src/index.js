@@ -1,21 +1,8 @@
-const DashPlatformProtocol = require('@dashevo/dpp');
 const { plugins } = require('@dashevo/wallet-lib');
 const DashPaySchema = require('./schema/dashpay.schema.json');
 const BUserFacade = require('./BUserFacade/BUserFacade');
-// const ContactFacade = require('./ContactFacade/ContactFacade');
-// const ContactRequestFacade = require('./ContactRequestFacade/ContactRequestFacade');
 const ProfileFacade = require('./ProfileFacade/ProfileFacade');
 const { createNewDPP } = require('./utils');
-
-function getValidContract(dpp, dapName, dapSchema) {
-  const contract = dpp.contract.create(dapName, dapSchema);
-
-  if (!dpp.contract.validate(contract)
-    .isValid()) {
-    throw new Error('Invalid DashPayDPA contract');
-  }
-  return contract;
-}
 
 function setFacades(transporter) {
   const {

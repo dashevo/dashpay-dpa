@@ -1,5 +1,5 @@
-const Profile = require('../../Profile/Profile')
-const overwriteProfile = require('../utils/overwriteProfile')
+const Profile = require('../../Profile/Profile');
+const overwriteProfile = require('../utils/overwriteProfile');
 
 module.exports = async function getById(pid) {
   if (!pid) throw new Error('Missing UID parameter');

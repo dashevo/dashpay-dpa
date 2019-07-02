@@ -52,6 +52,6 @@ class ContactRequest {
   }
 }
 
-ContactRequest.prototype.send = require('./send');
+ContactRequest.prototype.send = require('./methods/send');
 
 module.exports = ContactRequest;

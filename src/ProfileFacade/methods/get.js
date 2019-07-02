@@ -1,4 +1,4 @@
-const { is } = require('../../utils');
+// const { is } = require('../../utils');
 
 module.exports = async function get(identifier) {
   if (!identifier) throw new Error('Expected valid identifier to be a profileID');

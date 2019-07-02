@@ -4,4 +4,4 @@ module.exports = async function getByBUsername(busername) {
     return this.getByBUser(buser);
   }
   return false;
-}
+};

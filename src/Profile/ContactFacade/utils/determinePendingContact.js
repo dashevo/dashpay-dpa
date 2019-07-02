@@ -1,8 +1,6 @@
 const { each, filter } = require('lodash');
 
-const determinePendingContact = function (contacts, profile) {
-  const { regtxid } = profile.buser;
-
+const determinePendingContact = function (contacts) {
   const { initiated, received } = contacts;
   const pendingContacts = {
     sent: [],

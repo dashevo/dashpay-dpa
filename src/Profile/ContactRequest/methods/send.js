@@ -19,7 +19,8 @@ module.exports = async function send() {
   const {
     serializedTransaction,
     serializedPacket,
-  } = this.sender.buser.prepareStateTransition(contactReqDocument, this.sender.buser, this.sender.buser.privateKey);
+  } = this.sender.buser
+    .prepareStateTransition(contactReqDocument, this.sender.buser, this.sender.buser.privateKey);
 
 
   const txid = await this.sender.broadcastTransition(

@@ -43,11 +43,11 @@ class Contact {
   }
 
   toJSON() {
-    const { publicKey, toUserId,userId } = this;
+    const { publicKey, toUserId, userId } = this;
     const json = JSON.stringify({
       publicKey,
       toUserId,
-      userId
+      userId,
     });
     return json;
   }

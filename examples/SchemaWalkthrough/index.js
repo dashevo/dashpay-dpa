@@ -1,7 +1,4 @@
-// const { Wallet, EVENTS } = require('@dashevo/wallet-lib');
-const { Wallet, EVENTS } = require('../../../dash-wallet-lib');
-
-
+const { Wallet, EVENTS } = require('@dashevo/wallet-lib');
 const DAPIClient = require('@dashevo/dapi-client');
 const DashpayDap = require('../../index.js');
 const onAccountReady = require('./onAccountReady');
@@ -10,7 +7,7 @@ const seeds = [
   // '18.237.69.61',
   // '18.236.234.255',
   // '34.222.93.218',
-  '18.237.69.61'
+  '18.237.69.61',
 ].map(ip => ({ service: `${ip}:3000` }));
 const transport = new DAPIClient({
   seeds,
