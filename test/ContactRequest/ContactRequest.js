@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const ContactRequest = require('../../src/ContactRequest/ContactRequest');
+const ContactRequest = require('../../src/Profile/ContactRequest/ContactRequest');
 
 const expectedContactRequest = {
   receiver: null,

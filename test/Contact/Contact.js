@@ -1,14 +1,18 @@
 const { expect } = require('chai');
-const Contact = require('../../src/Contact/Contact');
+const Contact = require('../../src/Profile/Contact/Contact');
 
 const expectedContact = {
-  publicKey:null
+  publicKey: null,
+  toUserId: null,
+  userId: null
 };
 
 describe('DashPay DAP - Contact', () => {
   it('should create a contact', () => {
     const contact = new Contact(expectedContact);
-    expect(contact.constructor.name).to.equal(Contact.name);
+    expect(contact.constructor.name)
+      .to
+      .equal(Contact.name);
   });
   it('should export', () => {
     const contact = new Contact(expectedContact);

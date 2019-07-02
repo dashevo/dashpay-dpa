@@ -5,14 +5,9 @@ const _defaultOpts = {
   userId: null,
 };
 
-// function isStringInput(args) {
-//   return args && args[0].constructor.name === String.name;
-// }
-
 function isObjectInput(args) {
   return args && args[0].constructor.name === Object.name;
 }
-
 
 class Contact {
   constructor(...args) {
@@ -35,9 +30,9 @@ class Contact {
   fromJSON(json) {
     const obj = (json.constructor === String) ? JSON.parse(json) : json;
     if (obj.publicKey) {
-      this.publicKey = obj.publicKey.toString();
-      this.toUserId = obj.toUserId.toString();
-      this.userId = obj.userId.toString();
+      this.publicKey = (obj.publicKey) ? obj.publicKey.toString() : _defaultOpts.publicKey;
+      this.toUserId = (obj.toUserId) ? obj.toUserId.toString() : _defaultOpts.toUserId;
+      this.userId = (obj.userId) ? obj.userId.toString() : _defaultOpts.userId;
     }
     return this;
   }

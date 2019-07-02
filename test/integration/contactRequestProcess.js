@@ -12,6 +12,7 @@ let wallet;
 let account;
 
 
+return;
 
 describe('DashPay DAP - Integration', function suite() {
   this.timeout(300000);

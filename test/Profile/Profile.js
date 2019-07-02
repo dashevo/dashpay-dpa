@@ -3,12 +3,14 @@ const Profile = require('../../src/Profile/Profile');
 const BUser = require('../../src/BUser/BUser');
 
 const expectedProfile = {
-  avatar: 'https://api.adorable.io/avatars/285/abott@adorable.png',
   about: 'Something that describe myself',
+  avatarUrl: 'https://api.adorable.io/avatars/285/abott@adorable.png',
+  $meta:{userId:'1234e'},
 };
 const expectedProfile2 = {
-  avatar: 'https://api.adorable.io/avatars/285/ttoba@adorable.png',
   about: 'Something that still describe myself',
+  avatarUrl: 'https://api.adorable.io/avatars/285/ttoba@adorable.png',
+  $meta:{userId:'1234ef'},
 };
 const expectedBUser = {
   state: 'unknown',
@@ -19,17 +21,17 @@ const expectedBUser = {
 describe('DashPay DAP - Profile', () => {
   it('should create an profile', () => {
     const profile = new Profile(expectedProfile);
-    expect(profile.avatar)
+    expect(profile.avatarUrl)
       .to
-      .equal(expectedProfile.avatar);
+      .equal(expectedProfile.avatarUrl);
     expect(profile.about)
       .to
       .equal(expectedProfile.about);
 
     const profile2 = new Profile(expectedProfile2);
-    expect(profile2.avatar)
+    expect(profile2.avatarUrl)
       .to
-      .equal(expectedProfile2.avatar);
+      .equal(expectedProfile2.avatarUrl);
     expect(profile2.about)
       .to
       .equal(expectedProfile2.about);
@@ -45,12 +47,10 @@ describe('DashPay DAP - Profile', () => {
   });
   it('should clone', () => {
     const profile1 = new Profile(expectedProfile);
-    const profile2 = new Profile(profile1);
-    expect(profile1)
+    const profile2 = new Profile(profile1)
+    expect(profile1.toJSON())
       .to
-      .be
-      .deep
-      .equal(profile2);
+      .be.deep.equal(profile2.toJSON());
   });
   it('should set an owner and init DPP when needed', () => {
     const buser = new BUser(expectedBUser);

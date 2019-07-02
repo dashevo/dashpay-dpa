@@ -46,9 +46,7 @@ describe('DashPay DAP', function suite() {
     expect(dpd.transport.isValid)
       .to
       .equal(true);
-    expect(dpd.dapContract.name)
-      .to
-      .equal('DashPayNativePreDemo1');
+
     /* eslint-disable no-unused-expressions */
     expect(dpd.getPrivateKeys).to.exist;
     expect(dpd.keyChain).to.exist;

@@ -22,6 +22,7 @@ const availableUsername = `unittest_dashpaydap_${notRandomButGoodEnoughtForUsern
 let wallet;
 let account;
 
+return;
 
 const checkForBroadcasted = async user => new Promise((resolve, reject) => {
   let int = setInterval(() => {
