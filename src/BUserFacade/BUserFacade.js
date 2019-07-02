@@ -12,6 +12,7 @@ const overwritedBuser = (self, buser) => {
   // this method is used exclusively by the synchronize method.
   // We needed an already connected way to retrieve `get` a BUser, which is done by DPD already.
   buser.get = param => self.get(param);
+  buser.getById = param => self.getById(param);
 
   const {
     getUnusedAddress,

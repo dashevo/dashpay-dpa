@@ -31,8 +31,8 @@ module.exports = async function getPendingContactRequest(displayAll = false) {
   const sentProfiles = await fetchProfileFromContactsToUserId(contacts.sent, this.profile)
   const receivedProfiles = await fetchProfileFromContactsUserId(contacts.received, this.profile)
 
-  pendingContactRequests.sent = profilesToContactRequest(sentProfiles, this.profile, true);
-  pendingContactRequests.received = profilesToContactRequest(receivedProfiles, this.profile, false);
+  pendingContactRequests.sent = await profilesToContactRequest(sentProfiles, this.profile, true);
+  pendingContactRequests.received = await profilesToContactRequest(receivedProfiles, this.profile, false);
 
   return pendingContactRequests;
 };
