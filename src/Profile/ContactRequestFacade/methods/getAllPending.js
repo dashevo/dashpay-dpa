@@ -1,12 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 const _ = require('lodash');
-const determinePendingContact = require('../utils/determinePendingContact');
-const documentsToContacts = require('../utils/documentsToContacts');
-const fetchProfileFromContactsUserId = require('../utils/fetchProfileFromContactsUserId');
-const fetchProfileFromContactsToUserId = require('../utils/fetchProfileFromContactsToUserId');
-const profilesToContactRequest = require('../utils/profilesToContactRequest');
+const determinePendingContact = require('../../ContactFacade/utils/determinePendingContact');
+const documentsToContacts = require('../../ContactFacade/utils/documentsToContacts');
+const fetchProfileFromContactsUserId = require('../../ContactFacade/utils/fetchProfileFromContactsUserId');
+const fetchProfileFromContactsToUserId = require('../../ContactFacade/utils/fetchProfileFromContactsToUserId');
+const profilesToContactRequest = require('../../ContactFacade/utils/profilesToContactRequest');
 // eslint-disable-next-line no-unused-vars
-module.exports = async function getPendingContactRequest(displayAll = false) {
+module.exports = async function getAllPending(displayAll = false) {
+  console.log('Pending');
   const { buser } = this.profile;
   const contractId = buser.dpp.getContract()
     .getId();

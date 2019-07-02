@@ -2,7 +2,7 @@
 const Contact = require('../Contact/Contact.js');
 const getAcceptedSentContactRequest = require('./methods/getAcceptedSentContactRequest');
 const getAll = require('./methods/getAll');
-const getPendingContactRequest = require('./methods/getPendingContactRequest');
+const getPendingContactRequest = require('../ContactRequestFacade/methods/getAllPending');
 /**
  * BUser needs some function from Wallet-lib, theses are passed to BUserFacade via `this.parent`
  * We can use that to overwrite our BUser method.

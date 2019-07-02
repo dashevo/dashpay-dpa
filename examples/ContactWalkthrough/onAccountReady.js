@@ -39,8 +39,6 @@ const onAccountReady = async (account) => {
    * Or by username
    */
   const buserProfilesByUsername = await dpd.profile.getByBUsername(buser.username);
-  console.log(buserProfilesByUsername, buser.username, dpd.profile.getByUserId)
-
 
   /**
    * We will now look-up another profile from someone else
@@ -75,16 +73,16 @@ const onAccountReady = async (account) => {
    * Which will then be displayed as pending.sent
    */
 
-  const senderContacts = await senderProfile.contact.getPendingRequest();
+  const senderContacts = await senderProfile.contactRequest.getAllPending();
   console.log('==Our pendings');
-  // console.log(senderContacts);
+  console.log(senderContacts);
 
   /**
    * Or received by the other
    */
-  const receiverContacts = await receiverProfile.contact.getPendingRequest();
+  const receiverContacts = await receiverProfile.contactRequest.getAllPending();
   console.log('==His pendings');
-  // console.log(receiverContacts);
+  console.log(receiverContacts);
 
 
   /**
@@ -100,7 +98,7 @@ const onAccountReady = async (account) => {
   // const request = await senderProfile.contactRequest.create({ receiver: thirdProfile });
   // const sent = await request.send();
 
-  // const thirdProfileReceivedPending = (await thirdProfile.contact.getPendingRequest()).received;
+  // const thirdProfileReceivedPending = (await thirdProfile.contactRequest.getAllPending()).received;
   // const pendingRequest = thirdProfileReceivedPending[0];
   // console.log(await thirdProfile.contactRequest.accept(pendingRequest));
 
@@ -128,7 +126,7 @@ const onAccountReady = async (account) => {
   // const request = await fourthProfile.contactRequest.create({ receiver: senderProfile });
   // const sent = await request.send();
 
-  // const sendingProfilePendingRequests = (await senderProfile.contact.getPendingRequest()).received;
+  // const sendingProfilePendingRequests = (await senderProfile.contactRequest.getAllPending()).received;
   // As we want to keep first unresponded
   // const sendingProfilePendingRequest = sendingProfilePendingRequests[1];
   // console.log(await senderProfile.contactRequest.accept(sendingProfilePendingRequest));

@@ -39,6 +39,7 @@ class ContactRequestFacade {
   }
 }
 
+ContactRequestFacade.prototype.getAllPending = require('./methods/getAllPending');
 ContactRequestFacade.prototype.accept = require('./methods/accept');
 ContactRequestFacade.prototype.delete = require('./methods/delete');
 ContactRequestFacade.prototype.deny = require('./methods/deny');
