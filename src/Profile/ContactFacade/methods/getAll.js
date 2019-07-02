@@ -24,13 +24,5 @@ module.exports = async function getAll(displayAll = false) {
   };
 
   const contacts = determineAcceptedContact(allContacts, this.profile);
-  // We then determines profile from contacts.
-  const sentProfiles = await fetchProfileFromContactsToUserId(contacts.sent, this.profile);
-  const receivedProfiles = await fetchProfileFromContactsUserId(contacts.received, this.profile);
-
-  // We then determines profile from contacts.
-  return {
-    sent: sentProfiles,
-    received: receivedProfiles,
-  };
+  return fetchProfileFromContactsToUserId(contacts, this.profile);
 };
