@@ -2,7 +2,8 @@
 const _ = require('lodash');
 const determineAcceptedContact = require('../utils/determineAcceptedContact');
 const documentsToContacts = require('../utils/documentsToContacts');
-const fetchProfileFromContacts = require('../utils/fetchProfileFromContactsUserId');
+const fetchProfileFromContactsUserId = require('../utils/fetchProfileFromContactsUserId');
+const fetchProfileFromContactsToUserId = require('../utils/fetchProfileFromContactsToUserId');
 // eslint-disable-next-line no-unused-vars
 module.exports = async function getAll(displayAll = false) {
   const { buser } = this.profile;
@@ -23,8 +24,13 @@ module.exports = async function getAll(displayAll = false) {
   };
 
   const contacts = determineAcceptedContact(allContacts, this.profile);
+  // We then determines profile from contacts.
+  const sentProfiles = await fetchProfileFromContactsToUserId(contacts.sent, this.profile);
+  const receivedProfiles = await fetchProfileFromContactsUserId(contacts.received, this.profile);
 
   // We then determines profile from contacts.
-  const profiles = await fetchProfileFromContacts(contacts, this.profile);
-  return profiles;
+  return {
+    sent: sentProfiles,
+    received: receivedProfiles,
+  };
 };

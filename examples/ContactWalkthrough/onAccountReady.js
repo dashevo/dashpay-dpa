@@ -59,16 +59,16 @@ const onAccountReady = async (account) => {
    * Which will then be displayed as pending.sent
    */
 
-  // const senderContacts = await senderProfile.contact.getAll();
+  // const senderContacts = await senderProfile.contact.getPendingRequest();
   // console.log('==Our pendings');
-  // console.log(senderContacts.pending);
+  // console.log(senderContacts);
 
   /**
    * Or received by the other
    */
-  // const receiverContacts = await receiverProfile.contact.getAll();
+  // const receiverContacts = await receiverProfile.contact.getPendingRequest();
   // console.log('==His pendings');
-  // console.log(receiverContacts.pending);
+  // console.log(receiverContacts);
 
 
   /**
@@ -84,10 +84,11 @@ const onAccountReady = async (account) => {
   // const request = await senderProfile.contactRequest.create({ receiver: thirdProfile });
   // const sent = await request.send();
 
-  // console.log(await senderProfile.contact.getAll());
-  console.log(await senderProfile.contact.getPendingRequest());
-
-  // console.log(await thirdProfile.contact.getAll());
+  const thirdProfileReceivedPending = (await thirdProfile.contact.getPendingRequest()).received;
+  const pendingRequest = thirdProfileReceivedPending[0]
+  // await thirdProfile.contactRequest.accept(pendingRequest);
+  // console.log(pendingRequest);
+  console.log(await thirdProfile.contact.getAll());
   // console.log(await thirdProfile.contact.getPendingRequest());
   // const thirdProfileContacts = await thirdProfile.contact.getAll();
   // const receivedPendingRequest = thirdProfileContacts.pending;

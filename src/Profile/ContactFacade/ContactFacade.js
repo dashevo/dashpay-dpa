@@ -28,6 +28,6 @@ class ContactFacade {
 }
 
 ContactFacade.prototype.getAll = require('./methods/getAll');
-ContactFacade.prototype.getPendingRequest = require('./methods/getPendingRequest');
+ContactFacade.prototype.getPendingRequest = require('./methods/getPendingContactRequest');
 
 module.exports = ContactFacade;

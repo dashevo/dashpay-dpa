@@ -11,7 +11,7 @@ const seeds = [
 ].map(ip => ({ service: `${ip}:3000` }));
 const transport = new DAPIClient({
   seeds,
-  timeout: 20000,
+  timeout: 30000,
   retries: 15,
 });
 

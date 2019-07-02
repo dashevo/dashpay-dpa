@@ -31,7 +31,7 @@ class ContactRequestFacade {
   }
 
   create(args) {
-    args.sender = this.profile;
+    if (!args.sender) args.sender = this.profile;
     const contactReq = overwritedContact(this, new ContactRequest(args));
     return contactReq;
   }
