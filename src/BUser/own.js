@@ -10,11 +10,11 @@ module.exports = function own(_privateKey) {
   // eslint-disable-next-line no-underscore-dangle
   const pubkeyid = util.buffer.copy(privateKey.toPublicKey()
     ._getID()).reverse().toString('hex');
-  if (this.pubkeyid && this.pubkeyid !== pubkeyid) {
+  if (!this.pubkeyid) {
+    console.log('Own without being able to verify. Sync before owning to get verification.');
+  } else if (this.pubkeyid !== pubkeyid) {
     console.error(`Mismatch pubkeyid. Expected ${this.pubkeyid} got: ${pubkeyid}`);
     throw new Error('Invalid privateKey for this buser. Cannot own');
-  } else {
-    console.log('Own without being able to verify. Sync before owning to get verification.');
   }
   this.privateKey = privateKey.toString();
   this.isOwned = true;

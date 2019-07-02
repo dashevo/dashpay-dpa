@@ -28,7 +28,7 @@ module.exports = async function denyContactRequest(bUserName) {
   const {
     serializedTransaction,
     serializedPacket,
-  } = this.prepareStateTransition(contact, this.buser, this.getBUserPrivateKey().toString('hex'));
+  } = this.prepareStateTransition(contact, this.buser, this.buser.privateKey);
 
   const txid = await this.broadcastTransition(
     serializedTransaction, serializedPacket,

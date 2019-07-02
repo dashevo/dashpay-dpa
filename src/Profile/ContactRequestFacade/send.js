@@ -27,7 +27,7 @@ module.exports = async function sendContactRequest(bUserName) {
   const {
     serializedTransaction,
     serializedPacket,
-  } = this.prepareStateTransition(contact, this.buser, this.getBUserPrivateKey().toString('hex'));
+  } = this.prepareStateTransition(contact, this.buser, this.buser.privateKey);
 
   const txid = await this.broadcastTransition(
     serializedTransaction, serializedPacket,

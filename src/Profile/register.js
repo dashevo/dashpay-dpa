@@ -22,7 +22,7 @@ module.exports = async function register() {
   } = this.prepareStateTransition(
     profile,
     buser,
-    buser.getBUserSigningPrivateKey(),
+    buser.privateKey,
   );
 
 

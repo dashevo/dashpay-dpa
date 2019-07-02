@@ -89,7 +89,7 @@ module.exports = async function register(funding = 100000) {
     satoshis: outputSat,
   }];
 
-  const privateKey = this.getBUserSigningPrivateKey();
+  const { privateKey } = this;
   if (!privateKey) throw new Error('Missing private key, got :', privateKey);
   const transaction = Dashcore.Transaction()
     .from(filteredUtxosList)
