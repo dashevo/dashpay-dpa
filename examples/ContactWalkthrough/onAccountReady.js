@@ -37,7 +37,7 @@ const onAccountReady = async (account) => {
 
   /**
    * We will now look-up another profile from someone else
-  //  */
+   //  */
   const username2 = 'dashpaydap_example_contact_walkthrough2_v4';
   const buser2 = await dpd.buser.get(username2);
   buser2.own(dpd.getBUserSigningPrivateKey(2));
@@ -101,25 +101,27 @@ const onAccountReady = async (account) => {
    * Both of us will be able to find our accepted contacts
    */
 
-  console.log(await senderProfile.contact.getAll());
-  console.log(await thirdProfile.contact.getAll());
+  // console.log(await senderProfile.contact.getAll());
+  // console.log(await thirdProfile.contact.getAll());
 
   /**
    * A yet another person, has sent us a request, let's accept it.
    */
-  // const username4 = 'dashpaydap_example_contact_walkthrough4_v2';
-  // const buser4 = await dpd.buser.get(username4);
-  // buser4.own(dpd.getBUserSigningPrivateKey(4));
-  // const buser4ProfilesByBuser = await dpd.profile.getByBUser(buser4);
-  // const fourthProfile = buser4ProfilesByBuser[0];
-  // fourthProfile.setOwner(buser4);
-
-  // console.log(await fourthProfile.contact.getPendingRequest())
+  const username4 = 'dashpaydap_example_contact_walkthrough4_v4';
+  const buser4 = await dpd.buser.get(username4);
+  buser4.own(dpd.getBUserSigningPrivateKey(4));
+  const buser4ProfilesByBuser = await dpd.profile.getByBUser(buser4);
+  const fourthProfile = buser4ProfilesByBuser[0];
+  fourthProfile.setOwner(buser4);
 
   // const request = await fourthProfile.contactRequest.create({ receiver: senderProfile });
-  // console.log(request)
   // const sent = await request.send();
-  // console.log(sent)
+
+  // const sendingProfilePendingRequests = (await senderProfile.contact.getPendingRequest()).received;
+  // As we want to keep first unresponded
+  // const sendingProfilePendingRequest = sendingProfilePendingRequests[1];
+  // console.log(await senderProfile.contactRequest.accept(sendingProfilePendingRequest));
+
   /**
    * But we do not necessarely wish to accept them, so sometimes they will be received Pending
    * that you can deny
@@ -133,27 +135,3 @@ const onAccountReady = async (account) => {
   // console.log(fourthProfile)
 };
 module.exports = onAccountReady;
-
-
-/*
-
-Document {
-  id: null,
-  type: 'contact',
-  scopeId: 'yjcSBCZ3eLn35vsHFYeBqsaxftC4D2J1VA',
-  scope:
-   'f98e30ec7dbc2145c7189b71085b166cdba5381a4d838514559a4b452dca701d',
-  action: 0,
-  revision: 1,
-  metadata:
-   DocumentMetadata {
-     userId:
-      '8d491c75c36d4545a357dfbe5f1d98c027dcf1e1df3af53e48c0204c620ef2e2' },
-  data:
-   { toUserId:
-      '98f9eb003bc47e6d4fc45cba5b8d3e4911494e26ecf5d1869d224818405e7a12',
-     publicKey:
-      '6d1e1d66cee9ebd95aaebfc89991cfd932e7c6cbaf7f8f5a2b66c9fd3cc918b6' } }
-
-
- */
