@@ -35,6 +35,7 @@ const onAccountReady = async (account) => {
    */
   const buserProfilesByUserId = await dpd.profile.getByUserId(buser.regtxid);
 
+
   /**
    * We will now look-up another profile from someone else
    //  */
@@ -70,14 +71,14 @@ const onAccountReady = async (account) => {
 
   const senderContacts = await senderProfile.contact.getPendingRequest();
   console.log('==Our pendings');
-  console.log(senderContacts);
+  // console.log(senderContacts);
 
   /**
    * Or received by the other
    */
   const receiverContacts = await receiverProfile.contact.getPendingRequest();
   console.log('==His pendings');
-  console.log(receiverContacts);
+  // console.log(receiverContacts);
 
 
   /**
@@ -104,6 +105,10 @@ const onAccountReady = async (account) => {
   // console.log(await senderProfile.contact.getAll());
   // console.log(await thirdProfile.contact.getAll());
 
+  /**
+   * As well, we will be able to see our sent contact request that were accepted
+   */
+  console.log(await senderProfile.contact.getAcceptedSentContactRequest())
   /**
    * A yet another person, has sent us a request, let's accept it.
    */
@@ -133,5 +138,6 @@ const onAccountReady = async (account) => {
   // const buser4ProfilesByBuser = await dpd.profile.getByBUser(buser4);
   // const fourthProfile = buser4ProfilesByBuser[0];
   // console.log(fourthProfile)
+
 };
 module.exports = onAccountReady;

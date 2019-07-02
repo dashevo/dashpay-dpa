@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 const Contact = require('../Contact/Contact.js');
-
+const getAcceptedSentContactRequest = require('./methods/getAcceptedSentContactRequest');
+const getAll = require('./methods/getAll');
+const getPendingContactRequest = require('./methods/getPendingContactRequest');
 /**
  * BUser needs some function from Wallet-lib, theses are passed to BUserFacade via `this.parent`
  * We can use that to overwrite our BUser method.
@@ -27,7 +29,8 @@ class ContactFacade {
   }
 }
 
-ContactFacade.prototype.getAll = require('./methods/getAll');
-ContactFacade.prototype.getPendingRequest = require('./methods/getPendingContactRequest');
+ContactFacade.prototype.getAll = getAll;
+ContactFacade.prototype.getPendingRequest = getPendingContactRequest;
+ContactFacade.prototype.getAcceptedSentContactRequest = getAcceptedSentContactRequest;
 
 module.exports = ContactFacade;
