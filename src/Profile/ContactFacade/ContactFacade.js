@@ -13,7 +13,7 @@ const overwritedContact = (self, contact) => {
 };
 
 class ContactFacade {
-  constructor(transporter, profile, importedMethods = {}) {
+  constructor(transporter, profile, profileFacade, importedMethods = {}) {
     if (transporter) {
       this.transporter = transporter;
     }
@@ -27,6 +27,6 @@ class ContactFacade {
   }
 }
 
-ContactFacade.prototype.getAll = require('./getAll');
+ContactFacade.prototype.getAll = require('./methods/getAll');
 
 module.exports = ContactFacade;

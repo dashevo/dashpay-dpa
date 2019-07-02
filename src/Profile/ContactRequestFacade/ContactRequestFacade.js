@@ -37,11 +37,11 @@ class ContactRequestFacade {
   }
 }
 
-ContactRequestFacade.prototype.getAllDeleted = require('./getAllDeleted');
-ContactRequestFacade.prototype.getAllDenied = require('./getAllDenied');
-ContactRequestFacade.prototype.getAllPending = require('./getAllPending');
-ContactRequestFacade.prototype.accept = require('./accept');
-ContactRequestFacade.prototype.delete = require('./delete');
-ContactRequestFacade.prototype.deny = require('./deny');
+ContactRequestFacade.prototype.getAllDeleted = require('./methods/getAllDeleted');
+ContactRequestFacade.prototype.getAllDenied = require('./methods/getAllDenied');
+ContactRequestFacade.prototype.getAllPending = require('./methods/getAllPending');
+ContactRequestFacade.prototype.accept = require('./methods/accept');
+ContactRequestFacade.prototype.delete = require('./methods/delete');
+ContactRequestFacade.prototype.deny = require('./methods/deny');
 
 module.exports = ContactRequestFacade;

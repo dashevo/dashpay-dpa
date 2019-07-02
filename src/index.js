@@ -74,11 +74,11 @@ class DashPayDAP extends plugins.DAP {
     this.hardenedFeaturePath = null;
   }
 
-  getBUserSigningPrivateKey() {
+  getBUserSigningPrivateKey(index = 0) {
     return this.hardenedFeaturePath
       .deriveChild(5)
       .deriveChild(0)
-      .deriveChild(0)
+      .deriveChild(index)
       .privateKey
       .toString();
   }

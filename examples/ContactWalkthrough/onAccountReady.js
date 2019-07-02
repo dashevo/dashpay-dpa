@@ -7,54 +7,70 @@ const onAccountReady = async (account) => {
   const dpd = account.getDAP('dashpaydap');
 
   /**
-   * We already own a buser, and already have our profile (see concerning walkthrough for more)
-   * We fetch our profile back.
+   * We already own a buser, let's fetch it
+   *
    */
-  const username = 'dashpaydap_example_contact_walkthrough';
+  const username = 'dashpaydap_example_contact_walkthrough_v2';
   const buser = await dpd.buser.get(username);
-  buser.own(dpd.getBUserSigningPrivateKey());
-  //
-  const buserProfiles = await dpd.profile.getByBUser(buser);
-  // profiletxid: caa565ebeb4f6b0168ed2633746473d8ea5190af309b1e59c5df157a99a39ae8.
-  if (!buserProfiles) {
-    console.error(buserProfiles);
-  }
-  const profile = buserProfiles[0];
-  profile.setOwner(buser);
+  buser.own(dpd.getBUserSigningPrivateKey(0));
 
   /**
-     * We look-up for another profile.
-     */
-  const username2 = 'dashpaydap_example_contact_walkthrough2';
+   * But we also already have our profile (see concerning walkthrough for more).
+   * We fetch our profile back., with our buser
+   */
+
+  const buserProfilesByBuser = await dpd.profile.getByBUser(buser);
+
+  /**
+   * Alternatively, the same result can be achieved with our userId (regtxid)
+   *
+   */
+  const buserProfilesByUserId = await dpd.profile.getByUserId(buser.regtxid);
+
+  /**
+   * We will now look-up another profile from someone else
+   */
+  const username2 = 'dashpaydap_example_contact_walkthrough2_v2';
   const buser2 = await dpd.buser.get(username2);
-  buser2.own(dpd.getBUserSigningPrivateKey());
-  const buser2Profiles = await dpd.profile.getByBUser(buser2);
-  const receiverProfile = buser2Profiles[0];
+  buser2.own(dpd.getBUserSigningPrivateKey(1));
+  const buser2ProfilesByBuser = await dpd.profile.getByBUser(buser2);
+  /**
+   * We will send a contact request to this profile
+   */
+  // Because many profile can exist by a user.
+  const senderProfile = buserProfilesByBuser[0];
+  const receiverProfile = buser2ProfilesByBuser[0];
+
+  // We assign owner to these profile
+  // FIXME : May be better way to do it :D
+  senderProfile.setOwner(buser);
   receiverProfile.setOwner(buser2);
 
   /**
-     * Let's see our contacts
-     */
-  // const contacts = await profile.contact.getAll();
-  // console.log(contacts);
+   * We then create our request by just passing it the receiver, and send it
+   */
 
-  console.log(await receiverProfile.contactRequest.getAllPending());
+  // const request = await senderProfile.contactRequest.create({ receiver: receiverProfile });
+  // const sent = await request.send();
+  // console.log(sent);
 
-  // const contactRequest = profile.contactRequest.create({ receiver: receiverProfile });
-  // console.log(await contactRequest.send());
-  // cac99a9c0f010e150ab39d4d34ac833f35928d213ec036326cee8e6b08a2f21f
-  // const contactRequestSent = await profile.contactRequest.getAllPending();
-  // console.log(contactRequestSent)
+  /**
+   * Which will then be displayed as pending.sent
+   */
 
-  // console.log(buser);
-  // console.log(profile.contact);
+  const pendingRequest = await senderProfile.contact.getAll();
+  console.log('==Our pendings')
+  console.log(pendingRequest)
 
-  // console.log(profile.contact.getAll());
-  // const contacts = await profile.contact.getAllPending();
-  //
-  // const request = await profile.contact.createRequest();
-  // const request.register();
-  // console.log(contacts);
+
+  /**
+   * Or received by the other
+   */
+  const receiverPendingRequest = await receiverProfile.contact.getAll();
+  console.log('==His pendings')
+  console.log(receiverPendingRequest)
+
+
 };
 module.exports = onAccountReady;
 

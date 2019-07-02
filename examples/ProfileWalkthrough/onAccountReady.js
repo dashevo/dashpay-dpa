@@ -32,11 +32,7 @@ const onAccountReady = async (account) => {
    * And we can now register our profile
    */
   // const profileregid = await profile.register();
-  // const profileregid = '3b0b17bc0a0ddba02101687edc7f27cd0e605af4492e10e55e106c0879fc4390..';
-  // const profileregid = '1742dda9d60002b9b91083d0c68128d0eefae34937e2af0d9d8116a869de4f24...';
   // const profileregid = '1742dda9d60002b9b91083d0c68128d0eefae34937e2af0d9d8116a869de4f24';
-  // console.log(profileregid);
-
 
   /**
    * We can then perform a search from that profile id
@@ -50,9 +46,9 @@ const onAccountReady = async (account) => {
    * We can then perform a search from a BUsername
    */
 
-  const getProfileByBUsernamme = await dpd.profile.getByBUsername(buser.username);
+  const getProfileByBUsername = await dpd.profile.getByBUsername(buser.username);
   console.log('==== GET PROFILE FROM BUsername');
-  console.log(getProfileByBUsernamme);
+  console.log(getProfileByBUsername);
   /**
    * We can then perform a search from a DisplayName
     * TODO : FIXME
