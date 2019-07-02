@@ -76,4 +76,7 @@ describe('DashPay DAP', function suite() {
       .to
       .equal('BUser');
   });
+  it('should disconnect', ()=>{
+    account.disconnect();
+  })
 });
