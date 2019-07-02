@@ -2,6 +2,10 @@
 #
 .DS_Store
 
+# Webstorm
+#
+.idea
+
 # node.js
 #
 node_modules/

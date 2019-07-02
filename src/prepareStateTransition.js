@@ -1,39 +1,31 @@
-const Dashcore = require('@dashevo/dashcore-lib');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-const { doubleSha256 } = require('./utils/crypto.js');
+const { Transaction } = require('@dashevo/dashcore-lib');
 
-const prepareStateTransition = function (object, buser, privKey) {
+module.exports = function prepareStateTransition(object, buser, privKey) {
   const creditFeeSet = 1000;
-  const { stpacket: stPacket } = Schema.create.stpacket();
-  stPacket.dapobjects = [object];
-  stPacket.dapid = this.dapId;
+  console.log(buser);
+  const { dpp } = buser;
+  const stPacket = dpp.packet.create([object]);
 
-  const serializedPacket = Schema.serialize.encode(stPacket);
-  const stPacketHash = doubleSha256(serializedPacket).toString('hex');
-
-  const transaction = new Dashcore.Transaction()
-    .setType(Dashcore.Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
+  const transaction = new Transaction()
+    .setType(Transaction.TYPES.TRANSACTION_SUBTX_TRANSITION);
 
   const hashPrevSubTx = (buser.subtx.length === 0)
     ? buser.regtxid
-    : Array.from(buser.subtx).pop();
+    : Array.from(buser.subtx)
+      .pop();
 
-  const payload = transaction.extraPayload
+  transaction.extraPayload
     .setRegTxId(buser.regtxid)
     .setHashPrevSubTx(hashPrevSubTx)
-    .setHashSTPacket(stPacketHash)
+    .setHashSTPacket(stPacket.hash())
     .setCreditFee(creditFeeSet)
     .sign(privKey);
 
-  // Attach payload to transaction object
-  transaction
-    .setExtraPayload(payload);
-
-  const signedTransaction = transaction.sign(privKey);
+  console.log('STPacket ContractID', stPacket.getContractId());
 
   return {
-    serializedTransaction: signedTransaction.serialize(),
-    serializedPacket: serializedPacket.toString('hex'),
+    serializedTransaction: transaction.serialize(),
+    serializedPacket: stPacket.serialize()
+      .toString('hex'),
   };
 };
-module.exports = prepareStateTransition;

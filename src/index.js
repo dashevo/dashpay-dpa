@@ -1,40 +1,41 @@
-const { plugins, utils } = require('@dashevo/wallet-lib');
-const Schema = require('@dashevo/dash-schema/dash-schema-lib');
-const dashPaySchema = require('./schema/dashpay.schema.json');
+const { plugins } = require('@dashevo/wallet-lib');
+const DashPaySchema = require('./schema/dashpay.schema.json');
+const BUserFacade = require('./BUserFacade/BUserFacade');
+const ProfileFacade = require('./ProfileFacade/ProfileFacade');
+const { createNewDPP } = require('./utils');
 
-const { doubleSha256 } = utils;
+function setFacades(transporter) {
+  const {
+    broadcastTransition,
+    broadcastTransaction,
+    getUnusedAddress,
+    prepareStateTransition,
+    sendRawTransition,
+    getPrivateKeys,
+    getBalance,
+    getUTXOS,
+    dpp,
+  } = this;
 
-const broadcastTransition = require('./broadcastTransition');
+  const buserSigningPrivateKey = this.getBUserSigningPrivateKey();
 
-const isSchemaRegistered = require('./schema/isSchemaRegistered');
-const registerSchema = require('./schema/registerSchema');
-
-const isProfileRegistered = require('./profile/isProfileRegistered');
-const registerProfile = require('./profile/registerProfile.js');
-const searchProfile = require('./profile/searchProfile.js');
-
-
-const sendContactRequest = require('./contact/sendContactRequest');
-const getPendingContactRequests = require('./contact/getPendingContactRequests');
-const getDeniedContactRequests = require('./contact/getDeniedContactRequests');
-const getDeletedContactRequests = require('./contact/getDeletedContactRequests');
-const acceptContactRequest = require('./contact/acceptContactRequest');
-const deleteContactRequest = require('./contact/deleteContactRequest');
-const denyContactRequest = require('./contact/denyContactRequest');
-const getContacts = require('./contact/getContacts');
-
-const registerBUser = require('./user/registerBUser.js');
-const getBUserPreviousStId = require('./user/getBUserPreviousStId.js');
-const getBUserPrivateKey = require('./user/getBUserPrivateKey.js');
-const getBUserByPubkey = require('./user/getBUserByPubkey.js');
-const getBUserByUname = require('./user/getBUserByUname.js');
-const getBUser = require('./user/getBUser.js');
-const searchBUsers = require('./user/searchBUsers.js');
-const getBUsernameRegistrationId = require('./user/getBUsernameRegistrationId.js');
-const getBUserRegistrationId = require('./user/getBUserRegistrationId.js');
-const topUpBUser = require('./user/topUpBUser.js');
-
-const prepareStateTransition = require('./prepareStateTransition');
+  this.buser = new BUserFacade(transporter, {
+    broadcastTransition,
+    broadcastTransaction,
+    getUnusedAddress,
+    getBalance,
+    getUTXOS,
+    prepareStateTransition,
+    getBUserSigningPrivateKey: () => buserSigningPrivateKey,
+    getPrivateKeys,
+  });
+  const buserFacade = this.buser;
+  this.profile = new ProfileFacade(transporter, dpp, buserFacade, {
+    broadcastTransition,
+    prepareStateTransition,
+    sendRawTransition,
+  });
+}
 
 class DashPayDAP extends plugins.DAP {
   constructor(opts = {}) {
@@ -49,74 +50,43 @@ class DashPayDAP extends plugins.DAP {
         'keyChain',
         'getPrivateKeys',
         'transport',
+        'offlineMode',
       ],
-    });
-    Object.assign(DashPayDAP.prototype, {
-      broadcastTransition,
-      registerProfile,
-      registerBUser,
-      registerSchema,
-      isSchemaRegistered,
-      isProfileRegistered,
-      getBUser,
-      searchBUsers,
-      acceptContactRequest,
-      denyContactRequest,
-      getDeniedContactRequests,
-      getDeletedContactRequests,
-      getBUsernameRegistrationId,
-      getBUserRegistrationId,
-      getBUserPrivateKey,
-      deleteContactRequest,
-      getBUserPreviousStId,
-      searchProfile,
-      getBUserByPubkey,
-      getBUserByUname,
-      sendContactRequest,
-      prepareStateTransition,
-      getPendingContactRequests,
-      topUpBUser,
-      getContacts,
+      schema: DashPaySchema,
+      verifyOnInjected: (opts.verifyOnInjected) ? opts.verifyOnInjected : false,
     });
 
-    this.username = opts.username;
-    this.buser = null;
-    this.profile = null;
-
-    this.dapSchema = Object.assign({}, dashPaySchema);
-
-    this.dapContract = Schema.create.dapcontract(this.dapSchema);
-
-    this.dapId = doubleSha256(Schema.serialize.encode(this.dapContract.dapcontract)).toString('hex');
+    this.dpp = createNewDPP();
+    this.offlineMode = false;
+    this.hardenedFeaturePath = null;
   }
 
-  // Method started after wallet-lib injection
-  // It's here that we can access to dependencies.
-  async onInjected() {
-    // It is currently not possible to fetch BUser by PubKey. So we do by username for now;
-    if (this.username !== null) {
-      try {
-        this.buser = await this.getBUserByUname(this.username);
-        // try{
-        // this.profile =
-        // }
-      } catch (e) {
-        if (e.message.split('Code:')[1] !== '-1"') {
-          console.error('Expected "not found answer" got ', e.message, 'instead');
-          console.error(e);
-        }
-        this.buser = null;
-      }
-    }
-    // Pseudo-logic for when we will be able to search by pubKey
+  getBUserSigningPrivateKey(index = 0) {
+    return this.hardenedFeaturePath
+      .deriveChild(5)
+      .deriveChild(0)
+      .deriveChild(index)
+      .privateKey
+      .toString();
+  }
 
-    // const regTxPubKey = this.getBUserPrivateKey().publicKey.toAddress().toString();
-    // const users = this.getBUserByPubkey(regTxPubKey);
-    // if (users.length > 0) {
-    //   console.log('Previous user found');
-    //   this.buser = users[0];
-    // }
+  async onInjected() {
+    // Method started after wallet-lib injection
+    // It's here that we can access to dependencies.
+
+    // We will need to set our current transporter to the facade
+    // Private calling due to avoid any access to setFacades later on.
+    if (this.offlineMode) {
+      console.info('DashpayDap : Offline mode active, no transporter available');
+      this.offlineMode = true;
+    }
+    const hardenedFeaturePath = this.keyChain.getHardenedFeaturePath();
+    this.hardenedFeaturePath = hardenedFeaturePath;
+    setFacades.call(this, this.transport.transport);
   }
 }
+
+DashPayDAP.prototype.broadcastTransition = require('./broadcastTransition');
+DashPayDAP.prototype.prepareStateTransition = require('./prepareStateTransition');
 
 module.exports = DashPayDAP;

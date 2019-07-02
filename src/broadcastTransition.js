@@ -1,5 +1,5 @@
 module.exports = async function broadcastTransition(rawTransaction, rawTransactionPacket) {
-  return this.transport.transport.sendRawTransition(
+  return this.transporter.sendRawTransition(
     rawTransaction,
     rawTransactionPacket,
   );

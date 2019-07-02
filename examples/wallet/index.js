@@ -3,13 +3,18 @@ const DAPIClient = require('@dashevo/dapi-client');
 const DashpayDap = require('../../index.js');
 const onAccountReady = require('./onAccountReady');
 
+const seeds = [
+  '18.237.69.61',
+  '18.236.234.255',
+  '34.222.93.218',
+].map(ip => ({ service: `${ip}:3000` }));
 const transport = new DAPIClient({
-  seeds: [{ ip: '54.187.113.35', port: 3000 }],
+  seeds,
   timeout: 20000,
   retries: 15,
 });
 
-const username = 'AlexWerner3';
+const username = 'dashpayteam';
 const dashpayDap = new DashpayDap({
   username,
 });
@@ -17,14 +22,15 @@ const dashpayDap = new DashpayDap({
 const startWallet = async () => {
   const wallet = new Wallet({
     // mnemonic: 'box machine exotic aerobic empty delay cruise salute stand slam truth airport',
-    mnemonic: 'seat indoor shoe senior funny eye million trap mention van slab few',
+    // mnemonic: 'seat indoor shoe senior funny eye million trap mention van slab few',
+    mnemonic: 'slim inch mixed alert canyon square spatial metal vintage jazz satisfy cheap',
     transport,
     // offlineMode: true,
     allowSensitiveOperations: true,
     plugins: [dashpayDap],
   });
 
-  const account = wallet.getAccount({ index: 3 });
+  const account = wallet.getAccount({ index: 0 });
   account.events.on(EVENTS.GENERATED_ADDRESS, () => { console.log('GENERATED_ADDRESS'); });
   account.events.on(EVENTS.BALANCE_CHANGED, (info) => { console.log('Balance Changed', info, info.delta); });
   account.events.on(EVENTS.UNCONFIRMED_BALANCE_CHANGED, (info) => { console.log('UNCONFIRMED_BALANCE_CHANGED', info); });
