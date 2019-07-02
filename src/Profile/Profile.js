@@ -54,7 +54,6 @@ class Profile {
   setOwner(buser) {
     this.buser = buser;
     if (!this.buser.dpp) {
-      console.error('Missing DPP for this BUser. Creating it.');
       this.buser.setDPP();
     }
     const {
