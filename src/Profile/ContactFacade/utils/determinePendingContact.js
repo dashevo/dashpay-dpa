@@ -11,16 +11,16 @@ const determinePendingContact = function (contacts, profile) {
 
   // We detect which are the tx we sent but got no answer back
   each(initiated, (initiatedEl) => {
-    const predicate = receivedEl => initiatedEl.toUserId === receivedEl.userId;
-    const nbResponse = filter(received, predicate).length;
-    if (nbResponse === 0) pendingContacts.sent.push(initiatedEl);
+    const predicate = receivedEl => receivedEl.userId === initiatedEl.toUserId;
+    const nbDocFromReceiverUserID = filter(received, predicate).length;
+    if (nbDocFromReceiverUserID === 0) pendingContacts.sent.push(initiatedEl);
   });
 
   // We do the same for received
   each(received, (receivedEl) => {
-    const predicate = initiatedEl => receivedEl.toUserId === initiatedEl.userId;
-    const nbResponse = filter(received, predicate).length;
-    if (nbResponse === 0) pendingContacts.received.push(receivedEl);
+    const predicate = initiatedEl => initiatedEl.userId === receivedEl.toUserId;
+    const nbDocFromSenderUserID = filter(received, predicate).length;
+    if (nbDocFromSenderUserID === 0) pendingContacts.received.push(receivedEl);
   });
 
   return pendingContacts;

@@ -54,15 +54,32 @@ const onAccountReady = async (account) => {
   // const sent = await request.send();
   // console.log(sent);
 
+
+  /**
+   * Which will then be displayed as pending.sent
+   */
+
+  const senderContacts = await senderProfile.contact.getAll();
+  console.log('==Our pendings');
+  console.log(senderContacts.pending);
+
+  /**
+   * Or received by the other
+   */
+  // const receiverContacts = await receiverProfile.contact.getAll();
+  // console.log('==His pendings');
+  // console.log(receiverContacts.pending);
+
+
   /**
    * We also do another request to another guy, this one having him to accept
    */
-  const username3 = 'dashpaydap_example_contact_walkthrough3_v2';
-  const buser3 = await dpd.buser.get(username3);
-  buser3.own(dpd.getBUserSigningPrivateKey(2));
-  const buser3ProfilesByBuser = await dpd.profile.getByBUser(buser3);
-  const thirdProfile = buser3ProfilesByBuser[0];
-  thirdProfile.setOwner(buser3);
+  // const username3 = 'dashpaydap_example_contact_walkthrough3_v2';
+  // const buser3 = await dpd.buser.get(username3);
+  // buser3.own(dpd.getBUserSigningPrivateKey(2));
+  // const buser3ProfilesByBuser = await dpd.profile.getByBUser(buser3);
+  // const thirdProfile = buser3ProfilesByBuser[0];
+  // thirdProfile.setOwner(buser3);
 
   // const request = await senderProfile.contactRequest.create({ receiver: thirdProfile });
   // const sent = await request.send();
@@ -71,13 +88,13 @@ const onAccountReady = async (account) => {
   /**
    * A yet another person, has sent us a request, let's accept it.
    */
-  const username4 = 'dashpaydap_example_contact_walkthrough4_v2';
-  const buser4 = await dpd.buser.get(username4);
-  buser4.own(dpd.getBUserSigningPrivateKey(4));
-  const buser4ProfilesByBuser = await dpd.profile.getByBUser(buser4);
-  const fourthProfile = buser4ProfilesByBuser[0];
-  fourthProfile.setOwner(buser4);
-
+  // const username4 = 'dashpaydap_example_contact_walkthrough4_v2';
+  // const buser4 = await dpd.buser.get(username4);
+  // buser4.own(dpd.getBUserSigningPrivateKey(4));
+  // const buser4ProfilesByBuser = await dpd.profile.getByBUser(buser4);
+  // const fourthProfile = buser4ProfilesByBuser[0];
+  // fourthProfile.setOwner(buser4);
+  //
   // const request = await fourthProfile.contactRequest.create({ receiver: senderProfile });
   // const sent = await request.send();
 
@@ -92,23 +109,6 @@ const onAccountReady = async (account) => {
   // const buser4ProfilesByBuser = await dpd.profile.getByBUser(buser4);
   // const fourthProfile = buser4ProfilesByBuser[0];
   // console.log(fourthProfile)
-
-
-  /**
-   * Which will then be displayed as pending.sent
-   */
-  //
-  const contacts = await senderProfile.contact.getAll();
-  console.log('==Our pendings');
-  console.log(contacts.pending);
-  //
-  //
-  // /**
-  //  * Or received by the other
-  //  */
-  // const receiverPendingRequest = await receiverProfile.contact.getAll();
-  // console.log('==His pendings');
-  // console.log(receiverPendingRequest);
 
 
 };

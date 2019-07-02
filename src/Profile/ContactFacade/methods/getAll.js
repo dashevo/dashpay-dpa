@@ -12,8 +12,6 @@ module.exports = async function getAll(displayAll = false) {
   const { buser } = this.profile;
   const contractId = buser.dpp.getContract()
     .getId();
-
-  const pubKey = buser.privateKey.toString('hex');
   const { regtxid } = buser;
 
 
@@ -27,91 +25,17 @@ module.exports = async function getAll(displayAll = false) {
     initiated: initiatedContacts,
     received: receivedContacts,
   };
+  console.log(allContacts)
 
   // First we have to determine which one correspond to what
-
-  // console.log(allContacts);
-
   contacts.pending = determinePendingContact(allContacts, this.profile);
   contacts.accepted = determineAcceptedContact(allContacts, this.profile);
   // Question : How do we know that a document existed by got removed to not
-  // Mistakes it with a pendign ?
+  // Mistakes it with a pending ?
   // contacts.deleted = determineDeletedContact(allFilteredContacts, regtxid);
   // contacts.denied = determineDeniedContact(allFilteredContacts, regtxid);
 
   // We then determines profile from contacts.
   const profiles = await fetchProfileFromContacts(contacts, this.profile);
-
-  // console.log('All Profiles', allContacts);
-
-
-  //
-  // const receivedContact = allContacts.filter(contact => contact.toUserId === regtxid);
-  //
-  // const initiatedContact = allContacts.filter(contact => contact.$meta.userId === regtxid);
-
-  // const pending = determinePendingContact([].concat(receivedContact, initiatedContact), regtxid);
-  // contacts.received = receivedContact;
-  // contacts.sent = initiatedContact;
-
-
   return profiles;
-  /** if (this.buser === null) {
-    try {
-      this.buser = await this.getBUserByUname(this.username);
-    } catch (e) {
-      throw new Error('BUser not registered. Can\'t get contacts');
-    }
-  }
-   const contractId = this.parent.dpp.getContract().getId();
-   const dapObjects = await this.transporter.fetchDocuments(contractId, 'contact', {});
-
-   const contacts = {};
-
-   const { uname } = this.buser;
-
-   const ensureContact = (contact) => {
-    const relationUname = (contact.from === uname) ? contact.relation : contact.from;
-
-    if (!contacts[relationUname]) {
-      contacts[relationUname] = {
-        status: 'requested',
-      };
-    }
-  };
-   dapObjects.forEach((contact) => {
-    if (contact.relation === uname || contact.from === uname) {
-      ensureContact(contact);
-      const relationUname = (contact.from === uname) ? contact.relation : contact.from;
-      switch (contact.action) {
-        case 'request':
-          contacts[relationUname].requester = contact.from;
-          if (relationUname === contact.from) contacts[relationUname].hdPublicKey = contact.content;
-          break;
-        case 'accept':
-          contacts[relationUname].status = 'accepted';
-          if (relationUname === contact.from) contacts[relationUname].hdPublicKey = contact.content;
-          break;
-        case 'deny':
-          contacts[relationUname].status = 'denied';
-          break;
-        case 'delete':
-          contacts[relationUname].status = 'deleted';
-          break;
-        default:
-          console.log('Unexpected default', contact.action);
-          break;
-      }
-    }
-
-    if (!displayAll) {
-      each(contacts, (contactEl, contactName) => {
-        if (['requested', 'denied', 'deleted'].includes(contactEl.status)) {
-          delete contacts[contactName];
-        }
-      });
-    }
-  });
-
-   return contacts;* */
 };

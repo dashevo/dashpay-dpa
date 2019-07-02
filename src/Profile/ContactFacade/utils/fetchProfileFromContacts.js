@@ -12,7 +12,7 @@ module.exports = async function fetchProfileFromContacts(contacts, profile) {
     if (!profiles[contactTypeName]) profiles[contactTypeName] = {};
     const profileTypesSent = await Promise
       .all(map(contactType.sent, (async (contact) => {
-        const profilesOfContact = await profile.getByUserId(contact.userId);
+        const profilesOfContact = await profile.getByUserId(contact.toUserId);
         return profilesOfContact[0];
       })));
     const profileTypesReceived = await Promise
