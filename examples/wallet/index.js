@@ -1,6 +1,6 @@
 const { Wallet, EVENTS } = require('@dashevo/wallet-lib');
 const DAPIClient = require('@dashevo/dapi-client');
-const DashpayDap = require('../../index.js');
+const DashpayDpa = require('../../index.js');
 const onAccountReady = require('./onAccountReady');
 
 const seeds = [
@@ -15,7 +15,7 @@ const transport = new DAPIClient({
 });
 
 const username = 'dashpayteam';
-const dashpayDap = new DashpayDap({
+const dashpayDpa = new DashpayDpa({
   username,
 });
 
@@ -27,7 +27,7 @@ const startWallet = async () => {
     transport,
     // offlineMode: true,
     allowSensitiveOperations: true,
-    plugins: [dashpayDap],
+    plugins: [dashpayDpa],
   });
 
   const account = wallet.getAccount({ index: 0 });

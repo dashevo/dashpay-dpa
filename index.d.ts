@@ -12,11 +12,11 @@ export interface privateKey {
     toString(): string;
     toAddress(): string;
 }
-declare namespace DashPayDAP {
-    class DashPayDAP {
+declare namespace DashPayDPA {
+    class DashPayDPA {
         constructor();
         buser: buser;
-        dapContract: string;
+        dpaContract: string;
 
         getBUser(): buser;
         getBUserPrivateKey(): privateKey;

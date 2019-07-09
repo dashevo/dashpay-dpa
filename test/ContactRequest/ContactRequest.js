@@ -7,7 +7,7 @@ const expectedContactRequest = {
   state: 'unknown'
 };
 
-describe('DashPay DAP - ContactRequest', () => {
+describe('DashPay DPA - ContactRequest', () => {
   it('should create a contract request', () => {
     const contactReq = new ContactRequest(expectedContactRequest);
     expect(contactReq.constructor.name).to.equal(ContactRequest.name);

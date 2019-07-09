@@ -10,7 +10,7 @@ const expectedBasicBUser = {
   synchronizedLast: null,
 };
 let facade;
-describe('DashPay DAP - BUser', () => {
+describe('DashPay DPA - BUser', () => {
   // before((done) => {
     // const transport =
     // facade = new BUserFacade(transport)

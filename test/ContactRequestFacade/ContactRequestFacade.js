@@ -5,7 +5,7 @@ const Contact =  require('../../src/Profile/Contact/Contact');
 let facade;
 let aliceContact = new Contact();
 let bobContact = new Contact();
-describe('DashPay DAP - ContactRequestFacade', () => {
+describe('DashPay DPA - ContactRequestFacade', () => {
   it('should init', () => {
   //   const mockedTransport = {};
   //   const mockedMethods = {

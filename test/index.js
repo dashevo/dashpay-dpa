@@ -1,19 +1,19 @@
 const { expect } = require('chai');
 const { Wallet } = require('@dashevo/wallet-lib');
 // const { Wallet } = require('../../dash-wallet-lib');
-const DashPayDAP = require('../src/index');
+const DashPayDPA = require('../src/index');
 
 let wallet;
 let account;
 
-describe('DashPay DAP', function suite() {
+describe('DashPay DPA', function suite() {
   this.timeout(300000);
   before((done) => {
     const config = {
       network: 'testnet',
       mnemonic: 'churn toast puppy fame blush fatal dove category item eyebrow nest bulk',
       allowSensitiveOperations: true,
-      plugins: [DashPayDAP],
+      plugins: [DashPayDPA],
     };
 
     wallet = new Wallet(config);
@@ -30,19 +30,19 @@ describe('DashPay DAP', function suite() {
   console.log(contract2);
   })
   it('should get the plugin ', () => {
-    const dpd = account.getDAP('dashpaydap');
+    const dpd = account.getDPA('dashpaydpa');
     expect(dpd.pluginType)
       .to
-      .equal('DAP');
+      .equal('DPA');
     expect(dpd.type)
       .to
-      .equal('DAP');
+      .equal('DPA');
     expect(dpd.isValid)
       .to
       .equal(false);// FIXME
     expect(dpd.name)
       .to
-      .equal('DashPayDAP');
+      .equal('DashPayDPA');
     expect(dpd.transport.isValid)
       .to
       .equal(true);
@@ -53,7 +53,7 @@ describe('DashPay DAP', function suite() {
     expect(dpd.sign).to.exist;
   });
   it('should have BUser method', () => {
-    const dpd = account.getDAP('dashpaydap');
+    const dpd = account.getDPA('dashpaydpa');
     expect(dpd.buser).to.exist;
     expect(dpd.buser.transporter).to.exist;
     expect(dpd.buser.transporter.constructor.name)
@@ -70,7 +70,7 @@ describe('DashPay DAP', function suite() {
       .a('function');
   });
   it('should be able to create', () => {
-    const dpd = account.getDAP('dashpaydap');
+    const dpd = account.getDPA('dashpaydpa');
     const buser = dpd.buser.create('dashpaytest');
     expect(buser.constructor.name)
       .to

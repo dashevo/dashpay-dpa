@@ -18,7 +18,7 @@ const expectedBUser = {
   synchronizedLast: 1560692038513,
   username: 'unittest_username1',
 };
-describe('DashPay DAP - Profile', () => {
+describe('DashPay DPA - Profile', () => {
   it('should create an profile', () => {
     const profile = new Profile(expectedProfile);
     expect(profile.avatarUrl)

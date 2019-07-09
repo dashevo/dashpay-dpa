@@ -4,7 +4,7 @@ const Contact = require('../../src/Profile/Contact/Contact');
 const { PrivateKey } = require('@dashevo/dashcore-lib');
 let facade;
 let pk = new PrivateKey();
-describe('DashPay DAP - ContactFacade', () => {
+describe('DashPay DPA - ContactFacade', () => {
   it('should init', () => {
     const mockedTransport = {};
     const mockedMethods = {

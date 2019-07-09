@@ -3,9 +3,9 @@
  * as a Registered BUser is required to register a profile
  */
 const onAccountReady = async (account) => {
-  console.log('DashPay DAP - Started');
-  const dpd = account.getDAP('dashpaydap');
-  const username = 'dashpaydap_example_profile_walkthrough';
+  console.log('DashPay DPA - Started');
+  const dpd = account.getDPA('dashpaydpa');
+  const username = 'dashpaydpa_example_profile_walkthrough';
   const buser = await dpd.buser.create(username);
   await buser.synchronize();
   buser.own(dpd.getBUserSigningPrivateKey());

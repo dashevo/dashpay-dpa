@@ -1,5 +1,5 @@
 {
-  "name": "@dashevo/dashpay-dap",
+  "name": "@dashevo/dashpay-dpa",
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dashevo/dashpay-dap.git"
+    "url": "git+https://github.com/dashevo/dashpay-dpa.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dashevo/dashpay-dap/issues"
+    "url": "https://github.com/dashevo/dashpay-dpa/issues"
   },
-  "homepage": "https://github.com/dashevo/dashpay-dap/#readme",
+  "homepage": "https://github.com/dashevo/dashpay-dpa/#readme",
   "dependencies": {
     "@dashevo/dapi-client": "github:dashevo/dapi-client#v0.6.2",
     "@dashevo/dashcore-lib": "^0.17.6",

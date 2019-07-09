@@ -1,11 +1,11 @@
 const { expect } = require('chai');
 const { Wallet } = require('@dashevo/wallet-lib');
-const DashPayDAP = require('../../src/index');
+const DashPayDPA = require('../../src/index');
 
-const takenAliceUsername = 'unittest_dashpaydap_alice';
+const takenAliceUsername = 'unittest_dashpaydpa_alice';
 const takenAlicePrivateKey = '182ab1bf10406fa1f235eff48724316ccb2c0fa10b03e43746e2e644b3e3c5bf';
 
-const takenBobUsername = 'unittest_dashpaydap_bob';
+const takenBobUsername = 'unittest_dashpaydpa_bob';
 const takenBobPrivateKey = '182ab1bf10406fa1f235eff48724316ccb2c0fa10b03e43746e2e644b3e3c5bf';
 
 let wallet;
@@ -14,14 +14,14 @@ let account;
 
 return;
 
-describe('DashPay DAP - Integration', function suite() {
+describe('DashPay DPA - Integration', function suite() {
   this.timeout(300000);
   before((done) => {
     const config = {
       network: 'testnet',
       mnemonic: 'churn toast puppy fame blush fatal dove category item eyebrow nest bulk',
       allowSensitiveOperations: true,
-      plugins: [new DashPayDAP({verifyOnInjected:false})],
+      plugins: [new DashPayDPA({verifyOnInjected:false})],
     };
 
     wallet = new Wallet(config);
@@ -32,7 +32,7 @@ describe('DashPay DAP - Integration', function suite() {
   });
   describe('Contact Request - Process', ()=>{
     it('should be able to create a new contact request', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const aliceBUser = await dpd.buser.create(takenAliceUsername);
       await aliceBUser.synchronize();
       aliceBUser.own(takenAlicePrivateKey);
@@ -46,7 +46,7 @@ describe('DashPay DAP - Integration', function suite() {
       expect(contactRequest).to.exist;
     });
     it('should be able to send a new contact request', async ()=>{
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const aliceBUser = await dpd.buser.create(takenAliceUsername);
       await aliceBUser.synchronize();
       aliceBUser.own(takenAlicePrivateKey);
@@ -61,18 +61,18 @@ describe('DashPay DAP - Integration', function suite() {
     })
 
     it('should be able to get all pending contact request', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const pendingRequest = await dpd.contactRequest.getAllPending();
 
       console.log(pendingRequest);
     });
     it('should be able to get all denied contact request', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const deniedRequest = await dpd.contactRequest.getAllDenied();
       expect(deniedRequest).to.exist;
     });
     it('should be able to get all deleted contact request', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const deletedRequest = await dpd.contactRequest.getAllDeleted();
       expect(deletedRequest).to.exist;
     });

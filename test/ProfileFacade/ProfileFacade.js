@@ -3,7 +3,7 @@ const ProfileFacade = require('../../src/ProfileFacade/ProfileFacade');
 
 
 let facade;
-describe('DashPay DAP - ProfileFacade', () => {
+describe('DashPay DPA - ProfileFacade', () => {
   it('should init', () => {
     const mockedTransport = {};
     facade = new ProfileFacade(mockedTransport, null);

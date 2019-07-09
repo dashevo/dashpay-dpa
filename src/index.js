@@ -37,10 +37,10 @@ function setFacades(transporter) {
   });
 }
 
-class DashPayDAP extends plugins.DAP {
+class DashPayDPA extends plugins.DPA {
   constructor(opts = {}) {
     super({
-      name: 'DashPayDAP',
+      name: 'DashPayDPA',
       dependencies: [
         'getUTXOS',
         'getBalance',
@@ -77,7 +77,7 @@ class DashPayDAP extends plugins.DAP {
     // We will need to set our current transporter to the facade
     // Private calling due to avoid any access to setFacades later on.
     if (this.offlineMode) {
-      console.info('DashpayDap : Offline mode active, no transporter available');
+      console.info('DashpayDPA : Offline mode active, no transporter available');
       this.offlineMode = true;
     }
     const hardenedFeaturePath = this.keyChain.getHardenedFeaturePath();
@@ -86,7 +86,7 @@ class DashPayDAP extends plugins.DAP {
   }
 }
 
-DashPayDAP.prototype.broadcastTransition = require('./broadcastTransition');
-DashPayDAP.prototype.prepareStateTransition = require('./prepareStateTransition');
+DashPayDPA.prototype.broadcastTransition = require('./broadcastTransition');
+DashPayDPA.prototype.prepareStateTransition = require('./prepareStateTransition');
 
-module.exports = DashPayDAP;
+module.exports = DashPayDPA;

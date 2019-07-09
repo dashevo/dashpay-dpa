@@ -27,7 +27,7 @@ const profile = dpd.profile.getAll();
 #### Get all profile of a BUser
 
 ```
-const blockchainUsername = 'dashpaydap_example_profile_walkthrough'
+const blockchainUsername = 'dashpaydpa_example_profile_walkthrough'
 const profiles = dpp.profile.getByBUsername(blockchainUsername);
 ```
 

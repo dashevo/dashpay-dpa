@@ -3,19 +3,19 @@
  * as a Registered BUser is required to register a profile
  */
 const onAccountReady = async (account) => {
-  console.log('DashPay DAP - Started');
-  const dpd = account.getDAP('dashpaydap');
+  console.log('DashPay DPA - Started');
+  const dpd = account.getDPA('dashpaydpa');
 
   /**
    * We already own a buser, let's fetch it
    *
    */
-  const username = 'dashpaydap_example_contact_walkthrough1_v4';
+  const username = 'dashpaydpa_example_contact_walkthrough1_v4';
   const buser = await dpd.buser.get(username);
   buser.own(dpd.getBUserSigningPrivateKey(1));
 
 
-  // const username2 = 'dashpaydap_example_contact_walkthrough2_v4';
+  // const username2 = 'dashpaydpa_example_contact_walkthrough2_v4';
   // const buser2 = await dpd.buser.get(username2);
   // buser2.own(dpd.getBUserSigningPrivateKey(2));
   // const buser2ProfilesByBuser = await dpd.profile.getByBUser(buser2);
@@ -43,7 +43,7 @@ const onAccountReady = async (account) => {
   /**
    * We will now look-up another profile from someone else
    //  */
-  const username2 = 'dashpaydap_example_contact_walkthrough2_v4';
+  const username2 = 'dashpaydpa_example_contact_walkthrough2_v4';
   const buser2 = await dpd.buser.get(username2);
   buser2.own(dpd.getBUserSigningPrivateKey(2));
   const buser2ProfilesByBuser = await dpd.profile.getByBUser(buser2);
@@ -89,7 +89,7 @@ const onAccountReady = async (account) => {
   /**
    * We also do another request to another guy, this one having him to accept
    */
-  const username3 = 'dashpaydap_example_contact_walkthrough3_v4';
+  const username3 = 'dashpaydpa_example_contact_walkthrough3_v4';
   const buser3 = await dpd.buser.get(username3);
   buser3.own(dpd.getBUserSigningPrivateKey(3));
   const buser3ProfilesByBuser = await dpd.profile.getByBUser(buser3);
@@ -117,7 +117,7 @@ const onAccountReady = async (account) => {
   /**
    * A yet another person, has sent us a request, let's accept it.
    */
-  const username4 = 'dashpaydap_example_contact_walkthrough4_v4';
+  const username4 = 'dashpaydpa_example_contact_walkthrough4_v4';
   const buser4 = await dpd.buser.get(username4);
   buser4.own(dpd.getBUserSigningPrivateKey(4));
   const buser4ProfilesByBuser = await dpd.profile.getByBUser(buser4);
@@ -137,7 +137,7 @@ const onAccountReady = async (account) => {
    * that you can deny
    */
   //
-  // const username4 = 'dashpaydap_example_contact_walkthrough4_v2';
+  // const username4 = 'dashpaydpa_example_contact_walkthrough4_v2';
   // const buser4 = await dpd.buser.get(username4);
   // buser4.own(dpd.getBUserSigningPrivateKey(4));
   // const buser4ProfilesByBuser = await dpd.profile.getByBUser(buser4);
