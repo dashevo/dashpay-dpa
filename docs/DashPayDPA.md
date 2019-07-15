@@ -2,7 +2,7 @@
 
 ## Get DashpayDPA instance
 
-`const dpd = account.getDAP('dashpaydap');`
+`const dpd = account.getDPA('dashpaydpa');`
 
 ## Get your BUser signing key
 

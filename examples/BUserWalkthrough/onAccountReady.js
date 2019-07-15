@@ -1,13 +1,13 @@
 const onAccountReady = async (account) => {
-  console.log('DashPay DAP - Started');
+  console.log('DashPay DPA - Started');
   /**
-   * We have included dashpaydap as a plugin, let's fetch it now
+   * We have included dashpaydpa as a plugin, let's fetch it now
    */
-  const dpd = account.getDAP('dashpaydap');
+  const dpd = account.getDPA('dashpaydpa');
 
   /**
-   * DashPayDAP is a plugin for Wallet-Lib that allows management of own Blockchain User
-   * and access to all the feature provided by the DashPayDAP
+   * DashPayDPA is a plugin for Wallet-Lib that allows management of own Blockchain User
+   * and access to all the feature provided by the DashPayDPA
    */
 
   /**
@@ -25,7 +25,7 @@ const onAccountReady = async (account) => {
     .replace(/[^a-z]+/g, '')
     .substr(0, 5);
 
-  const expectedBlockchainUsername = `dashpaydap_example_${notRandomButGoodEnoughtForUsername}`;
+  const expectedBlockchainUsername = `dashpaydpa_example_${notRandomButGoodEnoughtForUsername}`;
 
   /**
    * Let's first create a BUser with that username as argument
@@ -37,7 +37,7 @@ const onAccountReady = async (account) => {
   /**
    * On this one, we will want to first assign our PrivateKey to it.
    * This is done by 'owning' that BUser object.
-   * To do that, we will get our PrivateKey from the instance of dashpaydap above
+   * To do that, we will get our PrivateKey from the instance of dashpaydpa above
    */
   const privateKey = dpd.getBUserSigningPrivateKey();
   console.log('Will use privateKey:', privateKey);
@@ -77,7 +77,7 @@ const onAccountReady = async (account) => {
   // const { username } = dpp;
   // if (username === null) {
   //   throw new Error(
-  //     'Impossible to retrieve nor register without a username (see DashPayDap doc)'
+  //     'Impossible to retrieve nor register without a username (see DashPayDpa doc)'
   //   );
   // }
 
@@ -111,7 +111,7 @@ const onAccountReady = async (account) => {
   //  dpp.dpp.getContract().getId(), 'contact', {}),
   // );
   /**
-   * Ensure we do have a profile on Dashpay DAP
+   * Ensure we do have a profile on Dashpay DPA
    * If we do not have a profile existing, then we create a new with passed arguments
    */
   // await verifyProfileRequisites(dpp,

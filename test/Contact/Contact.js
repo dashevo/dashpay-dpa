@@ -7,7 +7,7 @@ const expectedContact = {
   userId: null
 };
 
-describe('DashPay DAP - Contact', () => {
+describe('DashPay DPA - Contact', () => {
   it('should create a contact', () => {
     const contact = new Contact(expectedContact);
     expect(contact.constructor.name)

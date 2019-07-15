@@ -1,23 +1,23 @@
 const { expect } = require('chai');
 const { Wallet } = require('@dashevo/wallet-lib');
-const DashPayDAP = require('../../src/index');
+const DashPayDPA = require('../../src/index');
 
 const notRandomButGoodEnoughtForUsername = Math.random()
   .toString(36)
   .replace(/[^a-z]+/g, '')
   .substr(0, 5);
 
-const takenUsername = 'unittest_dashpaydap';
+const takenUsername = 'unittest_dashpaydpa';
 const takenUserPrivateKey = '182ab1bf10406fa1f235eff48724316ccb2c0fa10b03e43746e2e644b3e3c5bf';
 
-const takenAliceUsername = 'unittest_dashpaydap_alice';
+const takenAliceUsername = 'unittest_dashpaydpa_alice';
 const takenAlicePrivateKey = '182ab1bf10406fa1f235eff48724316ccb2c0fa10b03e43746e2e644b3e3c5bf';
 
-const takenBobUsername = 'unittest_dashpaydap_bob';
+const takenBobUsername = 'unittest_dashpaydpa_bob';
 const takenBobPrivateKey = '182ab1bf10406fa1f235eff48724316ccb2c0fa10b03e43746e2e644b3e3c5bf';
 
 // We will use wallet private key for that user, check below
-const availableUsername = `unittest_dashpaydap_${notRandomButGoodEnoughtForUsername}`;
+const availableUsername = `unittest_dashpaydpa_${notRandomButGoodEnoughtForUsername}`;
 
 let wallet;
 let account;
@@ -81,14 +81,14 @@ const checkForMined = async user => new Promise((resolve, reject) => {
 });
 
 
-describe('DashPay DAP - Integration', function suite() {
+describe('DashPay DPA - Integration', function suite() {
   this.timeout(300000);
   before((done) => {
     const config = {
       network: 'testnet',
       mnemonic: 'churn toast puppy fame blush fatal dove category item eyebrow nest bulk',
       allowSensitiveOperations: true,
-      plugins: [new DashPayDAP({verifyOnInjected:false})],
+      plugins: [new DashPayDPA({verifyOnInjected:false})],
     };
 
     wallet = new Wallet(config);
@@ -109,23 +109,23 @@ describe('DashPay DAP - Integration', function suite() {
       done();
     });
     it('should get a buser', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const buser = await dpd.buser.get('unittest_username1');
       console.log(buser);
     });
     it('should create a buser', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const buser = await dpd.buser.create('unittest_username1');
       console.log(buser);
     });
     it('should synchronize a buser', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const buser = await dpd.buser.create('unittest_username1');
       await buser.synchronize();
       console.log(buser);
     });
     it('should do contact lists', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
 
       // First we want to get our current contact list
       const contactList = await dpd.contact.getAll();
@@ -135,7 +135,7 @@ describe('DashPay DAP - Integration', function suite() {
 
     });
     it('should match get and create+synchronize', async function () {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const buser = await dpd.buser.get(takenUsername);
       await buser.synchronize()
 
@@ -149,7 +149,7 @@ describe('DashPay DAP - Integration', function suite() {
       expect(buser.subtx).to.deep.equal(buser2.subtx);
     });
     it('should be able to deal with unavailable BUser', async () => {
-    const dpd = account.getDAP('dashpaydap');
+    const dpd = account.getDPA('dashpaydpa');
     const buser = dpd.buser.create(takenUsername);
     buser.own(takenUserPrivateKey);
     expect(buser.state)
@@ -166,7 +166,7 @@ describe('DashPay DAP - Integration', function suite() {
     // FIXME : Ideally, synchronizing should, if existing, try with passed privateKey
     // and reset isOwned to false if not valid.
     // expect(BUser.isOwned).to.equal(true);
-    const expectedException = 'User unittest_dashpaydap already exist on the network. Cannot register.';
+    const expectedException = 'User unittest_dashpaydpa already exist on the network. Cannot register.';
     await Promise.resolve(buser.register())
       .then(() => new Error('Expected error'))
       .catch((e) => {
@@ -179,7 +179,7 @@ describe('DashPay DAP - Integration', function suite() {
       });
     });
     it('should be able to really register a BUser', async () => {
-      const dpd = account.getDAP('dashpaydap');
+      const dpd = account.getDPA('dashpaydpa');
       const availableBUser = dpd.buser.create(availableUsername);
 
       availableBUser.own(dpd.getBUserSigningPrivateKey());

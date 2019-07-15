@@ -3,7 +3,7 @@ const BUserFacade = require('../../src/BUserFacade/BUserFacade');
 
 
 let facade;
-describe('DashPay DAP - BUserFacade', () => {
+describe('DashPay DPA - BUserFacade', () => {
   it('should init', () => {
     const mockedTransport = {};
     facade = new BUserFacade(mockedTransport, null);

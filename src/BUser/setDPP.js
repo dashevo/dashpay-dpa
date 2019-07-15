@@ -1,8 +1,8 @@
 const DashPlatformProtocol = require('@dashevo/dpp');
 const DashPaySchema = require('../schema/dashpay.schema.json');
 
-function getValidContract(dpp, dapName, dapSchema) {
-  const contract = dpp.contract.create(dapName, dapSchema);
+function getValidContract(dpp, dpaName, dpaSchema) {
+  const contract = dpp.contract.create(dpaName, dpaSchema);
 
   if (!dpp.contract.validate(contract)
     .isValid()) {

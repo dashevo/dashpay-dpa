@@ -1,6 +1,6 @@
 const onAccountReady = async (account) => {
-  console.log('DashPay DAP - Started');
-  const dpd = account.getDAP('dashpaydap');
+  console.log('DashPay DPA - Started');
+  const dpd = account.getDPA('dashpaydpa');
   console.log(account.getBalance());
 
   // console.log(await account.getTransactionHistory());
