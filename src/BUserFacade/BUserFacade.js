@@ -16,7 +16,7 @@ const overwritedBuser = (self, buser) => {
 
   const {
     getUnusedAddress,
-    getBalance,
+    getConfirmedBalance,
     getUTXOS,
     getPrivateKeys,
     prepareStateTransition,
@@ -30,7 +30,7 @@ const overwritedBuser = (self, buser) => {
   // configured / synchronized methods present in Wallet-Lib.
   buser.prepareStateTransition = (...args) => prepareStateTransition(...args);
   buser.getUnusedAddress = (...args) => getUnusedAddress(...args);
-  buser.getBalance = (...args) => getBalance(...args);
+  buser.getConfirmedBalance = (...args) => getConfirmedBalance(...args);
   buser.getUTXOS = (...args) => getUTXOS(...args);
   buser.getBUserSigningPrivateKey = (...args) => getBUserSigningPrivateKey(...args);
   buser.getPrivateKeys = (...args) => getPrivateKeys(...args);
