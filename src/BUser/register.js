@@ -49,7 +49,7 @@ module.exports = async function register(funding = 100000) {
   this.canRegister();
 
   const { address } = this.getUnusedAddress();
-  const balance = await this.getBalance();
+  const balance = await this.getConfirmedBalance();
   if (balance === 0 || balance < funding) throw new Error('Insufficient funds to register');
 
   // Utxos are returned sorted

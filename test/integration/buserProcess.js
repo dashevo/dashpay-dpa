@@ -99,7 +99,7 @@ describe('DashPay DPA - Integration', function suite() {
   });
   describe('BUser - Process', ()=>{
     before((done) => {
-      const balance = account.getBalance(false, false);
+      const balance = account.getConfirmedBalance( false);
       console.log('Trying process in network - Balance check : ', balance);
       if (balance < 100) {
         const { address } = account.getUnusedAddress();
