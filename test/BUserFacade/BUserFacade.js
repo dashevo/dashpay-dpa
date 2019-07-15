@@ -41,7 +41,7 @@ describe('DashPay DPA - BUserFacade', () => {
     const importedMethods = {
       broadcastTransition: () => 2,
       getUnusedAddress: () => 3,
-      getBalance: () => 4,
+      getConfirmedBalance: () => 4,
       getUTXOS: () => 5,
       getPrivateKeys: () => 6,
       broadcastTransaction: () => 7,
@@ -64,8 +64,8 @@ describe('DashPay DPA - BUserFacade', () => {
     expect(buser).to.have.property('getUnusedAddress')
     expect(buser.getUnusedAddress()).to.equal(3);
 
-    expect(buser).to.have.property('getBalance')
-    expect(buser.getBalance()).to.equal(4);
+    expect(buser).to.have.property('getConfirmedBalance')
+    expect(buser.getConfirmedBalance()).to.equal(4);
 
     expect(buser).to.have.property('getUTXOS')
     expect(buser.getUTXOS()).to.equal(5);
