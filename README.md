@@ -2,7 +2,7 @@
 =====================
 
 [![NPM Package](https://img.shields.io/npm/v/@dashevo/dashpay-dpa.svg?style=flat-square)](https://www.npmjs.org/package/@dashevo/dashpay-dpa)
-[![Build Status](https://img.shields.io/travis/dashevo/dashpay-dpa.svg?branch=master&style=flat-square)](https://travis-ci.org/dashevo/dashpay-dpa)
+[![Build Status](https://github.com/dashevo/dashpay-dpa/actions/workflows/test_and_release.yml/badge.svg)](https://github.com/dashevo/dashpay-dpa/actions/workflows/test_and_release.yml)
 [![Coverage Status](https://img.shields.io/coveralls/dashevo/dashpay-dpa.svg?style=flat-square)](https://coveralls.io/github/dashevo/dashpay-dpa?branch=master)
 
 > A wallet-lib plugin for DashPay DPA features
