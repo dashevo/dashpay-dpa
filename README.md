@@ -5,7 +5,7 @@
 [![Build Status](https://github.com/dashevo/dashpay-dpa/actions/workflows/test_and_release.yml/badge.svg)](https://github.com/dashevo/dashpay-dpa/actions/workflows/test_and_release.yml)
 [![Coverage Status](https://img.shields.io/coveralls/dashevo/dashpay-dpa.svg?style=flat-square)](https://coveralls.io/github/dashevo/dashpay-dpa?branch=master)
 
-> A wallet-lib plugin for DashPay DPA features
+A wallet-lib plugin for DashPay DPA features
 
 Relies on :
 - [Wallet-Lib](https://github.com/dashevo/wallet-lib)
